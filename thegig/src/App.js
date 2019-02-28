@@ -7,11 +7,18 @@ import ArtistEvents from "./components/ArtistEvents";
 import SetLists from "./components/SetLists";
 import ArtistNews from "./components/ArtistNews";
 import FollowedBandsNews from "./components/FollowedBandsNews";
+import firebase from './firebase.js'
+
 
 class App extends Component {
   state = {
-    bandInfoInApp: null
+    bandInfoInApp: null,
+    userBands: null
   };
+  componentDidMount() {
+    firebase.database().ref().once('value')
+    .then(userData =>console.log( userData.val(), 'THIS IS THE FIREBASE REALTIME DATABASE'));
+  }
 
   getBandInformation = band => {
     this.setState({
