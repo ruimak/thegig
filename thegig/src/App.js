@@ -7,7 +7,8 @@ import ArtistEvents from "./components/ArtistEvents";
 import SetLists from "./components/SetLists";
 import ArtistNews from "./components/ArtistNews";
 import FollowedBandsNews from "./components/FollowedBandsNews";
-import firebase from './firebase.js'
+import SignIn from "./components/SignIn";
+import firebase from "./firebase.js";
 
 
 class App extends Component {
@@ -16,8 +17,13 @@ class App extends Component {
     userBands: null
   };
   componentDidMount() {
-    firebase.database().ref().once('value')
-    .then(userData =>console.log( userData.val(), 'THIS IS THE FIREBASE REALTIME DATABASE'));
+    firebase
+      .database()
+      .ref()
+      .once("value")
+      .then(userData =>
+        console.log(userData.val(), "THIS IS THE FIREBASE REALTIME DATABASE")
+      );
   }
 
   getBandInformation = band => {
@@ -31,13 +37,16 @@ class App extends Component {
         {/* This is the top bar */}
 
         <h1 className="blue-text text-darken-2 center">The Gig</h1>
+        {/* This is the sign in page */}
+
+        {/* This is the page that renders when you are signed in */}
         <SearchBar getBandInformation={this.getBandInformation} />
         {this.state.bandInfoInApp !== null ? (
           <NavBar bandName={this.state.bandInfoInApp.name} />
         ) : (
           "hello"
         )}
-
+<SignIn/>
         {console.log(this.state)}
 
         {/* <FollowedBandsNews /> */}
