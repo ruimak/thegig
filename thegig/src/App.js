@@ -11,21 +11,31 @@ import SignIn from "./components/SignIn";
 import LogIn from "./components/LogIn";
 import firebase from "./firebase.js";
 import FollowUnfollowButton from './components/FollowUnfollowButton'
+import MyBands from './components/Mybands'
 import { logout } from "./api";
-import {userBands} from "./api"
+import {userBandsList} from "./api"
 
 class App extends Component {
   state = {
     bandInfoInApp: null,
-    userBands: null,
+    userBands: [],
     loggedInUserId: null
   };
+
   componentDidMount() {
-   this.setState({userBands : userBands(this.state.loggedInUserId)})
-   console.log(this.state.userBands,':::')
     firebase
       .auth()
-      .onAuthStateChanged(user => user ? this.setState({ loggedInUserId: user.uid }): this.setState({ loggedInUserId: null }));
+      .onAuthStateChanged(user => user ? this.setState({ loggedInUserId: user.uid}): this.setState({ loggedInUserId: null}))
+      firebase .database().ref()
+      .once("value")
+      .then(userData =>
+        {
+          
+          // console.log( userData.val().users[this.state.loggedInUserId].bands,'THIS IS THE USERS VAL')
+        return this.state.loggedInUserId ? this.setState({userBands:userData.val().users[this.state.loggedInUserId].bands}) : this.setState({userBands:[]})
+        })
+     
+   
   }
 
   // getLoggedInUser = user => {
@@ -38,7 +48,8 @@ class App extends Component {
     });
   };
   render() {
-    console.log(this.state.loggedInUserId,':::')
+    console.log(this.state.userBands,'USERBANDS IN THE STATE')
+    
     return (
       <div className="App">
         {/* This is the top bar */}
@@ -55,6 +66,8 @@ class App extends Component {
         {!this.state.loggedInUserId && <SignIn />}
         {this.state.loggedInUserId && <div onClick={logout}>{'click here to log out'}</div>}
         {console.log(this.state)}
+
+<MyBands myBands={this.state.userBands}/>
 
         {/* <FollowedBandsNews /> */}
         {/* This is the main div */}

@@ -1,20 +1,14 @@
 import React, { Component } from 'react'
 
-export default class Mybands extends Component {
-
-    state = {
-        userBands : ''
-    }
-
-    componentDidMount() {
-        return 
-    }
-  render() {
-    return (
+const MyBands = (props) => {
+  return(
       <div>
         
+      {props.myBands.map((band)=>{
+        return <div>{band}</div>
+      })}
       </div>
-    )
-  }
-}
+  )
+} 
 
+export default MyBands
