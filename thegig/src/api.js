@@ -96,20 +96,20 @@ export const createUser = (fName, lName, email, password) => firebase
     });
   }
 
-  export const userBands = (user) => {
-    firebase
-    .database()
+  export const userBandsList = (user) => {
+    
+     firebase
+     .database()
     .ref()
     .once("value")
-    .then(userData =>
-      {console.log(user,'////')}
-  //  console.log(userData.val().users,'@@@@')
-   
-      // console.log(Object.values(userData.val().users).map(user => {
-      //   return user.bands
-      // }),'lllllll')
-      
-      
-      
-    )
+    .then((userData) =>
+    
+      {return userData.val().users[user].bands[0]}
+     
+
+
+      )
   }
+
+
+

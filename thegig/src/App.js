@@ -11,20 +11,21 @@ import SignIn from "./components/SignIn";
 import LogIn from "./components/LogIn";
 import firebase from "./firebase.js";
 import { logout } from "./api";
-import {userBands} from "./api"
+import {userBandsList} from "./api"
 
 class App extends Component {
   state = {
     bandInfoInApp: null,
-    userBands: null,
+    userBands: [],
     loggedInUserId: null
   };
   componentDidMount() {
-   this.setState({userBands : userBands(this.state.loggedInUserId)})
-   console.log(this.state.userBands,':::')
+  
+   console.log(this.state.userBands,':::jjjjj')
     firebase
       .auth()
-      .onAuthStateChanged(user => user ? this.setState({ loggedInUserId: user.uid }): this.setState({ loggedInUserId: null }));
+      .onAuthStateChanged(user => user ? this.setState({ loggedInUserId: user.uid, userBands: userBandsList(user.uid)}): this.setState({ loggedInUserId: null}))
+      console.log(this.state.userBands,'@@@@@@@@@@@')
   }
 
   // getLoggedInUser = user => {
@@ -37,7 +38,8 @@ class App extends Component {
     });
   };
   render() {
-    console.log(this.state.loggedInUserId,':::')
+    console.log(this.state.userBands,':::jj')
+    
     return (
       <div className="App">
         {/* This is the top bar */}
