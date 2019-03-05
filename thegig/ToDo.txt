@@ -1,0 +1,2 @@
+create an error for when the acc already exists
+first 1 sec render of the 'un-authed' screen needs to go - must have to do with the async, auth function
