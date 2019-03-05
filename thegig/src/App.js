@@ -10,6 +10,7 @@ import FollowedBandsNews from "./components/FollowedBandsNews";
 import SignIn from "./components/SignIn";
 import LogIn from "./components/LogIn";
 import firebase from "./firebase.js";
+import FollowUnfollowButton from './components/FollowUnfollowButton'
 import { logout } from "./api";
 import {userBands} from "./api"
 
@@ -43,7 +44,7 @@ class App extends Component {
         {/* This is the top bar */}
 
         <h1 className="blue-text text-darken-2 center">The Gig</h1>
-
+ {/* {this.state.bandInfoInApp && <FollowUnfollowButton command={userBands.includes(this.state.bandInfoInApp) ? "unfollow" : "follow"}/>} */}
         <SearchBar getBandInformation={this.getBandInformation} />
         {this.state.bandInfoInApp !== null ? (
           <NavBar bandName={this.state.bandInfoInApp.name} />

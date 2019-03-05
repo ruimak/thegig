@@ -102,7 +102,7 @@ export const createUser = (fName, lName, email, password) => firebase
     .ref()
     .once("value")
     .then(userData =>
-      {console.log(user,'////')}
+      {console.log( userData.val().users[user].bands,'THIS IS THE USERS VAL')}
   //  console.log(userData.val().users,'@@@@')
    
       // console.log(Object.values(userData.val().users).map(user => {
@@ -112,4 +112,20 @@ export const createUser = (fName, lName, email, password) => firebase
       
       
     )
+  }
+
+  export const addBandToFollowedList = (userId, bandName) => {
+    firebase.
+    database()
+    .ref(`/users/${userId}`)
+    .push(bandName)
+    .then(console.log('reached this part in the add band'))
+  }
+
+  export const removeBandFromFollowedList = (userId, bandName) => {
+    firebase.
+    database()
+    .ref(`/users/${userId}/${bandName}`)
+    .remove()
+    .then(console.log('reached this part in the remove band'))
   }
