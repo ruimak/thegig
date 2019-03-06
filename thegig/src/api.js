@@ -30,6 +30,12 @@ export const getArtistNews = (name => {
         )
 })
 
+export const getAllBandNews = () => {
+  return axios.get(
+      `https://newsapi.org/v2/everything?q=music&language=en&apiKey=${mtvNewsAPIkey}`
+      )
+}
+
 // FIREBASE FUNCTIONS
 
 export const createUser = (fName, lName, email, password) => firebase
