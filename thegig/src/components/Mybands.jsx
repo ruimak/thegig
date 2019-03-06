@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
+
 const MyBands = (props) => {
+  console.log(props,'myband props')
   return(
       <div>
         
