@@ -4,7 +4,7 @@ const MyBands = (props) => {
   return(
       <div>
         
-      {props.myBands.map((band)=>{
+      {props.myBands && props.myBands.map((band)=>{
         return <div>{band}</div>
       })}
       </div>

@@ -23,24 +23,32 @@ class App extends Component {
   };
 
   componentDidMount() {
-    firebase
-      .auth()
-      .onAuthStateChanged(user => user ? this.setState({ loggedInUserId: user.uid}): this.setState({ loggedInUserId: null}))
-      firebase .database().ref()
-      .once("value")
-      .then(userData =>
-        {
-          
-          // console.log( userData.val().users[this.state.loggedInUserId].bands,'THIS IS THE USERS VAL')
-        return this.state.loggedInUserId ? this.setState({userBands:userData.val().users[this.state.loggedInUserId].bands}) : this.setState({userBands:[]})
-        })
-     
-   
-  }
 
-  // getLoggedInUser = user => {
-  //   this.setState({ loggedInUserId: user });
-  // };
+      firebase.auth().onAuthStateChanged(user => {
+        if(user){
+    
+          this.setState({ loggedInUserId: user.uid});
+    
+          firebase.database().ref().once('value').then(function(userData) {
+            var bands = (userData.val().users[this.state.loggedInUserId].bands);
+    
+            this.setState({userBands:bands});
+            
+          }.bind(this));
+    
+        }else{
+          this.setState({ loggedInUserId: null});
+
+    
+          firebase.database().ref().once('value').then(function(userData) {
+    
+            this.setState({userBands:[]});
+            
+          }.bind(this));
+        }
+      });
+    }
+
 
   getBandInformation = band => {
     this.setState({
