@@ -1,3 +1,4 @@
 create an error for when the acc already exists
 first 1 sec render of the 'un-authed' screen needs to go - must have to do with the async, auth function
 function that gets the bands on the app - component did mount should be in the api, need to find a way to make it wait for the user id before calling the other func (its passing down an unknown variable)
+the delete function still gives a yellow warning on the browser console
