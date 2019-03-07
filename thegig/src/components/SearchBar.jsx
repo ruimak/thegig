@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {getBandInfo} from '../api'
+import {withRouter} from 'react-router-dom'
 
-export default class SearchBar extends Component {
+export default withRouter(class SearchBar extends Component {
   state = {
       input : '',
     //   band : null
@@ -18,10 +19,9 @@ export default class SearchBar extends Component {
         //  })
         console.log(bandInfo.data.artist, 'artist data')
         this.props.getBandInformation(bandInfo.data.artist)
-         
-     })
-     
+        this.props.history.push(`/${this.state.input}/news/`);
       
+     })  
   } 
 
   handleChange = (e) => {
@@ -35,7 +35,7 @@ export default class SearchBar extends Component {
     render() {
     return (
       <div>
-<form onSubmit={this.handleSubmit}>
+<form onSubmit={this.handleSubmit.bind(this)}>
   <label>
     Name:
     <input type="text" name="name" onChange={this.handleChange} />
@@ -48,3 +48,4 @@ export default class SearchBar extends Component {
     )
   }
 }
+)

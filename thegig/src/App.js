@@ -30,7 +30,7 @@ class App extends Component {
           this.setState({ loggedInUserId: user.uid});
     
           firebase.database().ref().once('value').then(function(userData) {
-            var bands = (userData.val().users[this.state.loggedInUserId].bands);
+            var bands = (Object.values(userData.val().users[this.state.loggedInUserId].bands));
     
             this.setState({userBands:bands});
             
@@ -63,30 +63,37 @@ class App extends Component {
         {/* This is the top bar */}
 
         <h1 className="blue-text text-darken-2 center">The Gig</h1>
- {/* {this.state.bandInfoInApp && <FollowUnfollowButton command={userBands.includes(this.state.bandInfoInApp) ? "unfollow" : "follow"}/>} */}
+
+ {this.state.bandInfoInApp && this.state.userBands && <FollowUnfollowButton userId={this.state.loggedInUserId} band={this.state.bandInfoInApp.name} bandsFollowed={this.state.userBands!==[] ? this.state.userBands : null}/>}
+
         <SearchBar getBandInformation={this.getBandInformation} />
-        {this.state.bandInfoInApp !== null ? (
-          <NavBar bandName={this.state.bandInfoInApp.name} />
-        ) : (
-          "hello"
-        )}
+  
+          <NavBar bandName={this.state.bandInfoInApp !== null ? this.state.bandInfoInApp.name : null} />
+    
         {!this.state.loggedInUserId && <LogIn />}
         {!this.state.loggedInUserId && <SignIn />}
         {this.state.loggedInUserId && <div onClick={logout}>{'click here to log out'}</div>}
-        {console.log(this.state)}
 
-<MyBands myBands={this.state.userBands}/>
+
 
         {/* <FollowedBandsNews /> */}
         {/* This is the main div */}
         {this.state.loggedInUserId && (
           <div id="mainDiv">
-            {this.state.bandInfoInApp
+            {/* {this.state.bandInfoInApp
               ? console.log(this.state.bandInfoInApp.mbid, "THIS IS THE MBID")
-              : console.log("NO MBID YET")}
+              : console.log("NO MBID YET")} */}
             <Switch>
               {/* <Route exact path="/NotFound" component={NotFound} /> */}
               {/* <Route exact path="/" component={DefaultBandNews} /> */}
+              <Route
+                exact
+                path="/myBands"
+                render={props => (
+                  <MyBands myBands={this.state.userBands}/>
+                )}
+              />
+              
               <Route
                 exact
                 path="/:band/info"

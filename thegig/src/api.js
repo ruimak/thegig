@@ -122,14 +122,37 @@ export const createUser = (fName, lName, email, password) => firebase
     firebase.
     database()
     .ref(`/users/${userId}`)
+    .child('/bands')
     .push(bandName)
     .then(console.log('reached this part in the add band'))
   }
 
   export const removeBandFromFollowedList = (userId, bandName) => {
-    firebase.
+    const query =  firebase.
     database()
-    .ref(`/users/${userId}/${bandName}`)
-    .remove()
-    .then(console.log('reached this part in the remove band'))
+    .ref(`/users/${userId}/bands`)
+    // .child('/bands')
+    .orderByValue()
+    .equalTo(bandName)
+
+    query.once("value", function(snapshot) {
+      // snapshot.forEach(function(child) {
+        snapshot.ref.update({[snapshot.node_.children_.root_.key]: null});
+      // console.log(snapshot.node_.children_.root_.key)
+    }
+    )
+    // console.log(query, "QUERYYYYYY")
+   
+    // .once('value', snapshot => {
+    //   const updates = [];
+    //   snapshot.forEach(child => updates[child.key] = null);
+    //   ref.update(updates);
+//  });
+    
+
+    // .then((something)=>{console.log(something, 'somethiiiing')
+    //   // return something
+    // })
+    // .remove()
+    // .once('value').then(something=> console.log(something, 'reached this part in the remove band'))
   }
