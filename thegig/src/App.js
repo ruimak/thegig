@@ -14,6 +14,7 @@ import FollowUnfollowButton from './components/FollowUnfollowButton'
 import MyBands from './components/Mybands'
 import { logout } from "./api";
 import {userBandsList} from "./api"
+import HomeBandNews from './components/HomeBandNews'
 
 class App extends Component {
   state = {
@@ -57,11 +58,12 @@ class App extends Component {
   };
   render() {
     console.log(this.state.userBands,'USERBANDS IN THE STATE')
+    console.log(this.state.bandInfoInApp,'band info in app')
     
     return (
       <div className="App">
         {/* This is the top bar */}
-
+<HomeBandNews />
         <h1 className="blue-text text-darken-2 center">The Gig</h1>
 
  {this.state.bandInfoInApp && this.state.userBands && <FollowUnfollowButton userId={this.state.loggedInUserId} band={this.state.bandInfoInApp.name} bandsFollowed={this.state.userBands!==[] ? this.state.userBands : null}/>}
