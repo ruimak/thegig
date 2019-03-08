@@ -1,101 +1,44 @@
 import React, { Component } from 'react'
-
-
-import getChart from 'billboard-top-100'
-import {getHot100,getTopUk,getTopRock,getTopPop,getrnbtop50} from '../api'
-
-
+import {getBillboardCharts} from '../api'
 
 export default class Billboards extends Component {
-  
     state = {
-        rnbTop50 : [],
-        hot100 : [],
-        TopUk:[],
-        TopRock:[],
-        TopPop:[]
+        charts:[]
     }
-    
 
     componentDidMount() {
     this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(e) {
-        console.log(e.target,'dddd')
-        const target = e.target.name
-        const event = target === 'hot100' ? getHot100().then(tracks => {
-            this.setState({[target] : tracks.data})
-        }) : target === 'rnbTop50' ? getrnbtop50().then(tracks => {
-            this.setState({[target] : tracks.data})
-        }) : target === 'TopUk' ? getTopUk().then(tracks => {
-            this.setState({[target] : tracks.data})
-        }) : target === 'TopRock' ? getTopRock().then(tracks => {
-            this.setState({[target] : tracks.data})
-        }) : target === 'TopPop' ? getTopPop().then(tracks => {
-            this.setState({[target] : tracks.data})
-        }) : 'hello'
+    handleClick(keyWord) {
+       getBillboardCharts(keyWord).then(tracks=>{
+            this.setState({charts : tracks.data})
+        })
 }
-
    
   render() {
-        console.log(this.state,':::::::::')
+        const listOfButtons = [['Hot100', 'hot-100'], ['RnB', 'rnb'], ['Top UK', 'uksongs'], ['Top Rock', 'rock'], ['Top Pop', 'pop'] ]
+const chartButton = (name, keyWord) => {
+    return <div>
+        <button name={name} onClick={()=>this.handleClick(keyWord)}>
+        {name}
+        </button> 
+        {this.state.charts !== null ?
+        <div>
+        {this.state.charts.map(track => {
+             console.log(track,'dddddddd')
+                 return <div>{`Rank: ${track.rank} Track:${track.title}Artist: ${track.artist} ${track.cover}` }</div>
+             })}</div> 
+             : 
+             null}
+        </div>
+}
+
     return (
       <div>
-        <button name="hot100" onClick={this.handleClick}>
-         Hot 100
-        </button>
-        {this.state.hot100 !== null ?<div>{this.state.hot100.map(track => {
-             console.log(track,'dddddddd')
-                 return <div>{`Rank: ${track.rank} Track:${track.title}Artist: ${track.artist} ${track.cover}` }</div>
-             })}</div> : null}
-        
-        
-        
-        
-        <button name="rnbTop50" onClick={this.handleClick}>
-        rnbTop50
-         </button>
-            {this.state.rnbTop50 !== null ?<div>{this.state.rnbTop50.map(track => {
-             console.log(track,'dddddddd')
-                 return <div>{`Rank: ${track.rank} Track:${track.title}Artist: ${track.artist} ${track.cover}` }</div>
-             })}</div> : null}
-
-
-
-        <button name="TopUk" onClick={this.handleClick}>
-        TopUk
-        </button>
-        {this.state.TopUk !== null ? <div>{this.state.TopUk.map(track => {
-             console.log(track,'dddddddd')
-                 return <div>{`Rank: ${track.rank} Track:${track.title}Artist: ${track.artist} ${track.cover}` }</div>
-             })}</div> : null}
-
-
-
-
-
-
-        <button name="TopRock" onClick={this.handleClick}>
-        TopRock
-         </button>
-        {this.state.TopRock !== null ? <div>{this.state.TopRock.map(track => {
-             console.log(track,'dddddddd')
-                 return <div>{`Rank: ${track.rank} Track:${track.title}Artist: ${track.artist} ${track.cover}` }</div>
-             })}</div> : null}
-
-
-
-
-
-        <button name="TopPop" onClick={this.handleClick}>
-        TopPop
-        </button>
-        {this.state.TopPop !== null ? <div>{this.state.TopPop.map(track => {
-             console.log(track,'dddddddd')
-                 return <div>{`Rank: ${track.rank} Track:${track.title}Artist: ${track.artist} ${track.cover}` }</div>
-             })}</div> : null}
-
+             {listOfButtons.map((element, index)=>{
+                 return chartButton(listOfButtons[index][0], listOfButtons[index][1])
+             }) }
       </div>
     )
   }

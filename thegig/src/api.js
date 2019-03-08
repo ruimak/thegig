@@ -38,6 +38,12 @@ export const getAllBandNews = () => {
       )
 }
 
+
+export const getBillboardCharts = (typeOfChart) => {
+  return axios.get(` https://thegig.herokuapp.com/${typeOfChart}`)
+}
+
+
 export const getrnbtop50 = () => {
   return axios.get(` https://thegig.herokuapp.com/rnb`)
 }

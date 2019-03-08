@@ -75,7 +75,7 @@ class App extends Component {
     return (
       <div className="App">
         {/* This is the top bar */}
-        <Billboards />
+      
 {/* <HomeBandNews /> */}
         <h1 className="blue-text text-darken-2 center">The Gig</h1>
 
@@ -122,7 +122,12 @@ class App extends Component {
                 path="/myBands"
                 render={props => <MyBands myBands={this.state.userBands} />}
               />
-
+              <Route
+                exact
+                path="/topCharts"
+                render={props => <Billboards />}
+              />
+  
               <Route
                 exact
                 path="/:band/info"
