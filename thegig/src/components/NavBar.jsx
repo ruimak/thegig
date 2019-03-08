@@ -4,23 +4,29 @@ import '../NavBar.css'
 import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
-    info = [["info", "Band Info"],["events", 'Events'],["setlists", 'Setlists'],["news", 'News']]
-   
+    bandTabs = [["info", "Band Info"],["events", 'Events'],["setlists", 'Setlists'],["news", 'News']]
+   defaultTabs= [["news", "DefaultNews"], ["myBands", "My Bands"], ["myEvents", "My Events"]]
 
     render() {
   return (
 
     <div >
       
-      {
-          this.info.map(tab=>{
+      {this.props.bandName ? this.bandTabs.map(tab=>{
           return <div> 
               <Link to={`/${this.props.bandName}/${tab[0]}/`} className='NavBar'>
                   {tab[1]} 
                 </Link>
-          </div>
+          </div>}) 
+          : 
+          this.defaultTabs.map(tab=>{
+            return <div> 
+                <Link to={`/${tab[0]}/`} className='NavBar'>
+                    {tab[1]} 
+                  </Link>
+            </div>}) 
           
-      })}
+          } 
       
    
     </div>
