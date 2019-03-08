@@ -5,6 +5,7 @@ const lastFmAPIkey = 'd63d16f26b892d97b89a72c35c36967a'
 const ticketMasterAPIkey = '7elxdku9GGG5k8j0Xm8KWdANDgecHMV0'
 const setListAPIkey = '01779b2b-84a5-48ad-b7fb-f9d1eed51cdc'
 const mtvNewsAPIkey = 'd356f459298440eab7ae6a18762d0d61'
+const googleAPIkey = 'AIzaSyA3m4wya3xoNIm5M5vzhUUdX56I4upK4ME'
 
 
 

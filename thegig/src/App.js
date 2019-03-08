@@ -10,11 +10,12 @@ import FollowedBandsNews from "./components/FollowedBandsNews";
 import SignIn from "./components/SignIn";
 import LogIn from "./components/LogIn";
 import firebase from "./firebase.js";
-import FollowUnfollowButton from './components/FollowUnfollowButton'
-import MyBands from './components/Mybands'
+import FollowUnfollowButton from "./components/FollowUnfollowButton";
+import MyBands from "./components/Mybands";
 import { logout } from "./api";
-import {userBandsList} from "./api"
-import HomeBandNews from './components/HomeBandNews'
+import { userBandsList } from "./api";
+import HomeBandNews from "./components/HomeBandNews";
+import SetLocation from "./components/location/SetLocation";
 
 class App extends Component {
   state = {
@@ -24,32 +25,40 @@ class App extends Component {
   };
 
   componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({ loggedInUserId: user.uid });
 
-      firebase.auth().onAuthStateChanged(user => {
-        if(user){
-    
-          this.setState({ loggedInUserId: user.uid});
-    
-          firebase.database().ref().once('value').then(function(userData) {
-            var bands = (Object.values(userData.val().users[this.state.loggedInUserId].bands));
-    
-            this.setState({userBands:bands});
-            
-          }.bind(this));
-    
-        }else{
-          this.setState({ loggedInUserId: null});
+        firebase
+          .database()
+          .ref()
+          .once("value")
+          .then(
+            function(userData) {
+              var bands = Object.values(
+                userData.val().users[this.state.loggedInUserId].bands
+              );
 
-    
-          firebase.database().ref().once('value').then(function(userData) {
-    
-            this.setState({userBands:[]});
-            
-          }.bind(this));
-        }
-      });
-    }
+              this.setState({ userBands: bands });
+            }.bind(this)
+          );
+      } else {
+        this.setState({ loggedInUserId: null });
 
+        firebase
+          .database()
+          .ref()
+          .once("value")
+          .then(
+            function(userData) {
+              this.setState({ userBands: [] });
+            }.bind(this)
+          );
+      }
+    });
+
+  
+  }
 
   getBandInformation = band => {
     this.setState({
@@ -57,26 +66,42 @@ class App extends Component {
     });
   };
   render() {
-    console.log(this.state.userBands,'USERBANDS IN THE STATE')
-    console.log(this.state.bandInfoInApp,'band info in app')
-    
+    console.log(this.state.userBands, "USERBANDS IN THE STATE");
+    console.log(this.state.bandInfoInApp, "band info in app");
+
     return (
       <div className="App">
         {/* This is the top bar */}
-<HomeBandNews />
+        {/* <HomeBandNews /> */}
         <h1 className="blue-text text-darken-2 center">The Gig</h1>
 
- {this.state.bandInfoInApp && this.state.userBands && <FollowUnfollowButton userId={this.state.loggedInUserId} band={this.state.bandInfoInApp.name} bandsFollowed={this.state.userBands!==[] ? this.state.userBands : null}/>}
+        {this.state.bandInfoInApp && this.state.userBands && (
+          <FollowUnfollowButton
+            userId={this.state.loggedInUserId}
+            band={this.state.bandInfoInApp.name}
+            bandsFollowed={
+              this.state.userBands !== [] ? this.state.userBands : null
+            }
+          />
+        )}
+
+        <SetLocation />
 
         <SearchBar getBandInformation={this.getBandInformation} />
-  
-          <NavBar bandName={this.state.bandInfoInApp !== null ? this.state.bandInfoInApp.name : null} />
-    
+
+        <NavBar
+          bandName={
+            this.state.bandInfoInApp !== null
+              ? this.state.bandInfoInApp.name
+              : null
+          }
+        />
+
         {!this.state.loggedInUserId && <LogIn />}
         {!this.state.loggedInUserId && <SignIn />}
-        {this.state.loggedInUserId && <div onClick={logout}>{'click here to log out'}</div>}
-
-
+        {this.state.loggedInUserId && (
+          <div onClick={logout}>{"click here to log out"}</div>
+        )}
 
         {/* <FollowedBandsNews /> */}
         {/* This is the main div */}
@@ -91,11 +116,9 @@ class App extends Component {
               <Route
                 exact
                 path="/myBands"
-                render={props => (
-                  <MyBands myBands={this.state.userBands}/>
-                )}
+                render={props => <MyBands myBands={this.state.userBands} />}
               />
-              
+
               <Route
                 exact
                 path="/:band/info"
