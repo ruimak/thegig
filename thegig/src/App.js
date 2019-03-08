@@ -15,6 +15,9 @@ import MyBands from './components/Mybands'
 import { logout } from "./api";
 import {userBandsList} from "./api"
 import HomeBandNews from './components/HomeBandNews'
+import Billboards from './components/Billboards'
+
+
 
 class App extends Component {
   state = {
@@ -63,7 +66,8 @@ class App extends Component {
     return (
       <div className="App">
         {/* This is the top bar */}
-<HomeBandNews />
+        <Billboards />
+{/* <HomeBandNews /> */}
         <h1 className="blue-text text-darken-2 center">The Gig</h1>
  {/* {this.state.bandInfoInApp && <FollowUnfollowButton command={userBands.includes(this.state.bandInfoInApp) ? "unfollow" : "follow"}/>} */}
         <SearchBar getBandInformation={this.getBandInformation} />
