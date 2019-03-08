@@ -6,6 +6,7 @@ const ticketMasterAPIkey = '7elxdku9GGG5k8j0Xm8KWdANDgecHMV0'
 const setListAPIkey = '01779b2b-84a5-48ad-b7fb-f9d1eed51cdc'
 const mtvNewsAPIkey = 'd356f459298440eab7ae6a18762d0d61'
 const googleAPIkey = 'AIzaSyA3m4wya3xoNIm5M5vzhUUdX56I4upK4ME'
+const spotifyClientid = 'a5daa539d04b45b481d35143568b01d0'
 
 
 
@@ -36,6 +37,28 @@ export const getAllBandNews = () => {
       `https://newsapi.org/v2/everything?q=music&language=en&apiKey=${mtvNewsAPIkey}`
       )
 }
+
+export const getrnbtop50 = () => {
+  return axios.get(` https://thegig.herokuapp.com/rnb`)
+}
+
+export const getHot100 = () => {
+  return axios.get(`https://thegig.herokuapp.com/hot-100`)
+}
+
+export const getTopUk = () => {
+  return axios.get(`https://thegig.herokuapp.com/uksongs`)
+}
+
+export const getTopRock = () => {
+  return axios.get(`https://thegig.herokuapp.com/rock`)
+}
+
+export const getTopPop = () => {
+  return axios.get(`https://thegig.herokuapp.com/pop`)
+}
+
+
 
 // FIREBASE FUNCTIONS
 
