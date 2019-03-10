@@ -17,6 +17,7 @@ import SetLocation from "./components/location/SetLocation";
 import {userBandsList} from "./api"
 import HomeBandNews from './components/HomeBandNews'
 import Billboards from './components/Billboards'
+import SongLyrics from './components/SongLyrics'
 
 
 
@@ -88,7 +89,7 @@ class App extends Component {
             }
           />
         )}
-
+<SongLyrics bandName={'eminem'} songTitle={'without me'}/>
         <SetLocation />
 
         <SearchBar getBandInformation={this.getBandInformation} />

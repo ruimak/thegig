@@ -7,6 +7,7 @@ const setListAPIkey = '01779b2b-84a5-48ad-b7fb-f9d1eed51cdc'
 const mtvNewsAPIkey = 'd356f459298440eab7ae6a18762d0d61'
 const googleAPIkey = 'AIzaSyA3m4wya3xoNIm5M5vzhUUdX56I4upK4ME'
 const spotifyClientid = 'a5daa539d04b45b481d35143568b01d0'
+const musixmatchAPIkey = '6eeab426384ac332ae0f5ff63ced9b95'
 
 
 
@@ -43,28 +44,12 @@ export const getBillboardCharts = (typeOfChart) => {
   return axios.get(` https://thegig.herokuapp.com/${typeOfChart}`)
 }
 
+export const getLyrics = (artist, songTitle) => {
+  return axios.get(
+    `https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?format=jsonp&callback=callback&q_track=${songTitle}&q_artist=${artist}&apikey=${musixmatchAPIkey}`
 
-export const getrnbtop50 = () => {
-  return axios.get(` https://thegig.herokuapp.com/rnb`)
+  )
 }
-
-export const getHot100 = () => {
-  return axios.get(`https://thegig.herokuapp.com/hot-100`)
-}
-
-export const getTopUk = () => {
-  return axios.get(`https://thegig.herokuapp.com/uksongs`)
-}
-
-export const getTopRock = () => {
-  return axios.get(`https://thegig.herokuapp.com/rock`)
-}
-
-export const getTopPop = () => {
-  return axios.get(`https://thegig.herokuapp.com/pop`)
-}
-
-
 
 // FIREBASE FUNCTIONS
 
