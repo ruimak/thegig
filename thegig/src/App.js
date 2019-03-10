@@ -31,6 +31,7 @@ class App extends Component {
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
+      console.log(user, 'THIS IS THE USEEEEER')
       if (user) {
         this.setState({ loggedInUserId: user.uid });
 
@@ -40,9 +41,8 @@ class App extends Component {
           .once("value")
           .then(
             function(userData) {
-              var bands = Object.values(
-                userData.val().users[this.state.loggedInUserId].bands
-              );
+              console.log(this.state.loggedInUserId, 'THIS IS THE FUCKING USER ID')
+              const bands = userData.val().users[this.state.loggedInUserId].bands ? Object.values(userData.val().users[this.state.loggedInUserId].bands) : [];
 
               this.setState({ userBands: bands });
             }.bind(this)
@@ -60,6 +60,7 @@ class App extends Component {
             }.bind(this)
           );
       }
+     
     });
 
   
@@ -71,9 +72,12 @@ class App extends Component {
     });
   };
   render() {
+    console.log(firebase.auth.UserInfo, 'THIS IS THE USER INFO')
     console.log(this.state.userBands, "USERBANDS IN THE STATE");
     console.log(this.state.bandInfoInApp, "band info in app");
-
+    console.log(this.state.loggedInUserId, 'IDDDDDDDDDDDDDDD')
+console.log(window.location, 'THIS IS THE WINDOW HREF')
+console.log(this.props, 'PROPS MATCH')
     return (
       <div className="App">
         {/* This is the top bar */}
@@ -106,6 +110,7 @@ class App extends Component {
 
         {!this.state.loggedInUserId && <LogIn />}
         {!this.state.loggedInUserId && <SignIn />}
+   
         {this.state.loggedInUserId && (
           <div onClick={logout}>{"click here to log out"}</div>
         )}

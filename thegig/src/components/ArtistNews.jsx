@@ -16,8 +16,13 @@ export default class ArtistNews extends Component {
       <div>
         {this.state.news !== null
           ? this.state.news.map(newStory => {
-            console.log(newStory,'this is the newS')
-              return <div>{newStory.title}</div>;
+            // console.log(newStory,'this is the newS')
+              return <div>
+                <div>{newStory.urlToImage}</div>
+              <div>{newStory.title}</div>
+              <div>{'Source: ' + newStory.source.name}</div>
+              <div>{newStory.description}</div>
+              </div>;
             })
           : "no events to show yet"}
       </div>
