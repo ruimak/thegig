@@ -14,6 +14,7 @@ import FollowUnfollowButton from "./components/FollowUnfollowButton";
 import MyBands from "./components/Mybands";
 import { logout } from "./api";
 import SetLocation from "./components/location/SetLocation";
+import AutoGetLocation from "./components/location/AutoGetLocation";
 import {userBandsList} from "./api"
 import HomeBandNews from './components/HomeBandNews'
 import Billboards from './components/Billboards'
@@ -91,6 +92,7 @@ class App extends Component {
         )}
 <SongLyrics bandName={'eminem'} songTitle={'without me'}/>
         <SetLocation />
+        <AutoGetLocation/>
 
         <SearchBar getBandInformation={this.getBandInformation} />
 

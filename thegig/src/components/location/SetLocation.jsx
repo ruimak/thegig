@@ -1,7 +1,7 @@
 /* global google */
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 import Autocomplete from "./AutoComplete";
+import Geohash from 'latlon-geohash';
 
 export default class SetLocation extends Component {
   state = {
@@ -18,7 +18,7 @@ export default class SetLocation extends Component {
   const AddressDetails = props => {
     return (
         <div>
-            {props.place.geometry && console.log(props.place.geometry.location.lat(), props.place.geometry.location.lng(), 'LATITUDE AND LONGITUDE')}
+            {props.place.geometry && console.log(Geohash.encode(props.place.geometry.location.lat(), props.place.geometry.location.lng(), 6), 'LATITUDE AND LONGITUDE')}
         </div>
     )
   };
