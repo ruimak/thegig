@@ -1,22 +1,19 @@
 import React, { Component } from 'react'
-import {getBandInfo} from '../api'
+import {getBandInfo, getBandSuggestions} from '../api'
 import {withRouter} from 'react-router-dom'
 
 export default withRouter(class SearchBar extends Component {
   state = {
       input : '',
+      suggestions:[]
     //   band : null
       
   }
 
   handleSubmit = (e) => {
-      e.preventDefault()
-     getBandInfo(this.state.input)
+     e && e.preventDefault()
+     getBandInfo(this.state.suggestions[0])
      .then(bandInfo => {
-        //  console.log(bandInfo.data.artist)
-        //  this.setState({
-        //      band : this.props.getBandInformation(bandInfo.data.artist)
-        //  })
         console.log(bandInfo.data.artist, 'artist data')
         this.props.getBandInformation(bandInfo.data.artist)
         this.props.history.push(`/${this.state.input}/news/`);
@@ -25,23 +22,64 @@ export default withRouter(class SearchBar extends Component {
   } 
 
   handleChange = (e) => {
+    const text = e.target.value
+
+    text.length !==0 ? getBandSuggestions(text).then(result=>{
+      const parsedSuggestions = result.data.results.artistmatches.artist.slice(0,5).map(entry=>entry.name)
+      console.log(parsedSuggestions)
       this.setState({
-          input : e.target.value
-      }) 
+          input : text,
+          suggestions: parsedSuggestions
+      })
+      console.log(this.state.suggestions)
+      return result}) : this.setState({
+        input : text,
+        suggestions: []
+    })
+    
       
+     
          
+  } 
+  suggestionSelected=(value) => {
+    console.log(value, 'you just pressed this')
+     this.setState({
+          input: value, 
+          suggestions: []
+        })
+this.handleSubmit()
+        
+      }
+
+  renderSuggestions = ()=>{
+    const suggestions = this.state.suggestions
+  //  return console.log(suggestions, 'THESE ARE THE SUGGESTIONS')
+    if (suggestions.length === 0 || this.state.input === 0) {
+      return null
+    }
+    return  <ul>
+    {suggestions.map(suggestion => <li onClick={()=>{this.suggestionSelected(suggestion)}}>{suggestion}</li>)}
+  </ul>
   }
 
     render() {
+      const {input}= this.state
     return (
       <div>
-<form onSubmit={this.handleSubmit.bind(this)}>
-  <label>
-    Name:
-    <input type="text" name="name" onChange={this.handleChange} />
-  </label>
-  <input type="submit" value="Submit" />
-</form>
+
+<form onSubmit={this.handleSubmit}>
+        <label>
+          Search for an artist or band:
+         <input name="name" onChange={this.handleChange}   />
+   {/* {console.log('HELLOOOO') */
+     this.renderSuggestions()
+     }
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+
+    
+ 
 
 
       </div>

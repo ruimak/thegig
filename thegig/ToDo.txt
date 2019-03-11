@@ -1,4 +1,20 @@
+
+TO DO:
+SEARCHBAR
+searchbar always sends you directly to the most relevant band if you have typos or if the band doesnt exist, should fix to a 404 page with a suggestion link to the most selected page
+it also should autocomplete onclick (change value={this.state.input}). But thats too slow, needs fixing
+
+ARTIST NEWS
+artist news should have a link to every single news piece content
+
+
+MINOR BUGS and ISSUES
+keep getting the unique id key yellow message
 create an error for when the acc already exists
 first 1 sec render of the 'un-authed' screen needs to go - must have to do with the async, auth function
 function that gets the bands on the app - component did mount should be in the api, need to find a way to make it wait for the user id before calling the other func (its passing down an unknown variable)
 the delete function still gives a yellow warning on the browser console
+
+MAJOR BUGS and ISSUES
+bands with / on their name bug the app (eg: AC/DC)
+if we go straight to http://localhost:3000/Red%20Hot%20Chili%20Peppers/info/ instead of getting there by clicking, we re not passing down the bandname hence it crashes. we can use "window.location" with regex probably

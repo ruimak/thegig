@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
     bandTabs = [["info", "Band Info"],["events", 'Events'],["setlists", 'Setlists'],["news", 'News']]
-   defaultTabs= [["news", "DefaultNews"], ["myBands", "My Bands"], ["myEvents", "My Events"]]
+   defaultTabs= [["news", "DefaultNews"], ["myBands", "My Bands"], ["myEvents", "My Events"], ["topCharts", "Top Charts"]]
 
     render() {
   return (
