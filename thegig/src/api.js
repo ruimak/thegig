@@ -148,29 +148,7 @@ export const createUser = (fName, lName, email, password) => firebase
   // }
 
 
-  export const updateUser = (uid, entriesToUpdateObj) => database()
-  .ref(`/users/${uid}`)
-  .update(entriesToUpdateObj);
-
-
-  export const changePassword = (currentPassword,newPassword) => {
-    reauthenticate(currentPassword).then(() => {
-        let user = firebase.auth().currentUser
-        user.updatePassword(newPassword).then(() => {
-          alert('password was changed')
-        }).catch((err) => {
-          alert(err.message)
-        })
-    }).catch((err) => {
-    alert(err.message)
-    })
-    }
-
-    export const reauthenticate = (currentPassword) => {
-      let user = firebase.auth().currentUser;
-     let cred = firebase.auth.EmailAuthProvider.credential(user.email,currentPassword);
-     return user.reauthenticateWithCredential(cred)
- }
+  
 
 //  export const getCurrentUserID = () => {
 //   let user = firebase.auth().currentUser
