@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getArtistNews } from "../api";
+import { Link } from "react-router-dom";
 
 export default class ArtistNews extends Component {
   state = {
@@ -8,7 +9,6 @@ export default class ArtistNews extends Component {
   componentDidMount() {
     getArtistNews(this.props.bandName).then(news => {
       this.setState({ news: news.data.articles });
-      console.log(news.data.articles, "??");
     });
   }
   render() {
@@ -16,15 +16,27 @@ export default class ArtistNews extends Component {
       <div>
         {this.state.news !== null
           ? this.state.news.map(newStory => {
-            // console.log(newStory,'this is the newS')
-              return <div>
-                <div>{newStory.urlToImage}</div>
-              <div>{newStory.title}</div>
-              <div>{'Source: ' + newStory.source.name}</div>
-              <div>{newStory.description}</div>
-              </div>;
+              return (
+                <div>
+                  <div>{newStory.urlToImage}</div>
+                  <Link
+                    to={{
+                      pathname: `/:band/news/${newStory.title}`,
+                      state: { newStory: newStory }
+                    }}
+                    onClick={() => {
+                      this.props.getArticle(newStory);
+                    }}
+                  >{newStory.title}</Link>
+                    
+                
+                  <div>{newStory.title}</div>
+                  <div>{"Source: " + newStory.source.name}</div>
+                  <div>{newStory.description}</div>
+                </div>
+              );
             })
-          : "no events to show yet"}
+          : "There are no news for this band, sorry! :("}
       </div>
     );
   }

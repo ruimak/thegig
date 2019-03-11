@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { Component } from "react";
 
 //this component needs an URL like http://www.mtv.com/news/3116199/taylor-swift-stalker-break-in-again/
 
-const ArtistNewsContent = (props) => {
+export default class ArtistNewContent extends Component {
+  state = {
+  };
+  componentDidMount() {
+  }
+  render() {
     return (
         <div>
-{console.log(props.news)}
+{this.props.article && this.props.article.content}
         </div>
       )
 }
 
-export default ArtistNewsContent
+}
 
 
 

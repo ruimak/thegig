@@ -11,7 +11,6 @@ export default class HomeBandNews extends Component {
 
   componentDidMount() {
       getAllBandNews().then(bandNews => {
-          console.log(bandNews.data.articles,'kkkkk')
           this.setState({bandNews : bandNews.data.articles})
       })
   }

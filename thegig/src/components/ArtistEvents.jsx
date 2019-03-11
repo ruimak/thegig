@@ -8,8 +8,6 @@ export default class ArtistEvents extends Component {
   componentDidMount(){
       getArtistEvent(this.props.bandName)
       .then(events=> {
-        console.log(events.data)
-        console.log(this.props.bandName, 'nameeee')
           this.setState({eventsInfo: events.data._embedded.events})
       })
   }

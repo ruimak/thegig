@@ -14,7 +14,7 @@ export default withRouter(class SearchBar extends Component {
      e && e.preventDefault()
      getBandInfo(this.state.suggestions[0])
      .then(bandInfo => {
-        console.log(bandInfo.data.artist, 'artist data')
+
         this.props.getBandInformation(bandInfo.data.artist)
         this.props.history.push(`/${this.state.input}/news/`);
       
@@ -26,12 +26,12 @@ export default withRouter(class SearchBar extends Component {
 
     text.length !==0 ? getBandSuggestions(text).then(result=>{
       const parsedSuggestions = result.data.results.artistmatches.artist.slice(0,5).map(entry=>entry.name)
-      console.log(parsedSuggestions)
+
       this.setState({
           input : text,
           suggestions: parsedSuggestions
       })
-      console.log(this.state.suggestions)
+
       return result}) : this.setState({
         input : text,
         suggestions: []
@@ -42,7 +42,7 @@ export default withRouter(class SearchBar extends Component {
          
   } 
   suggestionSelected=(value) => {
-    console.log(value, 'you just pressed this')
+
      this.setState({
           input: value, 
           suggestions: []

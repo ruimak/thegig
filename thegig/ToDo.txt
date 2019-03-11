@@ -17,4 +17,4 @@ the delete function still gives a yellow warning on the browser console
 
 MAJOR BUGS and ISSUES
 bands with / on their name bug the app (eg: AC/DC)
-if we go straight to http://localhost:3000/Red%20Hot%20Chili%20Peppers/info/ instead of getting there by clicking, we re not passing down the bandname hence it crashes. we can use "window.location" with regex probably
+if we go straight to the links like http://localhost:3000/Red%20Hot%20Chili%20Peppers/info/ instead of getting there by clicking, we re not passing down props hence it crashes. we can use "window.location", or "props.match.params" and make a new request / with regex probably

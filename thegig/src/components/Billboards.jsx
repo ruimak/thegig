@@ -26,7 +26,6 @@ const chartButton = (name, keyWord) => {
         {this.state.charts !== null ?
         <div>
         {this.state.charts.map(track => {
-             console.log(track,'dddddddd')
                  return <div>{`Rank: ${track.rank} Track:${track.title}Artist: ${track.artist} ${track.cover}` }</div>
              })}</div> 
              : 

@@ -10,7 +10,6 @@ export default class SignIn extends Component {
     if (command === "follow") {
       const newArray = this.state.bands
       this.state.bands.push(band);
-      console.log("newArray:", newArray);
       this.setState({ bands: newArray });
       addBandToFollowedList(id, band);
     } else {
@@ -25,18 +24,11 @@ export default class SignIn extends Component {
   };
 
   componentDidMount() {
-    console.log(this.state.bands, "followed bands in button state");
-    // console.log(
-    //   this.state.bands.includes(this.props.bandsFollowed),
-    //   "am i following this band ???"
-    // );
+
   }
 
   render() {
-    console.log(this.state.bands, "baaands");
-      console.log(this.state.bands.includes(this.props.band))
-        //   return <div>{'hello'
-        //   }</div>
+
     if (!this.state.bands.includes(this.props.band)) {
       return (
         <button

@@ -15,23 +15,23 @@ import MyBands from "./components/Mybands";
 import { logout } from "./api";
 import SetLocation from "./components/location/SetLocation";
 import AutoGetLocation from "./components/location/AutoGetLocation";
-import {userBandsList} from "./api"
-import HomeBandNews from './components/HomeBandNews'
-import Billboards from './components/Billboards'
-import SongLyrics from './components/SongLyrics'
-
-
+import { userBandsList } from "./api";
+import HomeBandNews from "./components/HomeBandNews";
+import Billboards from "./components/Billboards";
+import SongLyrics from "./components/SongLyrics";
+import ArtistNewsContent from "./components/ArtistNewsContent";
 
 class App extends Component {
   state = {
     bandInfoInApp: null,
     userBands: [],
-    loggedInUserId: null
+    loggedInUserId: null,
+    newsArticle: null
   };
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
-      console.log(user, 'THIS IS THE USEEEEER')
+      console.log(user, "THIS IS THE USEEEEER");
       if (user) {
         this.setState({ loggedInUserId: user.uid });
 
@@ -41,8 +41,12 @@ class App extends Component {
           .once("value")
           .then(
             function(userData) {
-              console.log(this.state.loggedInUserId, 'THIS IS THE FUCKING USER ID')
-              const bands = userData.val().users[this.state.loggedInUserId].bands ? Object.values(userData.val().users[this.state.loggedInUserId].bands) : [];
+              const bands = userData.val().users[this.state.loggedInUserId]
+                .bands
+                ? Object.values(
+                    userData.val().users[this.state.loggedInUserId].bands
+                  )
+                : [];
 
               this.setState({ userBands: bands });
             }.bind(this)
@@ -60,10 +64,7 @@ class App extends Component {
             }.bind(this)
           );
       }
-     
     });
-
-  
   }
 
   getBandInformation = band => {
@@ -71,18 +72,20 @@ class App extends Component {
       bandInfoInApp: band
     });
   };
+  getSingleArticle = article => {
+    console.log(article, 'THIS IS THE ARTICLE AHGPAWHGWAs')
+    this.setState({
+      newsArticle: article
+    });
+    // this.props.history.push(`/${this.state.input}/news/hello`);
+  };
+
   render() {
-    console.log(firebase.auth.UserInfo, 'THIS IS THE USER INFO')
-    console.log(this.state.userBands, "USERBANDS IN THE STATE");
-    console.log(this.state.bandInfoInApp, "band info in app");
-    console.log(this.state.loggedInUserId, 'IDDDDDDDDDDDDDDD')
-console.log(window.location, 'THIS IS THE WINDOW HREF')
-console.log(this.props, 'PROPS MATCH')
     return (
       <div className="App">
         {/* This is the top bar */}
-      
-{/* <HomeBandNews /> */}
+
+        {/* <HomeBandNews /> */}
         <h1 className="blue-text text-darken-2 center">The Gig</h1>
 
         {this.state.bandInfoInApp && this.state.userBands && (
@@ -94,9 +97,9 @@ console.log(this.props, 'PROPS MATCH')
             }
           />
         )}
-<SongLyrics bandName={'eminem'} songTitle={'without me'}/>
+        <SongLyrics bandName={"eminem"} songTitle={"without me"} />
         <SetLocation />
-        <AutoGetLocation/>
+        <AutoGetLocation />
 
         <SearchBar getBandInformation={this.getBandInformation} />
 
@@ -110,7 +113,7 @@ console.log(this.props, 'PROPS MATCH')
 
         {!this.state.loggedInUserId && <LogIn />}
         {!this.state.loggedInUserId && <SignIn />}
-   
+
         {this.state.loggedInUserId && (
           <div onClick={logout}>{"click here to log out"}</div>
         )}
@@ -119,9 +122,7 @@ console.log(this.props, 'PROPS MATCH')
         {/* This is the main div */}
         {this.state.loggedInUserId && (
           <div id="mainDiv">
-            {/* {this.state.bandInfoInApp
-              ? console.log(this.state.bandInfoInApp.mbid, "THIS IS THE MBID")
-              : console.log("NO MBID YET")} */}
+            
             <Switch>
               {/* <Route exact path="/NotFound" component={NotFound} /> */}
               {/* <Route exact path="/" component={DefaultBandNews} /> */}
@@ -130,12 +131,8 @@ console.log(this.props, 'PROPS MATCH')
                 path="/myBands"
                 render={props => <MyBands myBands={this.state.userBands} />}
               />
-              <Route
-                exact
-                path="/topCharts"
-                render={props => <Billboards />}
-              />
-  
+              <Route exact path="/topCharts" render={props => <Billboards />} />
+
               <Route
                 exact
                 path="/:band/info"
@@ -159,8 +156,18 @@ console.log(this.props, 'PROPS MATCH')
                         ? this.state.bandInfoInApp.name
                         : "cher"
                     }
+                    getArticle={
+                      this.getSingleArticle
+                    }
                   />
                 )}
+              />
+              <Route
+                exact
+                path="/:band/news/:newsTitle"
+                render={({ match }) => (
+                  <ArtistNewsContent article={this.state.newsArticle} />
+                  )}
               />
               <Route
                 exact
