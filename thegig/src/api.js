@@ -113,8 +113,8 @@ export const login = (email, password) =>
             return data;
           }
         })
-        .catch(err => alert(err));
-    });
+        .catch(err => alert(err))
+  });
 
 export const logout = () => {
   firebase
@@ -129,11 +129,66 @@ export const logout = () => {
     .catch(function(error) {
       // An error happened.
     });
-};
+  }
 
-export const addBandToFollowedList = (userId, bandName) => {
-  firebase
-    .database()
+  export const updateUser = (uid, entriesToUpdateObj) => database()
+ .ref(`/users/${uid}`)
+ .update(entriesToUpdateObj);
+
+
+ export const changePassword = (currentPassword,newPassword) => {
+   reauthenticate(currentPassword).then(() => {
+       let user = firebase.auth().currentUser
+       user.updatePassword(newPassword).then(() => {
+         alert('password was changed')
+       }).catch((err) => {
+         alert(err.message)
+       })
+   }).catch((err) => {
+   alert(err.message)
+   })
+   }
+
+   export const reauthenticate = (currentPassword) => {
+     let user = firebase.auth().currentUser;
+    let cred = firebase.auth.EmailAuthProvider.credential(user.email,currentPassword);
+    return user.reauthenticateWithCredential(cred)
+
+   }
+  // export const userBandsList = (user) => {
+  //   return firebase
+  //    .database()
+  //   .ref()
+  //   .once("value")
+  //   .then(userData =>
+  //     {
+        
+  //       console.log( userData.val().users[user].bands,'THIS IS THE USERS VAL')
+  //     return userData.val().users[user].bands
+  //     }
+  //  console.log(userData.val().users,'@@@@')
+   
+  //     console.log(Object.values(userData.val().users).map(user => {
+  //       return user.bands
+  //     }),'lllllll')
+      
+      
+      
+    // )
+  // }
+
+
+  
+
+//  export const getCurrentUserID = () => {
+//   let user = firebase.auth().currentUser
+//   let uid = user.uid
+//   return uid
+//  }
+
+  export const addBandToFollowedList = (userId, bandName) => {
+    firebase.
+    database()
     .ref(`/users/${userId}`)
     .child("/bands")
     .push(bandName)

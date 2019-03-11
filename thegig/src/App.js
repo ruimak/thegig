@@ -15,11 +15,15 @@ import MyBands from "./components/Mybands";
 import { logout } from "./api";
 import SetLocation from "./components/location/SetLocation";
 import AutoGetLocation from "./components/location/AutoGetLocation";
-import { userBandsList } from "./api";
-import HomeBandNews from "./components/HomeBandNews";
-import Billboards from "./components/Billboards";
-import SongLyrics from "./components/SongLyrics";
-import ArtistNewsContent from "./components/ArtistNewsContent";
+import {userBandsList} from "./api"
+import HomeBandNews from './components/HomeBandNews'
+import Billboards from './components/Billboards'
+import Settings from './components/Settings'
+import Spotifys from './components/Spotify'
+import SongLyrics from './components/SongLyrics'
+import ArtistNewsContent from "./components/ArtistNewsContent"
+
+
 
 class App extends Component {
   state = {
@@ -85,9 +89,9 @@ class App extends Component {
       <div className="App">
         {/* This is the top bar */}
 
-        {/* <HomeBandNews /> */}
+        
         <h1 className="blue-text text-darken-2 center">The Gig</h1>
-
+        {/* <Settings  loggedInUser={this.state.loggedInUserId}/> */}
         {this.state.bandInfoInApp && this.state.userBands && (
           <FollowUnfollowButton
             userId={this.state.loggedInUserId}
@@ -97,7 +101,7 @@ class App extends Component {
             }
           />
         )}
-        <SongLyrics bandName={"eminem"} songTitle={"without me"} />
+        {/* <SongLyrics bandName={"eminem"} songTitle={"without me"} /> */}
         <SetLocation />
         <AutoGetLocation />
 
@@ -126,6 +130,8 @@ class App extends Component {
             <Switch>
               {/* <Route exact path="/NotFound" component={NotFound} /> */}
               {/* <Route exact path="/" component={DefaultBandNews} /> */}
+              <Route exact path="/" render={props => <HomeBandNews />} />
+
               <Route
                 exact
                 path="/myBands"
@@ -200,6 +206,7 @@ class App extends Component {
           </div>
         )}
       </div>
+      
     );
   }
 }
