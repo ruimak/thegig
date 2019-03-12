@@ -1,27 +1,29 @@
 import React, { Component } from "react";
 import SearchBar from "./components/SearchBar";
-import BandInfo from "./components/BandInfo";
+import BandInfo from "./components/bandPage/BandInfo";
 import { Route, Link, Switch } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import ArtistEvents from "./components/ArtistEvents";
-import SetLists from "./components/SetLists";
-import ArtistNews from "./components/ArtistNews";
-import FollowedBandsNews from "./components/FollowedBandsNews";
-import SignIn from "./components/SignIn";
-import LogIn from "./components/LogIn";
+import ArtistEvents from "./components/bandPage/ArtistEvents";
+import SetLists from "./components/bandPage/SetLists";
+import ArtistNews from "./components/bandPage/ArtistNews";
+import SignIn from "./components/authentication/SignIn";
+import LogIn from "./components/authentication/LogIn";
 import firebase from "./firebase.js";
-import FollowUnfollowButton from "./components/FollowUnfollowButton";
-import MyBands from "./components/Mybands";
-import { logout } from "./api";
+import FollowUnfollowButton from "./components/bandPage/FollowUnfollowButton";
+import MyBands from "./components/defaultPage/Mybands";
+import LogOut from "./components/authentication/LogOut";
 import SetLocation from "./components/location/SetLocation";
 import AutoGetLocation from "./components/location/AutoGetLocation";
 import {userBandsList} from "./api"
-import HomeBandNews from './components/HomeBandNews'
-import Billboards from './components/Billboards'
+import HomeBandNews from './components/defaultPage/HomeBandNews'
+import Billboards from './components/defaultPage/Billboards'
 import Settings from './components/Settings'
 import Spotifys from './components/Spotify'
-import SongLyrics from './components/SongLyrics'
-import ArtistNewsContent from "./components/ArtistNewsContent"
+import SongLyrics from './components/songsPage/SongLyrics'
+import MyEvents from './components/defaultPage/MyEvents'
+import ArtistNewsContent from "./components/bandsPage/ArtistNewsContent"
+import Discography from "./components/bandPage/Discography"
+import Album from "./components/bandPage/Album"
 
 
 
@@ -102,7 +104,7 @@ class App extends Component {
           />
         )}
         {/* <SongLyrics bandName={"eminem"} songTitle={"without me"} /> */}
-        <SetLocation />
+        <SetLocation loggedInUser={this.state.loggedInUserId}/>
         <AutoGetLocation />
 
         <SearchBar getBandInformation={this.getBandInformation} />
@@ -118,9 +120,10 @@ class App extends Component {
         {!this.state.loggedInUserId && <LogIn />}
         {!this.state.loggedInUserId && <SignIn />}
 
-        {this.state.loggedInUserId && (
+<LogOut loggedInUserId={this.state.loggedInUserId}/>
+        {/* {this.state.loggedInUserId && (
           <div onClick={logout}>{"click here to log out"}</div>
-        )}
+        )} */}
 
         {/* <FollowedBandsNews /> */}
         {/* This is the main div */}
@@ -136,6 +139,11 @@ class App extends Component {
                 exact
                 path="/myBands"
                 render={props => <MyBands myBands={this.state.userBands} />}
+              />
+              <Route
+                exact
+                path="/myEvents"
+                render={props => <MyEvents myBands={this.state.userBands} loggedInUserId={this.state.loggedInUserId} />}
               />
               <Route exact path="/topCharts" render={props => <Billboards />} />
 
@@ -173,6 +181,20 @@ class App extends Component {
                 path="/:band/news/:newsTitle"
                 render={({ match }) => (
                   <ArtistNewsContent article={this.state.newsArticle} />
+                  )}
+              />
+               <Route
+                exact
+                path="/:band/albums"
+                render={props => (
+                  <Discography bandName={ this.state.bandInfoInApp.name} />
+                  )}
+              />
+               <Route
+                exact
+                path="/:band/albums/:albumName"
+                render={({ match }) => (
+                  <Album params={match.params}/>
                   )}
               />
               <Route

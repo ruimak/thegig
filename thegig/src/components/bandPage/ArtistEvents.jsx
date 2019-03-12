@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {getArtistEvent} from '../api'
+import {getArtistEvent} from '../../api'
 
 export default class ArtistEvents extends Component {
   state = {

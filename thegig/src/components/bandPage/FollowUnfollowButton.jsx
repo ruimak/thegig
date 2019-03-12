@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { addBandToFollowedList, removeBandFromFollowedList } from "../api.js";
+import { addBandToFollowedList, removeBandFromFollowedList } from "../../api.js";
 
 export default class SignIn extends Component {
   state = {

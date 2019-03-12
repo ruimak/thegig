@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {getBillboardCharts} from '../api'
+import {getBillboardCharts} from '../../api'
 
 export default class Billboards extends Component {
     state = {

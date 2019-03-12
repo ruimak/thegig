@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 
-import {getAllBandNews} from '../api'
+import {getAllBandNews} from '../../api'
 
 export default class HomeBandNews extends Component {
   

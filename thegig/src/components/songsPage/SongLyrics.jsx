@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {getLyrics} from '../api'
+import {getLyrics} from '../../api'
 
 export default class SongLyrics extends Component {
   state = {

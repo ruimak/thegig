@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getSetLists } from "../api";
+import { getSetLists } from "../../api";
 
 export default class SetLists extends Component {
   state = {

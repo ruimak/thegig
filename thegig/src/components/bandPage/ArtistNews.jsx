@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getArtistNews } from "../api";
+import { getArtistNews } from "../../api";
 import { Link } from "react-router-dom";
 
 export default class ArtistNews extends Component {

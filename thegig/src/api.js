@@ -23,6 +23,28 @@ export const getBandInfo = bandName => {
   );
 };
 
+//YOU NEED TO CHANGE THE SIZE PARAMETER IN ORDER TO GET MORE EVENTS
+export const getEventsForLocation = (location, radius) => {
+  return axios.get(
+    `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&radius=${radius}&geoPoint=${location}&size=40&apikey=${ticketMasterAPIkey}`
+  );
+};
+
+export const getDiscography = bandName => {
+  return axios.get(
+    `http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
+  );
+};
+
+export const getAlbumInfo = (bandName, albumName) => {
+  return axios.get(
+    `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${lastFmAPIkey}&artist=${bandName}&album=${albumName}&format=json`
+  );
+};
+
+
+
+
 export const getArtistEvent = name => {
   return axios.get(
     `https://app.ticketmaster.com/discovery/v2/events?apikey=${ticketMasterAPIkey}&keyword=${name}`
