@@ -254,7 +254,7 @@ class App extends Component {
                  <Route
                 exact
                 path="/:band/song/:songTitle"
-                render={({ match }) => <SongInfo params={match.params} />}
+                render={({ match }) => <Spotifys params={match.params} />}
               />
             </Switch>
           </div>
