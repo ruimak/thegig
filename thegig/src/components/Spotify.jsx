@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Spotify from 'spotify-web-api-js'
+import '../components/Spotify.css'
+import Iframe from 'react-iframe'
 const spotifyWebApi = new Spotify()
 
 
@@ -49,7 +51,9 @@ export default class Spotifys extends Component {
             //    img: ''
            },
            playlists: [],
-           playlistId:''
+        //    playlistId:[],
+           choosenPlaylist: '',
+           spotifyPlay : ''
 
        }
        if(params.access_token) {
@@ -58,24 +62,32 @@ export default class Spotifys extends Component {
    } 
 
    componentDidMount(){
+    const NewObject= {}
     spotifyWebApi.getUserPlaylists().then(response => {
         const playlistname = response.items.map(playlist => {
-            return playlist.name
+            return NewObject[playlist.name] = playlist.id
             
         })
-        const playlistids = response.items.map(playlist => {
-            return playlist.id
+        
+        // const playlistids = response.items.map(playlist => {
+        //     return playlist.id
             
-        })
+        // })
         this.setState({
-            playlists: playlistname,
-            playlistId : playlistids
+            playlists: NewObject
+                    //   playlistids: playlistname
+            
             
         })
+
+        const getATrack = spotifyWebApi.searchTracks('the prodigy smack my bitch up').then(response => {
+            this.setState({spotifyPlay:response.tracks.items[0].preview_url})
+            
+        })
+
     })
-    spotifyWebApi.getUserPlaylists().then(response => {
-        console.log(response,'llllllllllllllllllll')
-    })
+    
+    
 }
    
    getHashParams() {
@@ -88,55 +100,90 @@ export default class Spotifys extends Component {
         return hashParams;
       }
     
-  nowPlaying() {
-spotifyWebApi.addTracksToPlaylist("31X2aYn8tYimZl8F8SCeb8",["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"])
-.then((response) => {
-    console.log(response,'llllll')
-// const hello = spotifyWebApi.getAccessToken()
-//     spotifyWebApi.getAudioFeaturesForTrack("7vSm2hckpPHTrIHpqmqOze").then((response) => {
-//         console.log(response,'llllll')
-//      this.setState({
-//         nowPlaying:0
-//             name: response.analysis_url}})
+//   addTrackToPlaylist() {
+// spotifyWebApi.addTracksToPlaylist("31X2aYn8tYimZl8F8SCeb8",["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"])
+// .then((response) => {
+//     console.log(response,'llllll')
+// // const hello = spotifyWebApi.getAccessToken()
+// //     spotifyWebApi.getAudioFeaturesForTrack("7vSm2hckpPHTrIHpqmqOze").then((response) => {
+// //         console.log(response,'llllll')
+// //      this.setState({
+// //         nowPlaying:0
+// //             name: response.analysis_url}})
+// // })
+
+
 // })
-})
+
+
+// }
+
+
+handleChange(e,playlist) {
+    
+    spotifyWebApi.searchTracks('cher belive').then(response => {
+        trackId(response.tracks.items[0].id)
+    })
+    const value = e.target.value
+    const trackId  = (getSong) => {
+spotifyWebApi.getTrack([getSong]).then(response => {
+        addToPlaylist(response.uri)
+    })
+}
+    const addToPlaylist = (trackId) => spotifyWebApi.addTracksToPlaylist(playlist[value],[trackId]).then(response => {
+       
+
+    })
 }
 
     render() {
-        // console.log(waitForSpotifyWebPlaybackSDKToLoad(),'oooooooo')
+        
         console.log(this.state.playlists,'lllllllllll')
-        console.log(this.state.playlistId,'lllllllllll')
+        
     return (
-      <div>
-          <div>
-            {/* <select>
-               
-  {this.state.playlists.map(playlistName => {
-      {console.log(playlistName,'@@@@@@@@@@@@@@@@@@@@@@@')}
-      return <option value={playlistName}>{playlistName}</option>
+      <div className='container'>
+         <div>
+            <select onChange={(e) =>this.handleChange(e,this.state.playlists)}> 
+              
+  {Object.keys(this.state.playlists).map(name => {
+      return <option tar ={Object.values(this.state.playlists)}>{name}</option>
   })}
+   
+      
+  })}
+
+
   
  
-</select> */}
-<select>
-  <option value="grapefruit">Grapefruit</option>
-  <option value="lime">Lime</option>
-  <option selected value="coconut">Coconut</option>
-  <option value="mango">Mango</option>
-</select>
-</div>
-          {/* <a href='http://localhost:8888'> */}
-        {/* <button>login with spotify</button> */}
-        {/* </a> */}
-        {/* <div>now playing <a href={this.state.nowPlaying.name}>{this.state.nowPlaying.name}</a></div> */}
-        {/* <div> */}
-            {/* </div> */}
-            {/* <button onClick={() => this.nowPlaying()}> */}
-                {/* check now playing */}
-            {/* </button> */}
-          
+ </select>
+ </div> 
 
+          <a href='http://localhost:8888'>
+        <button>login with spotify</button>
+        </a>
+        <div>now playing <a href={this.state.nowPlaying.name}>{this.state.nowPlaying.name}</a></div>
+        <div>
+            </div>
+            <button onClick={() => this.addTrackToPlaylist()}>
+                add track to playlist
+            </button>
+          <div>
+              {/* <button playSong={}>
+
+              </button> */}
+    <Iframe url={this.state.spotifyPlay}
+        width="300px"
+        height="300px"
+        id="myId"
+        className="myClassname"
+        display="initial"
+        position="relative"/>
+
+       
+</div>
+        
       </div>
+      
     )
   }
 }

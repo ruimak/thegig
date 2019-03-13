@@ -83,6 +83,7 @@ class App extends Component {
         <Spotifys />
         <Settings  loggedInUser={this.state.loggedInUserId}/>
         <Billboards />
+        
     {/* console.log(firebase.auth.UserInfo, 'THIS IS THE USER INFO')
     console.log(this.state.userBands, "USERBANDS IN THE STATE");
     console.log(this.state.bandInfoInApp, "band info in app");
@@ -92,7 +93,7 @@ console.log(this.props, 'PROPS MATCH') */}
     return (
       <div className="App">
         {/* This is the top bar */}
-      
+        
 {/* <HomeBandNews /> */}
         {/* <h1 className="blue-text text-darken-2 center">The Gig</h1> */}
 
@@ -204,6 +205,7 @@ console.log(this.props, 'PROPS MATCH') */}
           </div>
         )}
       </div>
+      
       </div>
     );
   }
