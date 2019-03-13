@@ -25,7 +25,7 @@ export const getBandInfo = bandName => {
 
 export const getSongInfo = (bandName, songTitle) => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${lastFmAPIkey}&artist=${bandName}&track=${songTitle}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${lastFmAPIkey}&artist=${bandName}&track=${songTitle}&autocorrect[1]&format=json`
   );
 };
 

@@ -8,6 +8,9 @@ also possibly when we remove a band we may need to update the state in app
 ORGANIZATION
 maybe use an index to group all the imports in app.js (its getting out of hand)
 
+LYRICS
+open in new window, as its shown in here : https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202
+
 ARTIST NEWS
 artist news should have a link to every single news piece content
 
