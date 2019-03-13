@@ -62,6 +62,7 @@ export default class Spotifys extends Component {
    } 
 
    componentDidMount(){
+       console.log(this.props.params,'{{{{{{{{}}}}}}}}}')
     const NewObject= {}
     spotifyWebApi.getUserPlaylists().then(response => {
         const playlistname = response.items.map(playlist => {

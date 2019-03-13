@@ -5,8 +5,8 @@ import React from 'react'
 const BandInfo = (props) => {
     return (
         <div>
-            {props.bandInfo.bio.content}
-{console.log(props)}
+            {console.log(props)}
+             { props.bandInfo.bio.content}
         </div>
       )
 }
