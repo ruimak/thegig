@@ -14,18 +14,18 @@ import MyBands from "./components/defaultPage/Mybands";
 import LogOut from "./components/authentication/LogOut";
 import SetLocation from "./components/location/SetLocation";
 import AutoGetLocation from "./components/location/AutoGetLocation";
-import {userBandsList} from "./api"
-import HomeBandNews from './components/defaultPage/HomeBandNews'
-import Billboards from './components/defaultPage/Billboards'
-import Settings from './components/Settings'
-import Spotifys from './components/Spotify'
-import SongLyrics from './components/songsPage/SongLyrics'
-import MyEvents from './components/defaultPage/MyEvents'
-import ArtistNewsContent from "./components/bandsPage/ArtistNewsContent"
-import Discography from "./components/bandPage/Discography"
-import Album from "./components/bandPage/Album"
-
-
+import { userBandsList } from "./api";
+import HomeBandNews from "./components/defaultPage/HomeBandNews";
+import Billboards from "./components/defaultPage/Billboards";
+import Settings from "./components/Settings";
+import Spotifys from "./components/Spotify";
+import SongLyrics from "./components/songsPage/SongLyrics";
+import MyEvents from "./components/defaultPage/MyEvents";
+import ArtistNewsContent from "./components/bandPage/ArtistNewsContent";
+import Discography from "./components/bandPage/Discography";
+import Album from "./components/bandPage/Album";
+import RedirectButton from "./components/utilities/RedirectButton";
+import SongInfo from "./components/songsPage/SongInfo";
 
 class App extends Component {
   state = {
@@ -78,8 +78,15 @@ class App extends Component {
       bandInfoInApp: band
     });
   };
+
+  eraseBandInfo = () => {
+    this.setState({
+      bandInfoInApp: null
+    });
+  };
+
   getSingleArticle = article => {
-    console.log(article, 'THIS IS THE ARTICLE AHGPAWHGWAs')
+    console.log(article, "THIS IS THE ARTICLE AHGPAWHGWAs");
     this.setState({
       newsArticle: article
     });
@@ -91,7 +98,17 @@ class App extends Component {
       <div className="App">
         {/* This is the top bar */}
 
-        
+        <RedirectButton
+          location={"/"}
+          displayLocation={"Home"}
+          eraseBandInfo={this.eraseBandInfo}
+        />
+        <RedirectButton
+          location={"/Settings"}
+          displayLocation={"Settings"}
+          eraseBandInfo={this.eraseBandInfo}
+        />
+
         <h1 className="blue-text text-darken-2 center">The Gig</h1>
         {/* <Settings  loggedInUser={this.state.loggedInUserId}/> */}
         {this.state.bandInfoInApp && this.state.userBands && (
@@ -104,7 +121,7 @@ class App extends Component {
           />
         )}
         {/* <SongLyrics bandName={"eminem"} songTitle={"without me"} /> */}
-        <SetLocation loggedInUser={this.state.loggedInUserId}/>
+        <SetLocation loggedInUser={this.state.loggedInUserId} />
         <AutoGetLocation />
 
         <SearchBar getBandInformation={this.getBandInformation} />
@@ -120,7 +137,7 @@ class App extends Component {
         {!this.state.loggedInUserId && <LogIn />}
         {!this.state.loggedInUserId && <SignIn />}
 
-<LogOut loggedInUserId={this.state.loggedInUserId}/>
+        <LogOut loggedInUserId={this.state.loggedInUserId} />
         {/* {this.state.loggedInUserId && (
           <div onClick={logout}>{"click here to log out"}</div>
         )} */}
@@ -129,12 +146,17 @@ class App extends Component {
         {/* This is the main div */}
         {this.state.loggedInUserId && (
           <div id="mainDiv">
-            
             <Switch>
               {/* <Route exact path="/NotFound" component={NotFound} /> */}
               {/* <Route exact path="/" component={DefaultBandNews} /> */}
               <Route exact path="/" render={props => <HomeBandNews />} />
-
+              <Route
+                exact
+                path="/Settings"
+                render={props => (
+                  <Settings loggedInUser={this.state.loggedInUserId} />
+                )}
+              />
               <Route
                 exact
                 path="/myBands"
@@ -143,7 +165,12 @@ class App extends Component {
               <Route
                 exact
                 path="/myEvents"
-                render={props => <MyEvents myBands={this.state.userBands} loggedInUserId={this.state.loggedInUserId} />}
+                render={props => (
+                  <MyEvents
+                    myBands={this.state.userBands}
+                    loggedInUserId={this.state.loggedInUserId}
+                  />
+                )}
               />
               <Route exact path="/topCharts" render={props => <Billboards />} />
 
@@ -170,9 +197,7 @@ class App extends Component {
                         ? this.state.bandInfoInApp.name
                         : "cher"
                     }
-                    getArticle={
-                      this.getSingleArticle
-                    }
+                    getArticle={this.getSingleArticle}
                   />
                 )}
               />
@@ -181,21 +206,19 @@ class App extends Component {
                 path="/:band/news/:newsTitle"
                 render={({ match }) => (
                   <ArtistNewsContent article={this.state.newsArticle} />
-                  )}
+                )}
               />
-               <Route
+              <Route
                 exact
                 path="/:band/albums"
                 render={props => (
-                  <Discography bandName={ this.state.bandInfoInApp.name} />
-                  )}
+                  <Discography bandName={this.state.bandInfoInApp.name} />
+                )}
               />
-               <Route
+              <Route
                 exact
                 path="/:band/albums/:albumName"
-                render={({ match }) => (
-                  <Album params={match.params}/>
-                  )}
+                render={({ match }) => <Album params={match.params} />}
               />
               <Route
                 exact
@@ -223,12 +246,20 @@ class App extends Component {
                   />
                 )}
               />
-              {/* <Route exact path="/*" component={NotFound} /> */}
+              <Route
+                exact
+                path="/:band/song/:songTitle/lyrics"
+                render={({ match }) => <SongLyrics params={match.params} />}
+              />
+                 <Route
+                exact
+                path="/:band/song/:songTitle"
+                render={({ match }) => <SongInfo params={match.params} />}
+              />
             </Switch>
           </div>
         )}
       </div>
-      
     );
   }
 }

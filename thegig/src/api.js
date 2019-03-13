@@ -23,6 +23,13 @@ export const getBandInfo = bandName => {
   );
 };
 
+export const getSongInfo = (bandName, songTitle) => {
+  return axios.get(
+    `http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${lastFmAPIkey}&artist=${bandName}&track=${songTitle}&format=json`
+  );
+};
+
+
 //YOU NEED TO CHANGE THE SIZE PARAMETER IN ORDER TO GET MORE EVENTS
 export const getEventsForLocation = (location, radius) => {
   return axios.get(

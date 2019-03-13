@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
     bandTabs = [["news", 'News'],["albums", "Discography"],["info", "Band Info"],["events", 'Events'],["setlists", 'Setlists']]
-   defaultTabs= [["news", "DefaultNews"], ["myBands", "My Bands"], ["myEvents", "My Events"], ["topCharts", "Top Charts"]]
+   defaultTabs= [["", "DefaultNews"], ["myBands", "My Bands"], ["myEvents", "My Events"], ["topCharts", "Top Charts"]]
 
     render() {
   return (
@@ -21,7 +21,7 @@ class NavBar extends Component {
           : 
           this.defaultTabs.map(tab=>{
             return <div> 
-                <Link to={`/${tab[0]}/`} className='NavBar'>
+                <Link to={`/${tab[0]}`} className='NavBar'>
                     {tab[1]} 
                   </Link>
             </div>}) 

@@ -2,15 +2,20 @@
 TO DO:
 SEARCHBAR
 searchbar always sends you directly to the most relevant band if you have typos or if the band doesnt exist, should fix to a 404 page with a suggestion link to the most selected page
-it also should autocomplete onclick (change value={this.state.input}). But thats too slow, needs fixing
+it also should autocomplete onclick (value={this.state.input}). But thats too slow, needs fixing
 also possibly when we remove a band we may need to update the state in app
 
+ORGANIZATION
+maybe use an index to group all the imports in app.js (its getting out of hand)
 
 ARTIST NEWS
 artist news should have a link to every single news piece content
 
 SET RADIUS
 its being set in setlocation but it should be in its own individual place
+
+BILLBOARDS
+the billboards are too slow, need to check why
 
 
 MINOR BUGS and ISSUES
@@ -20,10 +25,12 @@ first 1 sec render of the 'un-authed' screen needs to go - must have to do with 
 function that gets the bands on the app - component did mount should be in the api, need to find a way to make it wait for the user id before calling the other func (its passing down an unknown variable)
 the delete function still gives a yellow warning on the browser console
 
+
 MAJOR BUGS and ISSUES
 bands with / on their name bug the app (eg: AC/DC)
 if we go straight to the links like http://localhost:3000/Red%20Hot%20Chili%20Peppers/info/ instead of getting there by clicking, we re not passing down props hence it crashes. we can use "window.location", or "props.match.params" and make a new request / with regex probably
-
+drake comes up as undefined in the url, hes probably not the only one - REASON: thats because if the searchbar is not completed it will go to the uncompleted url
+if i click on the home it will reset the state. Therefore if i go back to the artist page i was before ill get the home page navbar
 
 POSSIBLE FIXING TO THE REFRESH-INPUT URL PROBLEM:
 look at the album.jsx. That one works. Should we get all info from params other than props? Whats the point of props then
