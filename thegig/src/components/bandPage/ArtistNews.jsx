@@ -7,7 +7,8 @@ export default class ArtistNews extends Component {
     news: null
   };
   componentDidMount() {
-    getArtistNews(this.props.bandName).then(news => {
+    console.log('FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCK')
+    getArtistNews(this.props.params.band).then(news => {
       this.setState({ news: news.data.articles });
     });
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import { Link } from 'react-router-dom';
 
 const MyBands = (props) => {
 
@@ -7,7 +7,7 @@ const MyBands = (props) => {
       <div>
         
       {props.myBands && props.myBands.map((band)=>{
-        return <div>{band}</div>
+        return <div><Link to={`/artist/${band}/news`}>{band}</Link><br/></div>
       })}
       </div>
   )

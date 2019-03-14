@@ -59,7 +59,7 @@ class App extends Component {
           );
       } else {
         this.setState({ loggedInUserId: null });
-
+        //WE SHOUT REMOVE THIS NEXT QUERY, JUST SET STATE WITH []
         firebase
           .database()
           .ref()
@@ -109,30 +109,25 @@ class App extends Component {
           eraseBandInfo={this.eraseBandInfo}
         />
 
+        {/* we have to delete the materialize in the next line */}
         <h1 className="blue-text text-darken-2 center">The Gig</h1>
         {/* <Settings  loggedInUser={this.state.loggedInUserId}/> */}
-        {this.state.bandInfoInApp && this.state.userBands && (
+
+        {/* {this.state.bandInfoInApp && this.state.userBands && (
           <FollowUnfollowButton
             userId={this.state.loggedInUserId}
-            band={this.state.bandInfoInApp.name}
+           band={this.state.bandInfoInApp.name}
             bandsFollowed={
               this.state.userBands !== [] ? this.state.userBands : null
             }
           />
-        )}
+        )}  */}
+
         {/* <SongLyrics bandName={"eminem"} songTitle={"without me"} /> */}
         <SetLocation loggedInUser={this.state.loggedInUserId} />
         <AutoGetLocation />
 
         <SearchBar getBandInformation={this.getBandInformation} />
-
-        <NavBar
-          bandName={
-            this.state.bandInfoInApp !== null
-              ? this.state.bandInfoInApp.name
-              : null
-          }
-        />
 
         {!this.state.loggedInUserId && <LogIn />}
         {!this.state.loggedInUserId && <SignIn />}
@@ -146,6 +141,46 @@ class App extends Component {
         {/* This is the main div */}
         {this.state.loggedInUserId && (
           <div id="mainDiv">
+            <Route
+              path="/artist/:band/*"
+              render={({ match }) => (
+                <FollowUnfollowButton params={match.params} />
+              )}
+            />
+            <Switch>
+              <Route
+              path="/artist/:band"
+              render={({ match }) => (
+                <NavBar
+                  tabs={[
+                    ["news", "News"],
+                    ["albums", "Discography"],
+                    ["info", "Band Info"],
+                    ["events", "Events"],
+                    ["setlists", "Setlists"]
+                  ]}
+
+                  params={match.params}
+                />
+              )}
+            />
+            <Route
+              path="/*"
+              render={({ match }) => (
+                <NavBar
+                  tabs={[
+                    ["", "DefaultNews"],
+                    ["myBands", "My Bands"],
+                    ["myEvents", "My Events"],
+                    ["topCharts", "Top Charts"]
+                  ]}
+                />
+              )}
+            />
+            </Switch>
+            
+            
+
             <Switch>
               {/* <Route exact path="/NotFound" component={NotFound} /> */}
               {/* <Route exact path="/" component={DefaultBandNews} /> */}
@@ -176,7 +211,7 @@ class App extends Component {
 
               <Route
                 exact
-                path="/:band/info"
+                path="/artist/:band/info"
                 render={props => (
                   <BandInfo
                     bandInfo={
@@ -189,40 +224,39 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/:band/news"
-                render={props => (
+                path="/artist/:band/news"
+                render={({ match }) => (
                   <ArtistNews
                     bandName={
                       this.state.bandInfoInApp
                         ? this.state.bandInfoInApp.name
                         : "cher"
                     }
+                    params={match.params}
                     getArticle={this.getSingleArticle}
                   />
                 )}
               />
               <Route
                 exact
-                path="/:band/news/:newsTitle"
+                path="/artist/:band/news/:newsTitle"
                 render={({ match }) => (
                   <ArtistNewsContent article={this.state.newsArticle} />
                 )}
               />
               <Route
                 exact
-                path="/:band/albums"
-                render={props => (
-                  <Discography bandName={this.state.bandInfoInApp.name} />
-                )}
+                path="/artist/:band/albums"
+                render={({ match }) => <Discography params={match.params} />}
               />
               <Route
                 exact
-                path="/:band/albums/:albumName"
+                path="/artist/:band/albums/:albumName"
                 render={({ match }) => <Album params={match.params} />}
               />
               <Route
                 exact
-                path="/:band/events"
+                path="/artist/:band/events"
                 render={props => (
                   <ArtistEvents
                     bandName={
@@ -235,7 +269,7 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/:band/setlists"
+                path="/artist/:band/setlists"
                 render={props => (
                   <SetLists
                     mbid={
@@ -248,12 +282,12 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/:band/song/:songTitle/lyrics"
+                path="/artist/:band/song/:songTitle/lyrics"
                 render={({ match }) => <SongLyrics params={match.params} />}
               />
-                 <Route
+              <Route
                 exact
-                path="/:band/song/:songTitle"
+                path="/artist/:band/song/:songTitle"
                 render={({ match }) => <Spotifys params={match.params} />}
               />
             </Switch>

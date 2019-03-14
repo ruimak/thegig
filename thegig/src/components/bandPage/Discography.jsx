@@ -10,7 +10,7 @@ export default class Discography extends Component {
     }
     componentDidMount(){
       console.log('GOT THIS FAR!')
-       getDiscography(this.props.bandName)
+       getDiscography(this.props.params.band)
        .then(albums=> this.setState({discography: albums.data.topalbums.album}))
        
       //  .then(albums=>{
@@ -27,7 +27,7 @@ export default class Discography extends Component {
           {console.log(this.state.discography, 'DISCOGRAPHY')}
   {
             (this.state.discography!== null) ? this.state.discography.map(album=>{
-                return <Link to={`/${this.props.bandName}/albums/${album.name}/`}>
+                return <Link to={`/${this.props.params.band}/albums/${album.name}/`}>
                 {album.name} 
               </Link>
             }) : "no events to show yet"

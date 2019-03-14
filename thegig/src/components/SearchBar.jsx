@@ -16,7 +16,7 @@ export default withRouter(class SearchBar extends Component {
      .then(bandInfo => {
 
         this.props.getBandInformation(bandInfo.data.artist)
-        this.props.history.push(`/${this.state.input}/news/`);
+        this.props.history.push(`/artist/${this.state.input}/news/`);
       
      })  
   } 
