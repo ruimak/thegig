@@ -22,6 +22,7 @@ export default class Album extends Component {
         // })
     }
       render() {
+          console.log(this.props.params.band,'@@@@@@@@@@@')
       return (
         <div>
   

@@ -10,7 +10,7 @@ class NavBar extends Component {
         {console.log(this.props, 'PROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPS')}
       {this.props.params ? this.props.tabs.map(tab=>{
           return <div> 
-              <Link to={`/artist/${this.props.bandName}/${tab[0]}/`} className='NavBar'>
+              <Link to={`/artist/${this.props.params.band}/${tab[0]}/`} className='NavBar'>
                   {tab[1]} 
                 </Link>
           </div>}) 

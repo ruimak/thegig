@@ -1,18 +1,35 @@
-import React from 'react'
+import React, { Component } from 'react'
+import {getBandInfo} from '../../api'
 import RelatedArtists from './RelatedArtists'
 
 
-const BandInfo = (props) => {
+export default class BandInfo extends Component {
+    state = {
+        bio : null
+    }
+
+    componentDidMount() {
+        
+getBandInfo(this.props.params.band).then(bandInfo => {
+    console.log(bandInfo)
+this.setState({bio:bandInfo.data.artist})
+})
+    
+    } 
+    render() {
+
+    
     return (
         <div>
-            {console.log(props, "this is the band info")}
-             { props.bandInfo.bio.content}
-             <RelatedArtists artists={props.bandInfo.similar.artist}/>
+            {/* {console.log(props.params,'YOOOOOOOOOOOOOOOOOOOO')} */}
+             { this.state.bio && this.state.bio.bio.content}
+             {/* <RelatedArtists artists={props.bandInfo.similar.artist}/> */}
         </div>
       )
+    }
 }
 
-export default BandInfo
+
 
 
 

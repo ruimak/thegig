@@ -22,9 +22,10 @@ export default class Discography extends Component {
         // })
     }
       render() {
+       
       return (
         <div>
-          {console.log(this.state.discography, 'DISCOGRAPHY')}
+          
   {
             (this.state.discography!== null) ? this.state.discography.map(album=>{
                 return <Link to={`/${this.props.params.band}/albums/${album.name}/`}>
