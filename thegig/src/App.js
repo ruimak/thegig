@@ -184,13 +184,15 @@ class App extends Component {
               <Route
                 exact
                 path="/:band/info"
-                render={props => (
+                render={({match}) => (
                   <BandInfo
                     bandInfo={
+                      
                       this.state.bandInfoInApp
                         ? this.state.bandInfoInApp
                         : "cher"
                     }
+                    params={match.params}
                   />
                 )}
               />

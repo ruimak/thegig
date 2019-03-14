@@ -1,17 +1,34 @@
-import React from 'react'
+import React, { Component } from 'react'
+import {getBandInfo} from '../../api'
 
 
 
-const BandInfo = (props) => {
+export default class BandInfo extends Component {
+    state = {
+        bio : null
+    }
+
+    componentDidMount() {
+        
+getBandInfo(this.props.params.band).then(bandInfo => {
+    console.log(bandInfo)
+this.setState({bio:bandInfo.data.artist})
+})
+    
+    } 
+    render() {
+
+    
     return (
         <div>
-            {console.log(props)}
-             { props.bandInfo.bio.content}
+            {/* {console.log(props.params,'YOOOOOOOOOOOOOOOOOOOO')} */}
+             { this.state.bio && this.state.bio.bio.content}
         </div>
       )
+    }
 }
 
-export default BandInfo
+
 
 
 
