@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import {updateUser,changePassword,reauthenticate} from '../api'
 import { get } from 'http';
-
+import Spotify from 'spotify-web-api-js'
+const spotifyWebApi = new Spotify()
 
 export default class Settings extends Component {
   
-
-    state = {
+  constructor(){
+    super()
+    const params = this.getHashParams();
+    this.state = {
+      loggedIn : params.access_token ? true : false,
         currentPassword : '',
         newPassword : '',
         radius : '',
@@ -14,12 +18,25 @@ export default class Settings extends Component {
         newAvatar : ''
         
     }
+    if(params.access_token) {
+      spotifyWebApi.setAccessToken(params.access_token)
+  }
+  }
+    
 
     
 handleChange = this.handleChange.bind(this);
 handleSubmit = this.handleSubmit.bind(this);
 
-
+getHashParams() {
+  var hashParams = {};
+  var e, r = /([^&;=]+)=?([^&;]*)/g,
+      q = window.location.hash.substring(1);
+  while ( e = r.exec(q)) {
+     hashParams[e[1]] = decodeURIComponent(e[2]);
+  }
+  return hashParams;
+}
 
 handleChange(e) {
   
@@ -30,6 +47,12 @@ this.setState({[e.target.name]: target})
 
   handleSubmit(e) {
       e.preventDefault()
+      }
+
+
+      componentDidMount() {
+        console.log(this.props,'these are the settings props')
+        this.props.spotifylogin(this.state.loggedIn) 
       }
 
  
@@ -49,6 +72,7 @@ this.setState({[e.target.name]: target})
     //     </form>
     //    )
     //  }
+    console.log(this.state.loggedIn,'is user logged in?')
     return (
         
       <div>
@@ -78,8 +102,11 @@ this.setState({[e.target.name]: target})
        <button onClick={() => updateUser(this.props.loggedInUser,{avatar:this.state.newAvatar})}>Change Avatar</button>
        <input onChange={this.handleChange} type='text' name='newAvatar' placeholder='current password'></input>
        </form>
+       <a href={`http://localhost:8888`}>
+        <button>login with spotify</button>
+        </a>
 
-      
+     
       </div>
     )
   }

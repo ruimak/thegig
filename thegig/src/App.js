@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SearchBar from "./components/SearchBar";
 import BandInfo from "./components/bandPage/BandInfo";
-import { Route, Link, Switch } from "react-router-dom";
+import { Route, Link, Switch,withRouter } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import ArtistEvents from "./components/bandPage/ArtistEvents";
 import SetLists from "./components/bandPage/SetLists";
@@ -32,7 +32,8 @@ class App extends Component {
     bandInfoInApp: null,
     userBands: [],
     loggedInUserId: null,
-    newsArticle: null
+    newsArticle: null,
+    spotifyLoggedIn:''
   };
 
   componentDidMount() {
@@ -72,6 +73,11 @@ class App extends Component {
       }
     });
   }
+  userIsLoggedIn = this.userIsLoggedIn.bind(this);
+  userIsLoggedIn(loggedInState) {
+    console.log(loggedInState,'this is the logged in state')
+    this.setState({spotifyLoggedIn:loggedInState})
+  }
 
   getBandInformation = band => {
     this.setState({
@@ -94,6 +100,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.spotifyLoggedIn,'this is spotify login')
     return (
       <div className="App">
         {/* This is the top bar */}
@@ -154,7 +161,7 @@ class App extends Component {
                 exact
                 path="/Settings"
                 render={props => (
-                  <Settings loggedInUser={this.state.loggedInUserId} />
+                  <Settings loggedInUser={this.state.loggedInUserId} spotifylogin={this.userIsLoggedIn} />
                 )}
               />
               <Route
@@ -254,7 +261,7 @@ class App extends Component {
                  <Route
                 exact
                 path="/:band/song/:songTitle"
-                render={({ match }) => <Spotifys params={match.params} />}
+                render={({ match }) => <Spotifys params={match.params} loginState={this.state.spotifylogin} />}
               />
             </Switch>
           </div>

@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import Spotify from 'spotify-web-api-js'
 import '../components/Spotify.css'
 import Iframe from 'react-iframe'
+import { withRouter } from "react-router-dom";
+
+
 const spotifyWebApi = new Spotify()
 
 
@@ -33,7 +36,7 @@ const spotifyWebApi = new Spotify()
 //   })();
 
 
-export default class Spotifys extends Component {
+class Spotifys extends Component {
    
     
     
@@ -53,16 +56,23 @@ export default class Spotifys extends Component {
            playlists: [],
         //    playlistId:[],
            choosenPlaylist: '',
-           spotifyPlay : ''
+           spotifyPlay : '',
+          
 
        }
        if(params.access_token) {
            spotifyWebApi.setAccessToken(params.access_token)
        }
    } 
+   
+
+   
 
    componentDidMount(){
-       console.log(this.props.params,'{{{{{{{{}}}}}}}}}')
+    
+    
+    
+     
     const NewObject= {}
     spotifyWebApi.getUserPlaylists().then(response => {
         const playlistname = response.items.map(playlist => {
@@ -81,7 +91,7 @@ export default class Spotifys extends Component {
             
         })
 
-        const getATrack = spotifyWebApi.searchTracks('the prodigy smack my bitch up').then(response => {
+        const getATrack = spotifyWebApi.searchTracks(this.props.params.band,this.props.params.songTitle).then(response => {
             this.setState({spotifyPlay:response.tracks.items[0].preview_url})
             
         })
@@ -138,54 +148,57 @@ spotifyWebApi.getTrack([getSong]).then(response => {
 }
 
     render() {
-        
-        console.log(this.state.playlists,'lllllllllll')
-        
-    return (
-      <div className='container'>
-         <div>
-            <select onChange={(e) =>this.handleChange(e,this.state.playlists)}> 
-              
-  {Object.keys(this.state.playlists).map(name => {
-      return <option tar ={Object.values(this.state.playlists)}>{name}</option>
-  })}
-   
-      
-  })}
-
-
-  
+        console.log(this.props.history,'{{{{{{{{}}}}}}}}}')
+        console.log(this.state,'lllllllllll')
+       const notsignedinrender =  this.props.loginState === false ?  <div>Please login with spotify in the settings to play</div> :      <div className='container'>
+       <div>
+          <select onChange={(e) =>this.handleChange(e,this.state.playlists)}> 
+            
+{Object.keys(this.state.playlists).map(name => {
+    return <option tar ={Object.values(this.state.playlists)}>{name}</option>
+})}
  
- </select>
- </div> 
+    
+})}
 
-          <a href='http://localhost:8888'>
-        <button>login with spotify</button>
-        </a>
-        <div>now playing <a href={this.state.nowPlaying.name}>{this.state.nowPlaying.name}</a></div>
+
+
+
+</select>
+</div> 
+
+        
+      
+          
+          <button onClick={() => this.addTrackToPlaylist()}>
+              add track to playlist
+          </button>
         <div>
-            </div>
-            <button onClick={() => this.addTrackToPlaylist()}>
-                add track to playlist
-            </button>
-          <div>
-              {/* <button playSong={}>
+            
+  <Iframe url={this.state.spotifyPlay}
+      width="300px"
+      height="300px"
+      id="myId"
+      className="myClassname"
+      display="initial"
+      position="relative"/>
 
-              </button> */}
-    <Iframe url={this.state.spotifyPlay}
-        width="300px"
-        height="300px"
-        id="myId"
-        className="myClassname"
-        display="initial"
-        position="relative"/>
+     
+</div>
+
+      
+    </div>
 
        
-</div>
         
-      </div>
+    return (
+<div>
+        {notsignedinrender}
+        </div>
+  
       
     )
   }
 }
 
+export default withRouter(Spotifys)
