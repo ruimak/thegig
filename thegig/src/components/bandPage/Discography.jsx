@@ -9,7 +9,7 @@ export default class Discography extends Component {
         discography : null
     }
     componentDidMount(){
-      console.log('GOT THIS FAR!')
+      console.log(this.props.params.band,'@@@@@@@@@@@@@@@')
        getDiscography(this.props.bandName)
        .then(albums=> this.setState({discography: albums.data.topalbums.album}))
        
@@ -22,9 +22,10 @@ export default class Discography extends Component {
         // })
     }
       render() {
+       
       return (
         <div>
-          {console.log(this.state.discography, 'DISCOGRAPHY')}
+          
   {
             (this.state.discography!== null) ? this.state.discography.map(album=>{
                 return <Link to={`/${this.props.bandName}/albums/${album.name}/`}>

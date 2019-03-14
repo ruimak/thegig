@@ -186,26 +186,16 @@ class App extends Component {
                 path="/:band/info"
                 render={({match}) => (
                   <BandInfo
-                    bandInfo={
-                      
-                      this.state.bandInfoInApp
-                        ? this.state.bandInfoInApp
-                        : "cher"
-                    }
                     params={match.params}
                   />
                 )}
               />
               <Route
                 exact
-                path="/:band/news"
-                render={props => (
+                path="/artistname/:band/news"
+                render={({match}) => (
                   <ArtistNews
-                    bandName={
-                      this.state.bandInfoInApp
-                        ? this.state.bandInfoInApp.name
-                        : "cher"
-                    }
+                  params={match.params}
                     getArticle={this.getSingleArticle}
                   />
                 )}
@@ -219,9 +209,12 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/:band/albums"
-                render={props => (
-                  <Discography bandName={this.state.bandInfoInApp.name} />
+                path="/artistname/:band/albums"
+                render={({ match }) => (
+                  <Discography 
+                  params={match.params} 
+                  
+                  />
                 )}
               />
               <Route
@@ -231,27 +224,20 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/:band/events"
-                render={props => (
+                path="/artistname/:band/events"
+                render={({ match }) => (
                   <ArtistEvents
-                    bandName={
-                      this.state.bandInfoInApp
-                        ? this.state.bandInfoInApp.name
-                        : "cher"
-                    }
+                    params={match.params}
                   />
                 )}
               />
               <Route
                 exact
                 path="/:band/setlists"
-                render={props => (
+                render={({ match }) => (
                   <SetLists
-                    mbid={
-                      this.state.bandInfoInApp
-                        ? this.state.bandInfoInApp.mbid
-                        : "bfcc6d75-a6a5-4bc6-8282-47aec8531818"
-                    }
+                  params={match.params}
+                    
                   />
                 )}
               />

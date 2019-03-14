@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getSetLists } from "../../api";
+import { getSetLists,getBandInfo } from "../../api";
 
 export default class SetLists extends Component {
   state = {
@@ -7,9 +7,14 @@ export default class SetLists extends Component {
   };
 
   componentDidMount() {
-    getSetLists(this.props.mbid).then(setLists => {
-      this.setState({ setLists: setLists.data.setlist });
-    });
+    
+    const getInfo = getBandInfo(this.props.params.band).then(bandinfo => {
+      getSetLists(bandinfo.data.artist.mbid).then(setLists => {
+        
+        this.setState({ setLists: setLists.data.setlist });
+      });
+    })
+   
   }
   render() {
     return (
