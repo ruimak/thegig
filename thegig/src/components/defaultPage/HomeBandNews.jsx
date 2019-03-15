@@ -15,7 +15,6 @@ export default class HomeBandNews extends Component {
       })
   }
     render() {
-        console.log(this.state,'hello')
     return (
       <div>
           

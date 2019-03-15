@@ -51,7 +51,6 @@ this.setState({[e.target.name]: target})
 
 
       componentDidMount() {
-        console.log(this.props,'these are the settings props')
         this.props.spotifylogin(this.state.loggedIn) 
       }
 
@@ -61,18 +60,6 @@ this.setState({[e.target.name]: target})
   
     render() {
 
-      //cant get to work for some reason have a look at it rui
-    //   const listOfForms = [['radius','Enter new Radius','Change radius'],['newLocation','Enter new Location','Change Location'],['newAvatar','Enter new Avatar','Change Avatar']]
-    //   console.log(listOfForms[0][2],'llllllll')
-    //  const forms = (names,placeholders,texts) => {
-    //    return(
-    //     <form onSubmit={this.handleSubmit}>
-    //     <button onClick={() => updateUser(this.props.loggedInUser,{names:this.state.names})}>{texts}</button>
-    //     <input onChange={this.handleChange} type='text' name={names} placeholder={placeholders}></input>
-    //     </form>
-    //    )
-    //  }
-    console.log(this.state.loggedIn,'is user logged in?')
     return (
         
       <div>

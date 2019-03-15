@@ -7,7 +7,6 @@ class NavBar extends Component {
 
     render() {
    const navBarComponent = <div >
-        {console.log(this.props, 'PROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPS')}
       {this.props.params ? this.props.tabs.map(tab=>{
           return <div> 
               <Link to={`/artist/${this.props.params.band}/${tab[0]}/`} className='NavBar'>

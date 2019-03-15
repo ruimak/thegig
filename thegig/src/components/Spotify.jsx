@@ -148,8 +148,6 @@ spotifyWebApi.getTrack([getSong]).then(response => {
 }
 
     render() {
-        console.log(this.props.history,'{{{{{{{{}}}}}}}}}')
-        console.log(this.state,'lllllllllll')
        const notsignedinrender =  this.props.loginState === false ?  <div>Please login with spotify in the settings to play</div> :      <div className='container'>
        <div>
           <select onChange={(e) =>this.handleChange(e,this.state.playlists)}> 

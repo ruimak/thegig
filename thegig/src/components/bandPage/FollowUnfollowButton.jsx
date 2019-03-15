@@ -29,10 +29,8 @@ export default class SignIn extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.params)
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log(user.uid, 'THIS IS THE USER ID I WANT');
         this.setState({userId:user.uid})
         firebase
           .database()
@@ -46,7 +44,6 @@ export default class SignIn extends Component {
                     userData.val().users[user.uid].bands
                   )
                 : [];
-                console.log(bands, 'THESE ARE THE BANDS THAT YOU FOLLOW')
               this.setState({ bandsFollowed: bands });
             }.bind(this)
           );
@@ -55,8 +52,6 @@ export default class SignIn extends Component {
   }
 
   render() {
-    console.log(this.state.bandsFollowed, 'THESE ARE THE BANDS IN THE STATE')
-    console.log(this.props.params.band, 'THIS IS THE BAND IN THE PARAMS')
    if (!this.state.bandsFollowed.includes(this.props.params.band)) {
       return (
         <button

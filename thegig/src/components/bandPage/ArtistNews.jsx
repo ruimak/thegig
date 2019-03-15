@@ -12,7 +12,6 @@ export default class ArtistNews extends Component {
     });
   }
   render() {
-    console.log(this.props.params,'these are the bandnews props')
     return (
       <div>
         {this.state.news !== null

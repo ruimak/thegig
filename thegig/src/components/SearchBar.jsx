@@ -23,12 +23,11 @@ export default withRouter(class SearchBar extends Component {
 
   handleChange = (e) => {
     const text = e.target.value
-
+this.setState({input : text})
     text.length !==0 ? getBandSuggestions(text).then(result=>{
       const parsedSuggestions = result.data.results.artistmatches.artist.slice(0,5).map(entry=>entry.name)
 
       this.setState({
-          input : text,
           suggestions: parsedSuggestions
       })
 
@@ -53,7 +52,6 @@ this.handleSubmit()
 
   renderSuggestions = ()=>{
     const suggestions = this.state.suggestions
-  //  return console.log(suggestions, 'THESE ARE THE SUGGESTIONS')
     if (suggestions.length === 0 || this.state.input === 0) {
       return null
     }
@@ -70,8 +68,8 @@ this.handleSubmit()
 <form onSubmit={this.handleSubmit}>
         <label>
           Search for an artist or band:
-         <input name="name" onChange={this.handleChange}   />
-   {/* {console.log('HELLOOOO') */
+         <input value={this.state.input} name="name" onChange={this.handleChange}   />
+   {
      this.renderSuggestions()
      }
         </label>
