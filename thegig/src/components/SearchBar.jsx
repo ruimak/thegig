@@ -52,7 +52,6 @@ this.handleSubmit()
 
   renderSuggestions = ()=>{
     const suggestions = this.state.suggestions
-  //  return console.log(suggestions, 'THESE ARE THE SUGGESTIONS')
     if (suggestions.length === 0 || this.state.input === 0) {
       return null
     }
@@ -70,7 +69,7 @@ this.handleSubmit()
         <label>
           Search for an artist or band:
          <input value={this.state.input} name="name" onChange={this.handleChange}   />
-   {/* {console.log('HELLOOOO') */
+   {
      this.renderSuggestions()
      }
         </label>

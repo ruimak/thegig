@@ -12,7 +12,6 @@ export default class ArtistNews extends Component {
     });
   }
   render() {
-    console.log(this.props.params,'these are the bandnews props')
     return (
       <div>
         {this.state.news !== null
@@ -22,7 +21,7 @@ export default class ArtistNews extends Component {
                   <div>{newStory.urlToImage}</div>
                   <Link
                     to={{
-                      pathname: `/:band/news/${newStory.title}`,
+                      pathname: `/artist/${this.props.params.band}/news/${newStory.title}`,
                       state: { newStory: newStory }
                     }}
                     onClick={() => {

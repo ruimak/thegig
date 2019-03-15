@@ -184,44 +184,13 @@ export const logout = () => {
     return user.reauthenticateWithCredential(cred)
 
    }
-  // export const userBandsList = (user) => {
-  //   return firebase
-  //    .database()
-  //   .ref()
-  //   .once("value")
-  //   .then(userData =>
-  //     {
-        
-  //       console.log( userData.val().users[user].bands,'THIS IS THE USERS VAL')
-  //     return userData.val().users[user].bands
-  //     }
-  //  console.log(userData.val().users,'@@@@')
-   
-  //     console.log(Object.values(userData.val().users).map(user => {
-  //       return user.bands
-  //     }),'lllllll')
-      
-      
-      
-    // )
-  // }
-
-
   
-
-//  export const getCurrentUserID = () => {
-//   let user = firebase.auth().currentUser
-//   let uid = user.uid
-//   return uid
-//  }
-
   export const addBandToFollowedList = (userId, bandName) => {
     firebase.
     database()
     .ref(`/users/${userId}`)
     .child("/bands")
     .push(bandName)
-    .then(console.log("reached this part in the add band"));
 };
 
 export const removeBandFromFollowedList = (userId, bandName) => {
@@ -233,21 +202,6 @@ export const removeBandFromFollowedList = (userId, bandName) => {
     .equalTo(bandName);
 
   query.once("value", function(snapshot) {
-    // snapshot.forEach(function(child) {
     snapshot.ref.update({ [snapshot.node_.children_.root_.key]: null });
-    // console.log(snapshot.node_.children_.root_.key)
   });
-  // console.log(query, "QUERYYYYYY")
-
-  // .once('value', snapshot => {
-  //   const updates = [];
-  //   snapshot.forEach(child => updates[child.key] = null);
-  //   ref.update(updates);
-  //  });
-
-  // .then((something)=>{console.log(something, 'somethiiiing')
-  //   // return something
-  // })
-  // .remove()
-  // .once('value').then(something=> console.log(something, 'reached this part in the remove band'))
 };

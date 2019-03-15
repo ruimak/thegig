@@ -12,7 +12,6 @@ export default class SetLocation extends Component {
 
   showPlaceDetails(place) {
     this.setState({ place });
-    console.log(place, 'THIS IS THE PLACE!!!')
     updateUser(this.props.loggedInUser,{radius:10, location: Geohash.encode(place.geometry.location.lat(), place.geometry.location.lng(), 6)})
 
   }

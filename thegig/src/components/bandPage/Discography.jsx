@@ -9,17 +9,8 @@ export default class Discography extends Component {
         discography : null
     }
     componentDidMount(){
-      console.log('GOT THIS FAR!')
        getDiscography(this.props.params.band)
        .then(albums=> this.setState({discography: albums.data.topalbums.album}))
-       
-      //  .then(albums=>{
-      //      console.log(albums.data.topalbums.album, 'albums')
-      //      getAlbumInfo(this.props.bandName, albums.data.topalbums.album[0].name).then(albumInfo=>console.log(albumInfo, 'THIS IS THE ALBUM INFO'))
-      //  })
-        // .then(events=> {
-        //     this.setState({discography: events.data._embedded.events})
-        // })
     }
       render() {
        

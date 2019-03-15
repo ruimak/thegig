@@ -25,7 +25,6 @@ export default class ArtistEvents extends Component {
                 .bands)
               return getEventsForLocation(location, radius).then(events => {
                 this.setState({ eventsInfo: events.data._embedded.events, bandsFollowed: myBands });
-                console.log(events.data._embedded.events, "EVENTSSSSSS");
               });
             }.bind(this)
           );
@@ -35,7 +34,7 @@ export default class ArtistEvents extends Component {
   render() {
     return (
       <div>
-        {// this.state.eventsInfo!== null && console.log(this.state.eventsInfo[0]._embedded.attractions[0].name, 'ATRACTIONS')
+        {
         this.state.eventsInfo !== null
           ? this.state.eventsInfo.map(event => {
 if(event._embedded.attractions &&   this.state.bandsFollowed.includes(

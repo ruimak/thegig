@@ -11,7 +11,6 @@ export default class BandInfo extends Component {
     componentDidMount() {
         
 getBandInfo(this.props.params.band).then(bandInfo => {
-    console.log(bandInfo)
 this.setState({bio:bandInfo.data.artist})
 })
     
@@ -21,9 +20,7 @@ this.setState({bio:bandInfo.data.artist})
     
     return (
         <div>
-            {/* {console.log(props.params,'YOOOOOOOOOOOOOOOOOOOO')} */}
              { this.state.bio && this.state.bio.bio.content}
-             {/* <RelatedArtists artists={props.bandInfo.similar.artist}/> */}
         </div>
       )
     }

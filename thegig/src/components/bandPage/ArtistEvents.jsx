@@ -6,10 +6,8 @@ export default class ArtistEvents extends Component {
       eventsInfo : null
   }
   componentDidMount(){
-    console.log(this.props.params,'LLLLLLLLLLLLLLLLLLLLLLLLL')
       getArtistEvent(this.props.params.band)
       .then(events=> {
-        console.log(events,'@@@@@@@@@@@@@@@@@@@@@@@@@@')
           this.setState({eventsInfo: events.data._embedded.events})
       })
   }
