@@ -25,7 +25,7 @@ export default class Album extends Component {
           {this.state.albumInfo !== null
             ? this.state.albumInfo.tracks.track.map(track => {
                 return (
-                  <Link to={`/${this.props.params.band}/song/${track.name}`}>
+                  <Link to={`/artist/${this.props.params.band}/song/${track.name}`}>
                     {track.name}<br/>
                   </Link>
                 );
