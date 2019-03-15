@@ -21,13 +21,13 @@ export default class ArtistNewContent extends Component {
     // console.log(chossenArticle,'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP')
   }
   render() {
-    console.log(this.state, "@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    console.log(this.state.article.content, "@@@@@@@@@@@@@@@@@@@@@@@@@@");
     return (
     
     <div>
     
     <h1>{this.state.article.title}</h1>
-
+<img src={this.state.article.urlToImage} height='400' width='700'></img>
     <p>{this.state.article.content}</p>
     
     

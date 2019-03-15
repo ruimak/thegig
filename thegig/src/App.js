@@ -26,6 +26,7 @@ import Discography from "./components/bandPage/Discography";
 import Album from "./components/bandPage/Album";
 import RedirectButton from "./components/utilities/RedirectButton";
 import SongInfo from "./components/songsPage/SongInfo";
+const { database } = firebase;
 
 class App extends Component {
   state = {
@@ -38,6 +39,7 @@ class App extends Component {
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
+      console.log(user,'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj')
       if (user) {
         this.setState({ loggedInUserId: user.uid });
 
@@ -100,6 +102,7 @@ class App extends Component {
 
   render() {
     console.log(this.state.spotifyLoggedIn,'this is spotify login')
+    
     return (
       <div className="App">
         {/* This is the top bar */}
