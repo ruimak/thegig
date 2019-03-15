@@ -238,7 +238,7 @@ class App extends Component {
                 exact
                 path="/artist/:band/news/:newsTitle"
                 render={({ match }) => (
-                  <ArtistNewsContent article={this.state.newsArticle} />
+                  <ArtistNewsContent params={match.params} article={this.state.newsArticle} />
                 )}
               />
               <Route

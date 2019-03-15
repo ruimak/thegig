@@ -16,9 +16,14 @@ export default class ArtistNews extends Component {
       <div>
         {this.state.news !== null
           ? this.state.news.map(newStory => {
+            console.log(newStory,'this is the news story')
+            let newsStorypicture = newStory.urlToImage !== null ? 
+            <img src={newStory.urlToImage} height='150' width='250'></img> 
+            : null
               return (
+                
                 <div>
-                  <div>{newStory.urlToImage}</div>
+                  {newsStorypicture}
                   <Link
                     to={{
                       pathname: `/artist/${this.props.params.band}/news/${newStory.title}`,
@@ -30,9 +35,10 @@ export default class ArtistNews extends Component {
                   >{newStory.title}</Link>
                     
                 
-                  <div>{newStory.title}</div>
+                  <h1>{newStory.title}</h1>
                   <div>{"Source: " + newStory.source.name}</div>
                   <div>{newStory.description}</div>
+                  
                 </div>
               );
             })
