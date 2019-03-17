@@ -26,7 +26,7 @@ import Discography from "./components/bandPage/Discography";
 import Album from "./components/bandPage/Album";
 import RedirectButton from "./components/utilities/RedirectButton";
 import SongInfo from "./components/songsPage/SongInfo";
-const { database } = firebase;
+// const { database } = firebase;
 
 // import styles
 import "./App.css";
@@ -42,7 +42,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 
 // import MenuIcon from '@material-ui/icons/Menu';
-
+const { database } = firebase;
 const styles = theme => ({
   root: {
     width: "100%"
@@ -255,6 +255,7 @@ class App extends Component {
               )}
             />
             <Switch>
+              
               <Route
                 path="/artist/:band"
                 render={({ match }) => (

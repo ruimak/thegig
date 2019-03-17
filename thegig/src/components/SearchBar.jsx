@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getBandInfo, getBandSuggestions } from "../api";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import Autosuggest from "react-autosuggest";
 
 // these are for the styles
@@ -23,13 +23,12 @@ import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
-import deburr from 'lodash/deburr';
-import match from 'autosuggest-highlight/match';
-import parse from 'autosuggest-highlight/parse';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-
+import deburr from "lodash/deburr";
+import match from "autosuggest-highlight/match";
+import parse from "autosuggest-highlight/parse";
+import TextField from "@material-ui/core/TextField";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
 
 // const styles = theme => ({
 //   search: {
@@ -90,8 +89,8 @@ function renderInputComponent(inputProps) {
           inputRef(node);
         },
         classes: {
-          input: classes.input,
-        },
+          input: classes.input
+        }
       }}
       {...other}
     />
@@ -113,7 +112,7 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
             <strong key={String(index)} style={{ fontWeight: 300 }}>
               {part.text}
             </strong>
-          ),
+          )
         )}
       </div>
     </MenuItem>
@@ -123,45 +122,50 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
 const styles = theme => ({
   root: {
     height: 250,
-    flexGrow: 1,
+    flexGrow: 1
   },
   container: {
-    position: 'relative',
+    position: "relative"
   },
   suggestionsContainerOpen: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 1,
     marginTop: theme.spacing.unit,
     left: 0,
-    right: 0,
+    right: 0
   },
   suggestion: {
-    display: 'block',
+    display: "block"
   },
   suggestionsList: {
     margin: 0,
     padding: 0,
-    listStyleType: 'none',
+    listStyleType: "none"
   },
   divider: {
-    height: theme.spacing.unit * 2,
-  },
+    height: theme.spacing.unit * 2
+  }
 });
 
 const getSuggestions = value => {
-  console.log(value, 'VALUEEEEEEEEEEEE')
-  const inputValue = deburr(value.trim()).toLowerCase();
+  console.log(value, "VALUEEEEEEEEEEEE");
+  //IF YOU WANT TO SEARCH WITHOUT ACCENT IN WORDS REPLACE WITH THE FOLLOWING
+  // const inputValue = deburr(value.trim()).toLowerCase();
+  const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
   return getBandSuggestions(value).then(result => {
+
     return inputLength === 0
       ? []
-      : result.data.results.artistmatches.artist.filter(
-          artist => artist.name.toLowerCase().slice(0, inputLength) === inputValue
-        ).slice(0,5);
+      : result.data.results.artistmatches.artist
+        //  add this part to filter exact matches rather than relevant ones
+          // .filter(
+          //   artist =>
+          //     artist.name.toLowerCase().slice(0, inputLength) === inputValue
+          // )
+          .slice(0, 5);
   });
 };
-
-
 
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
@@ -171,89 +175,127 @@ const getSuggestionValue = suggestion => suggestion.name;
 // Use your imagination to render suggestions.
 // const renderSuggestion = suggestion => <div>{suggestion.name}</div>;
 
-export default withStyles(styles)(class SearchBar extends React.Component {
-  constructor() {
-    super();
+export default withStyles(styles)(
+  withRouter(
+    class SearchBar extends React.Component {
+      // Autosuggest is a controlled component.
+      // This means that you need to provide an input value
+      // and an onChange handler that updates this value (see below).
+      // Suggestions also need to be provided to the Autosuggest,
+      // and they are initially empty because the Autosuggest is closed.
+      state = {
+        value: "",
+        suggestions: [],
+        popper: ""
+      };
 
-    // Autosuggest is a controlled component.
-    // This means that you need to provide an input value
-    // and an onChange handler that updates this value (see below).
-    // Suggestions also need to be provided to the Autosuggest,
-    // and they are initially empty because the Autosuggest is closed.
-    this.state = {
-      value: "",
-      suggestions: [],
-      popper:''
-    };
-  }
+      handleChange = name => (event, { newValue }) => {
+        this.setState({
+          [name]: newValue
+        });
+      };
 
-  handleChange = name => (event, { newValue }) => {
-    this.setState({
-      [name]: newValue,
-    });
-  };
+      // Autosuggest will call this function every time you need to update suggestions.
+      // You already implemented this logic above, so just use it.
+      onSuggestionsFetchRequested = ({ value }) => {
+        getSuggestions(value).then(result => {
+          this.setState({
+            suggestions: result
+          });
+        });
+      };
 
-  // Autosuggest will call this function every time you need to update suggestions.
-  // You already implemented this logic above, so just use it.
-  onSuggestionsFetchRequested = ({ value }) => {
-    getSuggestions(value).then(result=>{
-       this.setState({
-      suggestions: result
-    });
-    })
-  };
+      // Autosuggest will call this function every time you need to clear suggestions.
+      onSuggestionsClearRequested = () => {
+        this.setState({
+          suggestions: []
+        });
+      };
 
-  // Autosuggest will call this function every time you need to clear suggestions.
-  onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    });
-  };
+      onSuggestionSelected = (
+        suggestion,
+        suggestionValue,
+        suggestionIndex,
+        sectionIndex,
+        method
+      ) => {
+        if (!suggestionValue) {
+          getBandInfo(suggestion).then(bandInfo => {
+            console.log(bandInfo.data.artist.name, "NAME OF THE ARTIST");
+            this.props.getBandInformation(bandInfo.data.artist);
+            this.setState({ value: "" });
+            this.props.history.push(
+              `/artist/${bandInfo.data.artist.name}/news/`
+            );
+          });
+        } else if (suggestionValue && suggestionValue.method === "click") {
+          getBandInfo(suggestionValue.suggestionValue).then(bandInfo => {
+            this.props.getBandInformation(bandInfo.data.artist);
+            this.props.history.push(
+              `/artist/${suggestionValue.suggestionValue}/news/`
+            );
+            this.setState({ value: "" });
+          });
+        } else {
+          getBandInfo(suggestionValue.suggestionValue).then(bandInfo => {
+            this.props.getBandInformation(bandInfo.data.artist);
+            this.props.history.push(`/artist/${this.state.value}/news/`);
+            this.setState({ value: "" });
+            console.log(this.state.value, "HELLO");
+          });
+        }
+      };
 
-  render() {
-    console.log(this.state, 'STATE')
-    const { classes } = this.props;
+      onKeyDown(event) {
+        if (event.key === "Enter") {
+          this.onSuggestionSelected(this.state.value);
+        }
+      }
 
-    const autosuggestProps = {
-      renderInputComponent,
-      suggestions: this.state.suggestions,
-      onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
-      onSuggestionsClearRequested: this.onSuggestionsClearRequested,
-      getSuggestionValue,
-      renderSuggestion,
-    };
+      render() {
+        const { classes } = this.props;
 
-    const { value, suggestions } = this.state;
+        const autosuggestProps = {
+          renderInputComponent,
+          suggestions: this.state.suggestions,
+          onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
+          onSuggestionsClearRequested: this.onSuggestionsClearRequested,
+          getSuggestionValue,
+          renderSuggestion,
+          onSuggestionSelected: this.onSuggestionSelected
+        };
 
-    // Autosuggest will pass through all these props to the input.
-  
-    // if (suggestions === undefined) {
-    //   return null;
-    // }
-    // Finally, render it!
-    return  <div className={classes.root}>
-    <Autosuggest
-      {...autosuggestProps}
-      inputProps={{
-        classes,
-        placeholder: 'Search for an artist...',
-        value: this.state.value,
-        onChange: this.handleChange('value'),
-      }}
-      theme={{
-        container: classes.container,
-        suggestionsContainerOpen: classes.suggestionsContainerOpen,
-        suggestionsList: classes.suggestionsList,
-        suggestion: classes.suggestion,
-      }}
-      renderSuggestionsContainer={options => (
-        <Paper {...options.containerProps} square>
-          {options.children}
-        </Paper>
-      )}
-    />
-    <div className={classes.divider} />
-    {/* <Autosuggest
+        const { value, suggestions } = this.state;
+
+        // Autosuggest will pass through all these props to the input.
+
+
+        // Finally, render it!
+        return (
+          <div className={classes.root}>
+            <Autosuggest
+              {...autosuggestProps}
+              inputProps={{
+                classes,
+                placeholder: "Search for an artist...",
+                value: this.state.value,
+                onChange: this.handleChange("value"),
+                onKeyDown: this.onKeyDown.bind(this)
+              }}
+              theme={{
+                container: classes.container,
+                suggestionsContainerOpen: classes.suggestionsContainerOpen,
+                suggestionsList: classes.suggestionsList,
+                suggestion: classes.suggestion
+              }}
+              renderSuggestionsContainer={options => (
+                <Paper {...options.containerProps} square>
+                  {options.children}
+                </Paper>
+              )}
+            />
+            <div className={classes.divider} />
+            {/* <Autosuggest
       {...autosuggestProps}
       inputProps={{
         classes,
@@ -283,10 +325,13 @@ export default withStyles(styles)(class SearchBar extends React.Component {
           </Paper>
         </Popper>
       )} */}
-    {/* /> */}
-  </div>
-  }
-})
+            {/* /> */}
+          </div>
+        );
+      }
+    }
+  )
+);
 
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
