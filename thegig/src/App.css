@@ -1,0 +1,10 @@
+.navBar {
+    background-color: #63458a;
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+  }
+
+  .searchAndNav {
+    display: grid;
+    grid-template-rows:50% 50%;
+  }

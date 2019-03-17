@@ -36,7 +36,7 @@ const chartButton = (name, keyWord) => {
               {this.state.charts !== null ?
         <div>
         {this.state.charts.map(track => {     
-                 return  <Link to={`/${track.artist}/song/${track.title}`}><div>  {`Rank: ${track.rank} Track:${track.title}Artist: ${track.artist} ${track.cover}` }</div>
+                 return  <Link to={`/artist/${track.artist}/song/${track.title}`}><div>  {`Rank: ${track.rank} Track:${track.title}Artist: ${track.artist} ${track.cover}` }</div>
             </Link> })}  </div> 
              : 
              null}

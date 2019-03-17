@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SearchBar from "./components/SearchBar";
 import BandInfo from "./components/bandPage/BandInfo";
-import { Route, Link, Switch,withRouter } from "react-router-dom";
+import { Route, Link, Switch, withRouter } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import ArtistEvents from "./components/bandPage/ArtistEvents";
 import SetLists from "./components/bandPage/SetLists";
@@ -26,7 +26,80 @@ import Discography from "./components/bandPage/Discography";
 import Album from "./components/bandPage/Album";
 import RedirectButton from "./components/utilities/RedirectButton";
 import SongInfo from "./components/songsPage/SongInfo";
+// const { database } = firebase;
+
+// import styles
+import "./App.css";
+
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import InputBase from "@material-ui/core/InputBase";
+import { fade } from "@material-ui/core/styles/colorManipulator";
+import { withStyles } from "@material-ui/core/styles";
+import MenuIcon from "@material-ui/icons/Menu";
+import SearchIcon from "@material-ui/icons/Search";
+
+// import MenuIcon from '@material-ui/icons/Menu';
 const { database } = firebase;
+const styles = theme => ({
+  root: {
+    width: "100%"
+  },
+  grow: {
+    flexGrow: 1
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  title: {
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block"
+    }
+  },
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.black, 0.15),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.black, 0.25)
+    },
+    marginRight: theme.spacing.unit * 2,
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing.unit * 3,
+      width: "auto"
+    }
+  },
+  searchIcon: {
+    width: theme.spacing.unit * 9,
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  inputRoot: {
+    color: "inherit",
+    width: "100%"
+  },
+  inputInput: {
+    paddingTop: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 10,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: 200
+    }
+  }
+});
 
 class App extends Component {
   state = {
@@ -34,10 +107,11 @@ class App extends Component {
     userBands: [],
     loggedInUserId: null,
     newsArticle: null,
-    spotifyLoggedIn:''
+    spotifyLoggedIn: ""
   };
 
   componentDidMount() {
+    console.log(this.props, "CLASSES");
     firebase.auth().onAuthStateChanged(user => {
       console.log(user,'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj')
       if (user) {
@@ -74,10 +148,11 @@ class App extends Component {
       }
     });
   }
+
   userIsLoggedIn = this.userIsLoggedIn.bind(this);
   userIsLoggedIn(loggedInState) {
-    console.log(loggedInState,'this is the logged in state')
-    this.setState({spotifyLoggedIn:loggedInState})
+    console.log(loggedInState, "this is the logged in state");
+    this.setState({ spotifyLoggedIn: loggedInState });
   }
 
   getBandInformation = band => {
@@ -101,25 +176,50 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.spotifyLoggedIn,'this is spotify login')
-    
+    console.log(this.state.spotifyLoggedIn, "this is spotify login");
+    const { classes } = this.props;
     return (
-      <div className="App">
-        {/* This is the top bar */}
+      <div>
+        {/* this is the main navbar, displayed throughout the app */}
+        <div className={classes.root}>
+          {/* <Toolbar> */}
+            <div className="navBar" position="fixed">
+              <img
+                src="https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/20604412_281592685577903_8591182496679565167_n.png?_nc_cat=107&_nc_ht=scontent-lhr3-1.xx&oh=7abfaffd608ac2791c39ad49f222db97&oe=5D19502A"
+                height="50"
+                width="50"
+              />
+              <div className="searchAndNav">
+                <SearchBar getBandInformation={this.getBandInformation} />
+                <Route
+                  path="/*"
+                  render={({ match }) => (
+                    <NavBar
+                      tabs={[
+                        ["", "DefaultNews"],
+                        ["myBands", "My Bands"],
+                        ["myEvents", "My Events"],
+                        ["topCharts", "Top Charts"]
+                      ]}
+                    />
+                  )}
+                />
+              </div>
+              <RedirectButton
+                location={"/Settings"}
+                displayLocation={"Settings"}
+                eraseBandInfo={this.eraseBandInfo}
+              />
+            </div>
+          {/* </Toolbar> */}
+        </div>
 
         <RedirectButton
           location={"/"}
           displayLocation={"Home"}
           eraseBandInfo={this.eraseBandInfo}
         />
-        <RedirectButton
-          location={"/Settings"}
-          displayLocation={"Settings"}
-          eraseBandInfo={this.eraseBandInfo}
-        />
 
-        {/* we have to delete the materialize in the next line */}
-        <h1 className="blue-text text-darken-2 center">The Gig</h1>
         {/* <Settings  loggedInUser={this.state.loggedInUserId}/> */}
 
         {/* {this.state.bandInfoInApp && this.state.userBands && (
@@ -136,8 +236,6 @@ class App extends Component {
         <SetLocation loggedInUser={this.state.loggedInUserId} />
         <AutoGetLocation />
 
-        <SearchBar getBandInformation={this.getBandInformation} />
-
         {!this.state.loggedInUserId && <LogIn />}
         {!this.state.loggedInUserId && <SignIn />}
 
@@ -147,7 +245,7 @@ class App extends Component {
         )} */}
 
         {/* <FollowedBandsNews /> */}
-        {/* This is the main div */}
+        {/* This is the navbar div */}
         {this.state.loggedInUserId && (
           <div id="mainDiv">
             <Route
@@ -157,38 +255,36 @@ class App extends Component {
               )}
             />
             <Switch>
+              
               <Route
-              path="/artist/:band"
-              render={({ match }) => (
-                <NavBar
-                  tabs={[
-                    ["news", "News"],
-                    ["albums", "Discography"],
-                    ["info", "Band Info"],
-                    ["events", "Events"],
-                    ["setlists", "Setlists"]
-                  ]}
-
-                  params={match.params}
-                />
-              )}
-            />
-            <Route
-              path="/*"
-              render={({ match }) => (
-                <NavBar
-                  tabs={[
-                    ["", "DefaultNews"],
-                    ["myBands", "My Bands"],
-                    ["myEvents", "My Events"],
-                    ["topCharts", "Top Charts"]
-                  ]}
-                />
-              )}
-            />
+                path="/artist/:band"
+                render={({ match }) => (
+                  <NavBar
+                    tabs={[
+                      ["news", "News"],
+                      ["albums", "Discography"],
+                      ["info", "Band Info"],
+                      ["events", "Events"],
+                      ["setlists", "Setlists"]
+                    ]}
+                    params={match.params}
+                  />
+                )}
+              />
+              <Route
+                path="/*"
+                render={({ match }) => (
+                  <NavBar
+                    tabs={[
+                      ["", "DefaultNews"],
+                      ["myBands", "My Bands"],
+                      ["myEvents", "My Events"],
+                      ["topCharts", "Top Charts"]
+                    ]}
+                  />
+                )}
+              />
             </Switch>
-            
-            
 
             <Switch>
               {/* <Route exact path="/NotFound" component={NotFound} /> */}
@@ -198,7 +294,10 @@ class App extends Component {
                 exact
                 path="/Settings"
                 render={props => (
-                  <Settings loggedInUser={this.state.loggedInUserId} spotifylogin={this.userIsLoggedIn} />
+                  <Settings
+                    loggedInUser={this.state.loggedInUserId}
+                    spotifylogin={this.userIsLoggedIn}
+                  />
                 )}
               />
               <Route
@@ -221,18 +320,14 @@ class App extends Component {
               <Route
                 exact
                 path="/artist/:band/info"
-                render={({ match }) => (
-                  <BandInfo
-                    params={match.params}
-                  />
-                )}
+                render={({ match }) => <BandInfo params={match.params} />}
               />
               <Route
                 exact
                 path="/artist/:band/news"
-                render={({match}) => (
+                render={({ match }) => (
                   <ArtistNews
-                  params={match.params}
+                    params={match.params}
                     getArticle={this.getSingleArticle}
                   />
                 )}
@@ -241,7 +336,10 @@ class App extends Component {
                 exact
                 path="/artist/:band/news/:newsTitle"
                 render={({ match }) => (
-                  <ArtistNewsContent params={match.params} article={this.state.newsArticle} />
+                  <ArtistNewsContent
+                    params={match.params}
+                    article={this.state.newsArticle}
+                  />
                 )}
               />
               <Route
@@ -257,21 +355,12 @@ class App extends Component {
               <Route
                 exact
                 path="/artist/:band/events"
-                render={({ match }) => (
-                  <ArtistEvents
-                    params={match.params}
-                  />
-                )}
+                render={({ match }) => <ArtistEvents params={match.params} />}
               />
               <Route
                 exact
                 path="/artist/:band/setlists"
-                render={({ match }) => (
-                  <SetLists
-                  params={match.params}
-                    
-                  />
-                )}
+                render={({ match }) => <SetLists params={match.params} />}
               />
               <Route
                 exact
@@ -281,7 +370,12 @@ class App extends Component {
               <Route
                 exact
                 path="/artist/:band/song/:songTitle"
-                render={({ match }) => <Spotifys params={match.params} loginState={this.state.spotifylogin} />}
+                render={({ match }) => (
+                  <Spotifys
+                    params={match.params}
+                    loginState={this.state.spotifylogin}
+                  />
+                )}
               />
             </Switch>
           </div>
@@ -291,4 +385,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withStyles(styles)(App);
