@@ -26,6 +26,7 @@ import Discography from "./components/bandPage/Discography";
 import Album from "./components/bandPage/Album";
 import RedirectButton from "./components/utilities/RedirectButton";
 import SongInfo from "./components/songsPage/SongInfo";
+const { database } = firebase;
 
 // import styles
 import "./App.css";
@@ -112,6 +113,7 @@ class App extends Component {
   componentDidMount() {
     console.log(this.props, "CLASSES");
     firebase.auth().onAuthStateChanged(user => {
+      console.log(user,'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj')
       if (user) {
         this.setState({ loggedInUserId: user.uid });
 

@@ -70,6 +70,11 @@ export const getArtistNews = name => {
     `https://newsapi.org/v2/everything?q=${name} AND music&language=en&apiKey=${mtvNewsAPIkey}`
   );
 };
+export const getFollowedBandNews = name => {
+  return axios.get(
+    `https://newsapi.org/v2/everything?q=${name} AND music&language=en&apiKey=${mtvNewsAPIkey}`
+  );
+};
 
 export const getAllBandNews = () => {
   return axios.get(
@@ -205,3 +210,9 @@ export const removeBandFromFollowedList = (userId, bandName) => {
     snapshot.ref.update({ [snapshot.node_.children_.root_.key]: null });
   });
 };
+
+export const getUsersFollowedBand = (user => {
+  database.ref('bands').get().then(snapshot => {
+console.log(snapshot.docs)
+  })
+})
