@@ -40,9 +40,23 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { purple, white } from '@material-ui/core/colors'
 
 // import MenuIcon from '@material-ui/icons/Menu';
 const { database } = firebase;
+
+//THIS IS THE THEME THAT IS BEING PASSED TO COMPONENTS, TO CHANGE ITS COLOR.
+//WE CAN ADD EXTRA COLORS AND CHANGE THE PROPS IN IT TO PRIMARY, SECONDARY AND SO ON
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: "#FFFFFF" }, 
+    // secondary: { main: '#11cb5f' }, 
+
+    // error: red,
+  },
+});
+
 const styles = theme => ({
   root: {
     width: "100%"
@@ -194,22 +208,24 @@ class App extends Component {
                 <Route
                   path="/*"
                   render={({ match }) => (
-                    <NavBar
+                    <MuiThemeProvider theme={theme}><NavBar
                       tabs={[
-                        ["", "DefaultNews"],
+                        ["", "Home"],
                         ["myBands", "My Bands"],
                         ["myEvents", "My Events"],
                         ["topCharts", "Top Charts"]
                       ]}
-                    />
+                    /></MuiThemeProvider>
                   )}
                 />
               </div>
+              <MuiThemeProvider theme={theme}>
               <RedirectButton
                 location={"/Settings"}
                 displayLocation={"Settings"}
                 eraseBandInfo={this.eraseBandInfo}
-              />
+              /></MuiThemeProvider>
+              
             </div>
           {/* </Toolbar> */}
         </div>

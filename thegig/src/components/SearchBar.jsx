@@ -30,6 +30,8 @@ import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 
+
+
 // const styles = theme => ({
 //   search: {
 //     position: "relative",
@@ -120,12 +122,20 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
 }
 
 const styles = theme => ({
+  // https://github.com/moroshko/react-autosuggest - at the bottom there are some guidelines to style the searchbar
   root: {
-    height: 250,
-    flexGrow: 1
+    height: 100,
+    flexGrow: 1,
+    width: theme.spacing.unit *40 ,
+  },
+  input:{
+    backgroundColor:'#FFFFFF',
+    width: theme.spacing.unit *40 ,
   },
   container: {
-    position: "relative"
+    marginTop: theme.spacing.unit * 2,
+    position: "relative",
+  
   },
   suggestionsContainerOpen: {
     position: "absolute",
@@ -135,8 +145,12 @@ const styles = theme => ({
     right: 0
   },
   suggestion: {
-    display: "block"
+    display: "block",
+
   },
+  // suggestionContainer:{
+  //   color: 'green'
+  // },
   suggestionsList: {
     margin: 0,
     padding: 0,
@@ -293,6 +307,7 @@ export default withStyles(styles)(
                   {options.children}
                 </Paper>
               )}
+           
             />
             <div className={classes.divider} />
             {/* <Autosuggest

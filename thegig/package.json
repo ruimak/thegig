@@ -11,6 +11,7 @@
     "firestore": "^1.1.6",
     "history": "^4.7.2",
     "latlon-geohash": "^1.1.0",
+    "material-icons": "^0.3.0",
     "react": "^16.8.3",
     "react-autosuggest": "^9.4.3",
     "react-dom": "^16.8.3",
