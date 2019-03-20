@@ -98,7 +98,7 @@ const styles = {
   
   
 }
-console.log(styles,'these are the styles')
+// console.log(styles,'these are the styles')
 
 
 export default withStyles(styles)(BandInfo);

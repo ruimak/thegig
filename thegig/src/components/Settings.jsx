@@ -89,7 +89,7 @@ this.setState({[e.target.name]: target})
        <button onClick={() => updateUser(this.props.loggedInUser,{avatar:this.state.newAvatar})}>Change Avatar</button>
        <input onChange={this.handleChange} type='text' name='newAvatar' placeholder='current password'></input>
        </form>
-       <a href={`http://localhost:8888`}>
+       <a href={`https://spotify-api-thegig.herokuapp.com/`}>
         <button>login with spotify</button>
         </a>
 

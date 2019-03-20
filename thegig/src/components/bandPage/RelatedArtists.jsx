@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 
 
+
 const RelatedArtists = (props) => {
     return (
         <div direction="column"

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Spotify from 'spotify-web-api-js'
 import '../components/Spotify.css'
 import Iframe from 'react-iframe'
+import axios from 'axios'
 import { withRouter } from "react-router-dom";
 
 
@@ -70,7 +71,7 @@ class Spotifys extends Component {
 
    componentDidMount(){
     
-    
+   
     
      
     const NewObject= {}
@@ -148,6 +149,7 @@ spotifyWebApi.getTrack([getSong]).then(response => {
 }
 
     render() {
+        console.log(this.state.loggedIn,'user is logged in')
        const notsignedinrender =  this.props.loginState === false ?  <div>Please login with spotify in the settings to play</div> :      <div className='container'>
        <div>
           <select onChange={(e) =>this.handleChange(e,this.state.playlists)}> 
