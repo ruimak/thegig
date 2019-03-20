@@ -197,13 +197,13 @@ class App extends Component {
         {/* this is the main navbar, displayed throughout the app */}
         <div className={classes.root}>
           {/* <Toolbar> */}
-            <div className="navBar" position="fixed">
+            <div className="navBar" position="fixed" >
               <img
                 src="https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/20604412_281592685577903_8591182496679565167_n.png?_nc_cat=107&_nc_ht=scontent-lhr3-1.xx&oh=7abfaffd608ac2791c39ad49f222db97&oe=5D19502A"
                 height="50"
                 width="50"
               />
-              <div className="searchAndNav">
+              <div className="searchAndNav" >
                 <SearchBar getBandInformation={this.getBandInformation} />
                 <Route
                   path="/*"
@@ -229,12 +229,12 @@ class App extends Component {
             </div>
           {/* </Toolbar> */}
         </div>
-
+{/* 
         <RedirectButton
           location={"/"}
           displayLocation={"Home"}
           eraseBandInfo={this.eraseBandInfo}
-        />
+        /> */}
 
         {/* <Settings  loggedInUser={this.state.loggedInUserId}/> */}
 
@@ -249,8 +249,8 @@ class App extends Component {
         )}  */}
 
         {/* <SongLyrics bandName={"eminem"} songTitle={"without me"} /> */}
-        <SetLocation loggedInUser={this.state.loggedInUserId} />
-        <AutoGetLocation />
+        {/* <SetLocation /> */}
+        {/* <AutoGetLocation /> */}
 
         {!this.state.loggedInUserId && <LogIn />}
         {!this.state.loggedInUserId && <SignIn />}

@@ -127,10 +127,13 @@ const styles = theme => ({
     height: 100,
     flexGrow: 1,
     width: theme.spacing.unit *40 ,
+
+    
   },
   input:{
     backgroundColor:'#FFFFFF',
     width: theme.spacing.unit *40 ,
+    
   },
   container: {
     marginTop: theme.spacing.unit * 2,
@@ -286,7 +289,7 @@ export default withStyles(styles)(
 
         // Finally, render it!
         return (
-          <div className={classes.root}>
+          <div className={classes.root} >
             <Autosuggest
               {...autosuggestProps}
               inputProps={{
