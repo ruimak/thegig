@@ -5,7 +5,10 @@ import firebase from "firebase";
 import {getFollowedBandNews} from '../../api'
 import {Tabs,Avatar,Typography,Grid,Slide, GridList} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import Carousel from "nuka-carousel";
+import CarouselComponent from "./Carousel";
 const { red, blue, green } = require('@material-ui/core/colors');
+
 const Button = require('@material-ui/core/Button').default;
 
 const { database } = firebase;
@@ -23,34 +26,36 @@ class HomeBandNews extends Component {
 
 
   componentDidMount() {
-//    firebase.database.ref('bands').on('value',(data => {
-// console.log(data,'this is data')
-//    }))
-    
+    //    firebase.database.ref('bands').on('value',(data => {
+    // console.log(data,'this is data')
+    //    }))
 
-//DANNYS ALGORYTHM
+    //DANNYS ALGORYTHM
 
-//    const bands =  ['foals','eagles']
-//    const lol = bands.map(band => {
-// return ` ${band} OR`
-//    })
-//    const lolagain = lol.reduce((acc, culval,index) => {
-     
-//       return acc + culval
-//    },'')
-//    const hi = lolagain.substring(0,lolagain.length-2)
-//    console.log(hi,'OOOOOOOOOOO********&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-   
-//    console.log(typeof lolagain,'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp')
-//    console.log([...lol].concat(lol),'{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}')
-//    getFollowedBandNews(hi).then(data => {
-//      console.log(data,'kkkkkkkkkkkkkkkkkggggggggggggggggggggggggggg')
-//    })
+    //    const bands =  ['foals','eagles']
+    //    const lol = bands.map(band => {
+    // return ` ${band} OR`
+    //    })
+    //    const lolagain = lol.reduce((acc, culval,index) => {
+
+    //       return acc + culval
+    //    },'')
+    //    const hi = lolagain.substring(0,lolagain.length-2)
+    //    console.log(hi,'OOOOOOOOOOO********&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
+
+    //    console.log(typeof lolagain,'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp')
+    //    console.log([...lol].concat(lol),'{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}')
+    //    getFollowedBandNews(hi).then(data => {
+    //      console.log(data,'kkkkkkkkkkkkkkkkkggggggggggggggggggggggggggg')
+    //    })
 
     getAllBandNews().then(bandNews => {
           this.setState({bandNews : bandNews.data.articles,
           carousel:bandNews.data.articles[0]})
       })
+      setTimeout(() => {
+        window.dispatchEvent(new Event("resize")); // THIS FUNCTION MAKES THE FIRST SLIDE WORK FINE
+      }, 0);
   
   }
   
@@ -61,35 +66,30 @@ class HomeBandNews extends Component {
       console.log(this.state,'this is the band news')
       console.log(firsthalfnews,'IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
       console.log(secondhalfnews,'77777777777777777777777')
+      console.log(this.state);
+let arrayToDisplayInCarousel = []
+let otherNews = []
+arrayToDisplayInCarousel=this.state.bandNews.slice(0,6)
+otherNews= this.state.bandNews.slice(6,this.state.bandNews.length)
       
     return (
       
       <div  className={this.props.classes.root}>
-        {/* {this.state.carousel !== null ?  <div style={{ position: 'relative', width: '100%', height: 500 }}> */}
-  
-  {/* <AutoRotatingCarousel
-  
-  
-  classes={this.props.classes.position}
-  >
-    <Slide
-      media={<img src={this.state.carousel.urlToImage}classes={this.props.classes.height}/>}
-      title='Ever wanted to be popular?'
-      subtitle='Well just mix two colors and your are good to go!'
-      classes={this.props.classes.backgroundColor}
-    /> */}
-     {/* <Slide
-      media={<img src='http://www.icons101.com/icon_png/size_256/id_80975/GoogleInbox.png' />}
-      title='Ever wanted to be popular?'
-      subtitle='Well just mix two colors and your are good to go!'
-    />
-    <Slide
-      media={<img src='http://www.icons101.com/icon_png/size_256/id_76704/Google_Settings.png' />}
-      title='Ever wanted to be popular?'
-      subtitle='Well just mix two colors and your are good to go!'
-    />  */}
-  {/* </AutoRotatingCarousel> */}
-{/* </div> : 'no news'} */}
+      <Carousel width="70%" autoplay="true">
+        {this.state.bandNews !== null
+          ? arrayToDisplayInCarousel.map(news => {
+              return (
+                <div>
+                  <img src={news.urlToImage} height="50%" width="50%" />
+                  <br />
+                  {news.content}
+                  {/* <a href={news.url}>{news.url}</a> */}
+                </div>
+              );
+            })
+          : null}
+      </Carousel>
+       
  <Grid container item sm={12} >
  <Grid item sm={6}>
           {this.state.bandNews !== null ? firsthalfnews.map(news => {
@@ -179,8 +179,17 @@ paddingBottom : '8%'
   link : {
     paddingBottom : '15%'
   }
-  
-  
 }
+   
+
+  
+
+  
+  
+    
+
+
+      
+   
 
 export default withStyles(styles)(HomeBandNews)

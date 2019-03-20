@@ -12,11 +12,11 @@ maybe use an index to group all the imports in app.js (its getting out of hand)
 LYRICS
 open in new window, as its shown in here : https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202
 
-MY BANDS
-need to be able to unfollow in there
-
 REGISTRATION
 should set location and radius in there
+
+SETTINGS
+neet to check if you can indeed auto update location and change that to settings
 
 BILLBOARDS
 the billboards are too slow, need to check why

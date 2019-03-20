@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Autocomplete from "./AutoComplete";
 import Geohash from 'latlon-geohash';
 import {updateUser} from '../../api'
+import firebase from "../../firebase.js";
 
 export default class SetLocation extends Component {
   state = {
@@ -12,8 +13,11 @@ export default class SetLocation extends Component {
 
   showPlaceDetails(place) {
     this.setState({ place });
-    updateUser(this.props.loggedInUser,{radius:10, location: Geohash.encode(place.geometry.location.lat(), place.geometry.location.lng(), 6)})
-
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log(place, 'PLACEEEEEEEEEEEEEEEEEEE')
+    updateUser(user.uid,{radius:10, location: Geohash.encode(place.geometry.location.lat(), place.geometry.location.lng(), 6)})
+      }})
   }
 
   render() {
