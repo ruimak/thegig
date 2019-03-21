@@ -132,7 +132,7 @@ export default class Settings extends Component {
         <SetLocation />
         <AutoGetLocation />
 
-        <a href={` https://spotify-thegig.herokuapp.com`}>
+        <a href={` https://spotify-thegig.herokuapp.com/`}>
           <button>login with spotify</button>
         </a>
       </div>
