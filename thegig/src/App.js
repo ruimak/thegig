@@ -26,7 +26,6 @@ import Discography from "./components/bandPage/Discography";
 import Album from "./components/bandPage/Album";
 import RedirectButton from "./components/utilities/RedirectButton";
 import SongInfo from "./components/songsPage/SongInfo";
-import CarouselComponent from './components/defaultPage/Carousel'
 // const { database } = firebase;
 
 // import styles

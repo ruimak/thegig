@@ -9,7 +9,7 @@ export default class MyBands extends Component {
       bandsFollowed : [],
       user: null 
   }
-  unfollowBand = (band)=>{
+  unfollowBand = (band, )=>{
     let bandsInState = this.state.bandsFollowed
     for (let i=bandsInState.length-1; i>=0; i--) {
       if (bandsInState[i] === band) {
