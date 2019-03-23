@@ -215,7 +215,8 @@ class App extends Component {
         <div className={classes.root}>
           {/* <Toolbar> */}
           <div className="navBar">
-            <img
+          
+          <img
               src="https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/20604412_281592685577903_8591182496679565167_n.png?_nc_cat=107&_nc_ht=scontent-lhr3-1.xx&oh=7abfaffd608ac2791c39ad49f222db97&oe=5D19502A"
               height="80"
               width="80"
@@ -280,12 +281,7 @@ class App extends Component {
                 )}
               />
 
-              <Route
-                path="/artist/:band/*"
-                render={({ match }) => (
-                  <FollowUnfollowButton params={match.params} />
-                )}
-              />
+            
             </div>
             <Switch>
               {/* <Route exact path="/NotFound" component={NotFound} /> */}

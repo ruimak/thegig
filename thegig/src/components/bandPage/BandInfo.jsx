@@ -9,7 +9,6 @@ import 'typeface-roboto';
 
 
 
-
 class BandInfo extends Component {
   state = {
     bio: null
@@ -29,6 +28,7 @@ class BandInfo extends Component {
 if(!this.state.bio) {return null}
 else return <div className={this.props.classes.wholeScreen}>
   <div className='container'>
+  
   <Grid container
   md={15}
   // direction="row"
