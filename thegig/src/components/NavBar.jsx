@@ -5,11 +5,14 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
+  
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit*9,
+    
   },
   input: {
-    display: "none"
+    display: "none",
+  
   }
 });
 
@@ -21,7 +24,7 @@ class NavBar extends Component {
         {this.props.params
           ? this.props.tabs.map(tab => {
               return (
-                <div className="Inline" key={tab[0]}>
+                <div className="Inline"   key={tab[0]}>
                   <Button
                     className={classes.button}
                     component={Link}
@@ -40,6 +43,11 @@ class NavBar extends Component {
                     className={classes.button}
                     color="primary"
                     variant="text"
+                    style={{
+                      paddingLeft: '5vh',
+                      paddingRight: '5vh',
+                      paddingTop:'1vh'
+                    }}
                     component={Link}
                     to={`/${tab[0]}`}
                     className="NavBar"

@@ -9,11 +9,12 @@ import Settings from "../Settings";
 const styles = theme => ({
   root: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
   },
   icon: {
-    margin: theme.spacing.unit * 2,
+    marginLeft: '50%',
+    marginTop:'4vh',
+    width: theme.spacing.unit * 5,
+    height: theme.spacing.unit * 5,
   },
   iconHover: {
     margin: theme.spacing.unit * 2,

@@ -124,21 +124,22 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
 const styles = theme => ({
   // https://github.com/moroshko/react-autosuggest - at the bottom there are some guidelines to style the searchbar
   root: {
-    height: 100,
+    height: 50,
     flexGrow: 1,
     width: theme.spacing.unit *40 ,
-
-    
+   
   },
   input:{
     backgroundColor:'#FFFFFF',
     width: theme.spacing.unit *40 ,
-    
+
   },
   container: {
     marginTop: theme.spacing.unit * 2,
+    marginLeft: '50%',
+    width:'100%',
     position: "relative",
-  
+    
   },
   suggestionsContainerOpen: {
     position: "absolute",
@@ -146,6 +147,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit,
     left: 0,
     right: 0
+
   },
   suggestion: {
     display: "block",
@@ -160,7 +162,8 @@ const styles = theme => ({
     listStyleType: "none"
   },
   divider: {
-    height: theme.spacing.unit * 2
+    height: theme.spacing.unit * 2,
+    
   }
 });
 
@@ -289,7 +292,7 @@ export default withStyles(styles)(
 
         // Finally, render it!
         return (
-          <div className={classes.root} >
+          <div className={classes.root} styles={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
             <Autosuggest
               {...autosuggestProps}
               inputProps={{

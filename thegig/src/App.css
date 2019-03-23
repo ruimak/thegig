@@ -1,10 +1,67 @@
 .navBar {
   background-color: #63458a;
+  height: 13vh;
   display: grid;
   grid-template-columns: 10% 80% 10%;
-  grid-template-rows:50% 50%;
+  /* grid-template-rows: 50% 50%; */
+  position:fixed;
+  z-index: 1;
+  width: 100%;
+  top:0%;
 }
 
 .margin-auto {
-  margin: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
+  width:100px;
+}
+
+.searchAndNav{ 
+ 
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mainSearchBar {
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.artist-nav-bar-background {
+  background-image: url("./picture1.png");
+  /* background-size: 100% 30vh; */
+
+  /* Add the blur effect */
+  filter: blur(8px);
+  -webkit-filter: blur(5px);
+  position: "absolute";
+  /* -webkit-filter: blur(8px); */
+
+  /* Full height */
+  height: 30vh;
+
+  /* Center and scale the image nicely */
+  /* background-position: center; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 2;
+}
+
+#mainDiv {
+  margin-top:12vh;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+#bandNavBar {
+  z-index: 4;
+  position: absolute;
+
+  top: 20%;
+}
+
+.settings-icon {
+  margin-left:50%
 }
