@@ -35,7 +35,7 @@ else return <div className={this.props.classes.wholeScreen}>
   // justify="center"
   // alignItems="center"
 >
-<Grid container md={8}>
+{/* <Grid container md={8}>
 <Grid className={this.props.classes.titleAndAvatar} item md={4}> 
 
 <Avatar  direction="row"
@@ -46,7 +46,7 @@ else return <div className={this.props.classes.wholeScreen}>
 <Typography  className={`${this.props.classes.header}`} >{this.state.bio.name}</Typography>
 
 </Grid>
-</Grid>
+</Grid> */}
 
 
 <Grid item sm ={9}>

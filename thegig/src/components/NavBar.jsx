@@ -13,7 +13,35 @@ const styles = theme => ({
   },
   input: {
     display: "none"
+  },
+  
+  avatar : {
+    height:180,
+    width:180,
+
+    
+  },
+  header : {
+    fontSize:'3.5em',
+    color: '#b288c0',
+    fontFamily: "'Lilita One', 'cursive'",
+    textColor:'grey'
+  
+  },
+  text : {
+    fontFamily: "'Titillium Web', 'sans-serif'",
+    fontSize:'1.4em',
+    color:'#444',
+    lineHeight: 2
+  },
+  wholeScreen : {
+    paddingRight:'20%',
+    paddingLeft:'20%'
+  },
+  titleAndAvatar : {
+    paddingBottom : '8%'
   }
+  
 });
 
 class NavBar extends Component {
@@ -40,21 +68,26 @@ class NavBar extends Component {
     const { classes } = this.props;
 
     const navBarComponent = (
-      <div className="Inline">
-
+      <div  className={'Inline'}>
+      
         {this.props.params && this.state.bio && (
           <div>
-            <Avatar
-              direction="row"
-              justify="center"
-              alignItems="center"
-              className={this.props.classes.avatar}
-              src={this.state.bio.image[4]["#text"]}
-            />
-            <Typography className={`${this.props.classes.header}`}>
-              {this.state.bio.name}
-            </Typography>
-            <FollowUnfollowButton params={this.props.params} />
+            <Grid container md={8}>
+              <Grid className={this.props.classes.titleAndAvatar} item md={4}>
+                <Avatar
+                 
+                  className={this.props.classes.avatar}
+                  src={this.state.bio.image[4]["#text"]}
+                />
+              </Grid>
+              <Grid item md={4}>
+                <Typography className={`${this.props.classes.header}`}>
+                  {this.state.bio.name}
+                </Typography>   <FollowUnfollowButton params={this.props.params} />
+              </Grid>
+            </Grid>
+
+         
           </div>
         )}
 
@@ -67,6 +100,7 @@ class NavBar extends Component {
                     component={Link}
                     to={`/artist/${this.props.params.band}/${tab[0]}/`}
                     className="NavBar"
+                    variant='outlined'
                   >
                     {tab[1]}
                   </Button>
