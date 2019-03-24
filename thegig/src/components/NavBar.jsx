@@ -14,34 +14,31 @@ const styles = theme => ({
   input: {
     display: "none"
   },
-  
-  avatar : {
-    height:180,
-    width:180,
 
-    
+  avatar: {
+    height: 210,
+    width: 210
   },
-  header : {
-    fontSize:'3.5em',
-    color: '#b288c0',
+  header: {
+    fontSize: "4em",
+    color: "#b288c0",
     fontFamily: "'Lilita One', 'cursive'",
-    textColor:'grey'
-  
+    textColor: "grey",
+    paddingTop: "4vh"
   },
-  text : {
+  text: {
     fontFamily: "'Titillium Web', 'sans-serif'",
-    fontSize:'1.4em',
-    color:'#444',
+    fontSize: "1.4em",
+    color: "#444",
     lineHeight: 2
   },
-  wholeScreen : {
-    paddingRight:'20%',
-    paddingLeft:'20%'
+  wholeScreen: {
+    paddingRight: "20%",
+    paddingLeft: "20%"
   },
-  titleAndAvatar : {
-    paddingBottom : '8%'
+  titleAndAvatar: {
+    paddingBottom: "2%"
   }
-  
 });
 
 class NavBar extends Component {
@@ -68,45 +65,48 @@ class NavBar extends Component {
     const { classes } = this.props;
 
     const navBarComponent = (
-      <div  className={'Inline'}>
-      
+      <div className={"Inline"} style={{ width: "100%"}}>
         {this.props.params && this.state.bio && (
-          <div>
-            <Grid container md={8}>
-              <Grid className={this.props.classes.titleAndAvatar} item md={4}>
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <Grid container md={7}>
+              <Grid className={this.props.classes.titleAndAvatar} item md={3}>
                 <Avatar
-                 
                   className={this.props.classes.avatar}
                   src={this.state.bio.image[4]["#text"]}
                 />
               </Grid>
-              <Grid item md={4}>
+              <Grid item md={6}>
                 <Typography className={`${this.props.classes.header}`}>
                   {this.state.bio.name}
-                </Typography>   <FollowUnfollowButton params={this.props.params} />
+                </Typography>{" "}
+                <FollowUnfollowButton params={this.props.params} />
               </Grid>
             </Grid>
-
-         
           </div>
         )}
 
         {this.props.params
-          ? this.props.tabs.map(tab => {
+          ? <div style={{display: 'flex', justifyContent: 'center'}}>{this.props.tabs.map(tab => {
               return (
-                <div className="Inline" key={tab[0]}>
+                <div
+                  className="Inline"
+                  style={{ paddingLeft: "1%", paddingRight: "1%" }}
+                  key={tab[0]}
+                >
                   <Button
                     className={classes.button}
                     component={Link}
                     to={`/artist/${this.props.params.band}/${tab[0]}/`}
                     className="NavBar"
-                    variant='outlined'
+                    variant="outlined"
                   >
                     {tab[1]}
                   </Button>
                 </div>
               );
-            })
+            })}</div>
           : this.props.tabs.map(tab => {
               return (
                 <div className="Inline" key={tab[0]}>

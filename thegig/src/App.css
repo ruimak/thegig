@@ -55,10 +55,11 @@
 }
 
 #bandNavBar {
+  width:100%;
   z-index: 4;
   position: absolute;
 
-  top: 20%;
+  top: 16%;
 }
 
 /* .settings-icon {
