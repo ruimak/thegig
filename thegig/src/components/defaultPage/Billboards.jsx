@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {getBillboardCharts} from '../../api'
 import { Link } from 'react-router-dom';
+import {Paper,Grid,Button} from '@material-ui/core';
 
 export default class Billboards extends Component {
     state = {
@@ -21,18 +22,20 @@ export default class Billboards extends Component {
         const listOfButtons = [['Hot100', 'hot-100'], ['RnB', 'rnb'], ['Top UK', 'uksongs'], ['Top Rock', 'rock'], ['Top Pop', 'pop'] ]
 const chartButton = (name, keyWord) => {
     return <div>
-        <button name={name} onClick={()=>this.handleClick(keyWord)}>
+        <Button name={name} onClick={()=>this.handleClick(keyWord)}>
         {name}
-        </button> 
+        </Button> 
        
         </div>
 }
 
     return (
       <div>
+          
              {listOfButtons.map((element, index)=>{
                  return chartButton(listOfButtons[index][0], listOfButtons[index][1])
              }) }
+             
               {this.state.charts !== null ?
         <div>
         {this.state.charts.map(track => {     
