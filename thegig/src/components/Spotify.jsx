@@ -34,7 +34,8 @@ class Spotifys extends Component {
            choosenPlaylist: '',
            spotifyPlay : '',
           target : null,
-          trackAdded : null
+          trackAdded : null,
+          spotifyLoggedIn : ''
 
           
 
@@ -68,7 +69,7 @@ class Spotifys extends Component {
 
     })
     
-    
+    this.setState({spotifyLoggedIn:this.props.loginState})
 }
 
 
@@ -106,9 +107,9 @@ class Spotifys extends Component {
 
     render() {
         console.log(this.state.loggedIn,'user is logged in')
-        console.log(this.state.spotifyPlay,'ooooooooooooooooooooooooooooooooo')
+        console.log(this.state,'ooooooooooooooooooooooooooooooooo')
         
-      return  this.state.loggedIn === false ?  <div>Please login with spotify in the settings to play a sample of this song</div> :      <div className='container'>
+      return  this.state.spotifyLoggedIn === false ?  <div>Please login with spotify in the settings to play a sample of this song</div> :      <div className='container'>
        <div>
            {/* <Link to={}></Link> */}
           <select onChange={(e) =>this.handleChange(e)}> 

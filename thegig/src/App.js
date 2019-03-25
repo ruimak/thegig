@@ -372,7 +372,7 @@ class App extends Component {
                 render={({ match }) => (
                   <Spotifys
                     params={match.params}
-                    loginState={this.state.spotifylogin}
+                    loginState={this.state.spotifyLoggedIn}
                   />
                 )}
               />
