@@ -26,7 +26,6 @@ import Discography from "./components/bandPage/Discography";
 import Album from "./components/bandPage/Album";
 import RedirectButton from "./components/utilities/RedirectButton";
 import SongInfo from "./components/songsPage/SongInfo";
-import CarouselComponent from './components/defaultPage/Carousel'
 // const { database } = firebase;
 
 // import styles
@@ -41,8 +40,8 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { purple, white } from '@material-ui/core/colors'
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { purple, white } from "@material-ui/core/colors";
 
 // import MenuIcon from '@material-ui/icons/Menu';
 const { database } = firebase;
@@ -51,11 +50,28 @@ const { database } = firebase;
 //WE CAN ADD EXTRA COLORS AND CHANGE THE PROPS IN IT TO PRIMARY, SECONDARY AND SO ON
 const theme = createMuiTheme({
   palette: {
-    primary: { main: "#FFFFFF" }, 
-    // secondary: { main: '#11cb5f' }, 
+    primary: { main: "#FFFFFF" }
+    // secondary: { main: '#11cb5f' },
 
     // error: red,
   },
+  
+    Button: {
+      // Name of the styleSheet
+      root: {
+        // Name of the rule
+        background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+        borderRadius: 3,
+        border: 0,
+        color: "black",
+        height: 48,
+        padding: "0 30px",
+        boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .30)"
+      }
+    
+  
+}
+  // padding: '300px'
 });
 
 const styles = theme => ({
@@ -128,7 +144,7 @@ class App extends Component {
   componentDidMount() {
     console.log(this.props, "CLASSES");
     firebase.auth().onAuthStateChanged(user => {
-      console.log(user,'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj')
+      console.log(user, "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
       if (user) {
         this.setState({ loggedInUserId: user.uid });
 
@@ -198,81 +214,57 @@ class App extends Component {
         {/* this is the main navbar, displayed throughout the app */}
         <div className={classes.root}>
           {/* <Toolbar> */}
-            <div className="navBar" position="fixed" >
-              <img
-                src="https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/20604412_281592685577903_8591182496679565167_n.png?_nc_cat=107&_nc_ht=scontent-lhr3-1.xx&oh=7abfaffd608ac2791c39ad49f222db97&oe=5D19502A"
-                height="50"
-                width="50"
+          <div className="navBar">
+          
+          <img
+              src="https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/20604412_281592685577903_8591182496679565167_n.png?_nc_cat=107&_nc_ht=scontent-lhr3-1.xx&oh=7abfaffd608ac2791c39ad49f222db97&oe=5D19502A"
+              height="80"
+              width="80"
+              style={{height:"80",
+              width:"80", marginLeft:'auto', marginRight:'auto', marginTop:'2vh'}}
+            />
+            <div className="searchAndNav">
+              <SearchBar
+                className="mainSearchBar"
+                getBandInformation={this.getBandInformation}
               />
-              <div className="searchAndNav" >
-                <SearchBar getBandInformation={this.getBandInformation} />
-                <Route
-                  path="/*"
-                  render={({ match }) => (
-                    <MuiThemeProvider theme={theme}><NavBar
+              <Route
+                path="/*"
+                render={({ match }) => (
+                  <MuiThemeProvider theme={theme}>
+                    <NavBar
                       tabs={[
                         ["", "Home"],
                         ["myBands", "My Bands"],
                         ["myEvents", "My Events"],
                         ["topCharts", "Top Charts"]
                       ]}
-                    /></MuiThemeProvider>
-                  )}
-                />
-              </div>
-              <MuiThemeProvider theme={theme}>
+                    />
+                  </MuiThemeProvider>
+                )}
+              />
+            </div>
+            <MuiThemeProvider theme={theme}>
               <RedirectButton
                 location={"/Settings"}
                 displayLocation={"Settings"}
                 eraseBandInfo={this.eraseBandInfo}
-              /></MuiThemeProvider>
-              
-            </div>
+              />
+            </MuiThemeProvider>
+          </div>
           {/* </Toolbar> */}
         </div>
-{/* 
-        <RedirectButton
-          location={"/"}
-          displayLocation={"Home"}
-          eraseBandInfo={this.eraseBandInfo}
-        /> */}
 
-        {/* <Settings  loggedInUser={this.state.loggedInUserId}/> */}
-
-        {/* {this.state.bandInfoInApp && this.state.userBands && (
-          <FollowUnfollowButton
-            userId={this.state.loggedInUserId}
-           band={this.state.bandInfoInApp.name}
-            bandsFollowed={
-              this.state.userBands !== [] ? this.state.userBands : null
-            }
-          />
-        )}  */}
-
-        {/* <SongLyrics bandName={"eminem"} songTitle={"without me"} /> */}
-        {/* <SetLocation /> */}
-        {/* <AutoGetLocation /> */}
-
+        {/* IF THE USER ISNT LOGGED IN WE GET THE NEXT 2 */}
         {!this.state.loggedInUserId && <LogIn />}
         {!this.state.loggedInUserId && <SignIn />}
 
-        <LogOut loggedInUserId={this.state.loggedInUserId} />
-        {/* {this.state.loggedInUserId && (
-          <div onClick={logout}>{"click here to log out"}</div>
-        )} */}
+        {/* <LogOut loggedInUserId={this.state.loggedInUserId} /> */}
 
-        {/* <FollowedBandsNews /> */}
-        {/* This is the navbar div */}
         {this.state.loggedInUserId && (
           <div id="mainDiv">
-            <Route
-              path="/artist/:band/*"
-              render={({ match }) => (
-                <FollowUnfollowButton params={match.params} />
-              )}
-            />
-            <Switch>
-              
+            <div className="artist-nav-bar-background" />
+            <div id="bandNavBar">
               <Route
                 path="/artist/:band"
                 render={({ match }) => (
@@ -288,21 +280,9 @@ class App extends Component {
                   />
                 )}
               />
-              <Route
-                path="/*"
-                render={({ match }) => (
-                  <NavBar
-                    tabs={[
-                      ["", "DefaultNews"],
-                      ["myBands", "My Bands"],
-                      ["myEvents", "My Events"],
-                      ["topCharts", "Top Charts"]
-                    ]}
-                  />
-                )}
-              />
-            </Switch>
 
+            
+            </div>
             <Switch>
               {/* <Route exact path="/NotFound" component={NotFound} /> */}
               {/* <Route exact path="/" component={DefaultBandNews} /> */}

@@ -1,10 +1,21 @@
 import React, { Component } from "react";
 import { getArtistNews } from "../../api";
 import { Link } from "react-router-dom";
+import {
+  Tabs,
+  Avatar,
+  Typography,
+  Grid,
+  Slide,
+  GridList
+} from "@material-ui/core";
+import Carousel from "nuka-carousel";
+import { withStyles } from "@material-ui/core/styles";
+const { red, blue, green } = require("@material-ui/core/colors");
 
-export default class ArtistNews extends Component {
+class ArtistNews extends Component {
   state = {
-    news: null,
+    news: [],
     band: ""
   };
   componentDidMount() {
@@ -51,49 +62,158 @@ export default class ArtistNews extends Component {
       let band = this.props.params.band;
       let newsToGoInState = [];
 
-        getArtistNews(this.props.params.band).then(news => {
-          newsToGoInState = news.data.articles;
+      getArtistNews(this.props.params.band).then(news => {
+        newsToGoInState = news.data.articles;
 
-         this.setState({ news: newsToGoInState, band: band }) 
-        });
+        this.setState({ news: newsToGoInState, band: band });
+      });
     }
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+    }, 0);
+  
   }
 
   render() {
-    return (
-      <div>
-        {this.state.news !== null
-          ? this.state.news.map(newStory => {
-              // console.log(newStory,'this is the news story')
-              let newsStorypicture =
-                newStory.urlToImage !== null ? (
-                  <img src={newStory.urlToImage} height="150" width="250" />
-                ) : null;
-              return (
-                <div>
-                  {newsStorypicture}
-                  <Link
-                    to={{
-                      pathname: `/artist/${this.props.params.band}/news/${
-                        newStory.title
-                      }`,
-                      state: { newStory: newStory }
-                    }}
-                    onClick={() => {
-                      this.props.getArticle(newStory);
-                    }}
-                  >
-                    {newStory.title}
-                  </Link>
+    let arrayToDisplayInCarousel = [];
+    let otherNews = [];
 
-                  <h1>{newStory.title}</h1>
-                  <div>{"Source: " + newStory.source.name}</div>
-                  <div>{newStory.description}</div>
-                </div>
-              );
-            })
-          : "There are no news for this band, sorry! :("}
+    arrayToDisplayInCarousel = this.state.news.slice(0, 6);
+    otherNews = this.state.news.slice(6, this.state.news.length);
+    let leftSideNews = otherNews.filter((element, index) => {
+      if (index === 0 || index % 2 === 0) return element;
+    });
+    let rightSideNews = otherNews.filter((element, index) => {
+      if (index !== 0 && index % 2 !== 0) return element;
+    });
+    return (
+      <div className={this.props.classes.root}>
+        <Carousel width="70%" autoplay="true">
+          {this.state.news !== []
+            ? arrayToDisplayInCarousel.map(news => {
+                console.log(news, "NEWSSSSSSSSSSSSSss");
+                return (
+                  <div>
+                    <img src={news.urlToImage} height="50%" width="50%" />
+                    <br />
+                    {news.content}
+                    {/* <a href={news.url}>{news.url}</a> */}
+                  </div>
+                );
+              })
+            : null}
+        </Carousel>
+
+        <Grid container item sm={12}>
+          <Grid item sm={6}>
+            {this.state.bandNews !== null
+              ? leftSideNews.map(news => {
+                  return (
+                    <div>
+                      <Grid item md={6}>
+                        <h1>{news.title}</h1>
+                        <img
+                          src={news.urlToImage}
+                          className={this.props.classes.image}
+                          height="250"
+                          width="350"
+                        />
+                        <Grid
+                          container
+                          item
+                          sm={10}
+                          direction="row"
+                          justify="center"
+                          alignItems="center"
+                        >
+                          >
+                          {news.content !== null
+                            ? news.content.substring(0, 70)
+                            : null}
+                          <a
+                            className={this.props.classes.link}
+                            href={news.url}
+                          >
+                            {news.url.substring(0, 30)}
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  );
+                })
+              : "no news to display"}
+          </Grid>
+
+          <Grid item sm={6}>
+            {this.state.bandNews !== null
+              ? rightSideNews.map(news => {
+                  return (
+                    <div>
+                      <Grid item md={6}>
+                        <h1>{news.title}</h1>
+                        <img
+                          className={this.props.classes.image}
+                          src={news.urlToImage}
+                          height="250"
+                          width="350"
+                        />
+                        <Grid
+                          container
+                          item
+                          sm={10}
+                          direction="row"
+                          justify="center"
+                          alignItems="center"
+                        >
+                          >
+                          {news.content !== null
+                            ? news.content.substring(0, 70)
+                            : null}
+                          <a
+                            className={this.props.classes.link}
+                            href={news.url}
+                          >
+                            {news.url.substring(0, 30)}
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  );
+                })
+              : "no news to display"}
+          </Grid>
+        </Grid>
       </div>
+
+     
     );
   }
 }
+
+const styles = {
+  position: {
+    position: "absolute"
+  },
+  backgroundColor: {
+    backgroundColor: red
+  },
+  height: {
+    height: "500",
+    width: "100%"
+  },
+  root: {
+    flexGrow: 1,
+    paddingRight: "25%",
+    paddingLeft: "25%",
+
+    paddingTop: "10%"
+  },
+  image: {
+    paddingBottom: "8%"
+  },
+  link: {
+    paddingBottom: "15%"
+  }
+};
+
+export default withStyles(styles)(ArtistNews);
