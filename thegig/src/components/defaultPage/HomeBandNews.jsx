@@ -192,8 +192,8 @@ const styles = {
   },
   root: {
     flexGrow: 1,
-    paddingRight: "25%",
-    paddingLeft: "25%",
+    // paddingRight: "25%",
+    paddingLeft: "10%",
 
     paddingTop: "10%"
   },

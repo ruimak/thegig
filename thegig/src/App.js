@@ -264,6 +264,7 @@ class App extends Component {
         {this.state.loggedInUserId && (
           <div id="mainDiv">
             <div className="artist-nav-bar-background" />
+            <div id='secondaryNavBarAndMainComponents'> 
             <div id="bandNavBar">
               <Route
                 path="/artist/:band"
@@ -283,6 +284,7 @@ class App extends Component {
 
             
             </div>
+            <div>
             <Switch>
               {/* <Route exact path="/NotFound" component={NotFound} /> */}
               {/* <Route exact path="/" component={DefaultBandNews} /> */}
@@ -374,7 +376,8 @@ class App extends Component {
                   />
                 )}
               />
-            </Switch>
+            </Switch></div></div>
+           
           </div>
         )}
       </div>

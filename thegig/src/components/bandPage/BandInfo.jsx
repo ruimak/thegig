@@ -66,8 +66,8 @@ else return <div className={this.props.classes.wholeScreen}>
 const styles = {
   
   container:{
-    paddingLeft:'20%',
-    paddingRight:'20%'
+    // paddingLeft:'20%',
+    // paddingRight:'20%'
   },
   avatar : {
     height:150,
@@ -89,8 +89,8 @@ const styles = {
     lineHeight: 2
   },
   wholeScreen : {
-    paddingRight:'20%',
-    paddingLeft:'20%'
+    // paddingRight:'20%',
+    // paddingLeft:'20%'
   },
   titleAndAvatar : {
     paddingBottom : '8%'
