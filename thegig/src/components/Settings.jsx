@@ -37,6 +37,9 @@ export default class Settings extends Component {
     return hashParams;
   }
 
+  
+  
+
   handleChange(e) {
     const target = e.target.value;
     this.setState({ [e.target.name]: target });

@@ -22,12 +22,16 @@ export default class Album extends Component {
         <div>
           <img src={this.state.albumInfo.image[4]["#text"]} />
           <div>{this.state.albumInfo.name}</div><br/>
+          <Link to={`/artist/${this.props.params.band}/albums`}>{this.props.params.band}</Link>
           {this.state.albumInfo !== null
             ? this.state.albumInfo.tracks.track.map(track => {
                 return (
+                  <div>
+                  
                   <Link to={`/artist/${this.props.params.band}/song/${track.name}`}>
                     {track.name}<br/>
                   </Link>
+                  </div>
                 );
               })
             : "no events to show yet"}

@@ -1,0 +1,26 @@
+
+
+.content{
+  font-weight: bold;
+  font-size: 1.7em;
+  transition: all 500ms;
+}
+
+.content:hover {
+    font-size: 2em;
+    color: pink;
+    /* font-size-adjust: 20px; */
+  }
+
+  .moreAlbumContent{
+    font-weight: bold;
+  font-size: 0.9em;
+  transition: all 500ms;
+  }
+
+  .moreAlbumContent:hover {
+    font-size: 1.1em;
+    color: pink;
+    /* font-size-adjust: 20px; */
+  }
+  
