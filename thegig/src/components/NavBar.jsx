@@ -32,10 +32,10 @@ const styles = theme => ({
     color: "#444",
     lineHeight: 2
   },
-  wholeScreen: {
-    paddingRight: "20%",
-    paddingLeft: "20%"
-  },
+  // wholeScreen: {
+  //   paddingRight: "20%",
+  //   paddingLeft: "20%"
+  // },
   titleAndAvatar: {
     paddingBottom: "2%"
   }
@@ -70,9 +70,10 @@ class NavBar extends Component {
           <div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
-            <Grid container md={7}>
-              <Grid className={this.props.classes.titleAndAvatar} item md={3}>
+            <Grid container md={7} >
+              <Grid className={this.props.classes.titleAndAvatar} item md={5} >
                 <Avatar
+                justify='center'
                   className={this.props.classes.avatar}
                   src={this.state.bio.image[4]["#text"]}
                 />

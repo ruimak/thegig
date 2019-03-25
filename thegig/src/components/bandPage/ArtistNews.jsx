@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import Carousel from "nuka-carousel";
 import { withStyles } from "@material-ui/core/styles";
+import './CarouselStyle.css'
 const { red, blue, green } = require("@material-ui/core/colors");
 
 class ArtistNews extends Component {
@@ -86,17 +87,17 @@ class ArtistNews extends Component {
     let rightSideNews = otherNews.filter((element, index) => {
       if (index !== 0 && index % 2 !== 0) return element;
     });
+    console.log(arrayToDisplayInCarousel)
     return (
       <div className={this.props.classes.root}>
-        <Carousel width="70%" autoplay="true">
+        <Carousel width="80%"  autoplay="true" autoGenerateStyleTag='true' heightMode='max'>
           {this.state.news !== []
             ? arrayToDisplayInCarousel.map(news => {
-                console.log(news, "NEWSSSSSSSSSSSSSss");
                 return (
-                  <div>
-                    <img src={news.urlToImage} height="50%" width="50%" />
+                  <div style={{display: 'inline', justifyContent: 'center', marginLeft:'9%' }}>
+                    <img src={news.urlToImage} height="400vw" width="600vw" />
                     <br />
-                    {news.content}
+                    <div style={{paddingBottom:'10%',justifyContent: 'center', marginLeft:'9%'}}>{news.title}</div>
                     {/* <a href={news.url}>{news.url}</a> */}
                   </div>
                 );
@@ -203,8 +204,8 @@ const styles = {
   },
   root: {
     flexGrow: 1,
-    paddingRight: "25%",
-    paddingLeft: "25%",
+    // paddingRight: "5%",
+    paddingLeft: "10%",
 
     paddingTop: "10%"
   },
