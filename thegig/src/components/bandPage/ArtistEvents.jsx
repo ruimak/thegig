@@ -7,11 +7,12 @@ export default class ArtistEvents extends Component {
   };
   componentDidMount() {
     getArtistEvent(this.props.params.band).then(events => {
+      console.log(events,'frefrhgfiuerhgiuerhgiergerghuerhgerui')
       this.setState({ eventsInfo: events.data._embedded.events });
     });
   }
   render() {
-    console.log(this.state.eventsInfo);
+    console.log(this.props.params.band,'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
     if (!this.state.eventsInfo) {
       return <div>{"No events to show."}</div>;
     } else

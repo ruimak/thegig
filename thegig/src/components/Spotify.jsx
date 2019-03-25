@@ -4,37 +4,12 @@ import '../components/Spotify.css'
 import Iframe from 'react-iframe'
 import axios from 'axios'
 import { withRouter } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 const spotifyWebApi = new Spotify()
 
 
-// code for sdk player
-// async function waitForSpotifyWebPlaybackSDKToLoad () {
-//     return new Promise(resolve => {
-//       if (window.Spotify) {
-//         resolve(window.Spotify);
-//       } else {
-//         window.onSpotifyWebPlaybackSDKReady = () => {
-//           resolve(window.Spotify);
-//         };
-//       }
-//     });
-//   };
 
-//   (async () => {
-//     const { Player } = await waitForSpotifyWebPlaybackSDKToLoad();
-//     console.log("The Web Playback SDK has loaded.");
-//     var player = new Spotify.Player({
-//         name: 'Carly Rae Jepsen Player',
-//         getOAuthToken: callback => {
-//           // Run code to get a fresh access token
-      
-//           callback('access token here');
-//         },
-//         volume: 0.5
-//       });
-//   })();
 
 
 class Spotifys extends Component {
@@ -42,7 +17,7 @@ class Spotifys extends Component {
     
     
    
-   
+    // addToPlaylist = this.addToPlaylist.bind(this);
     getHashParams = this.getHashParams.bind(this);
     
    constructor(){
@@ -58,6 +33,9 @@ class Spotifys extends Component {
         //    playlistId:[],
            choosenPlaylist: '',
            spotifyPlay : '',
+          target : null,
+          trackAdded : null
+
           
 
        }
@@ -71,9 +49,6 @@ class Spotifys extends Component {
 
    componentDidMount(){
     
-   
-    
-     
     const NewObject= {}
     spotifyWebApi.getUserPlaylists().then(response => {
         const playlistname = response.items.map(playlist => {
@@ -81,18 +56,12 @@ class Spotifys extends Component {
             
         })
         
-        // const playlistids = response.items.map(playlist => {
-        //     return playlist.id
-            
-        // })
         this.setState({
             playlists: NewObject
-                    //   playlistids: playlistname
-            
-            
-        })
+            })
 
-        const getATrack = spotifyWebApi.searchTracks(this.props.params.band,this.props.params.songTitle).then(response => {
+       spotifyWebApi.searchTracks(`${this.props.params.band} ${this.props.params.songTitle}`).then(response => {
+            console.log(response,'hello there fuck')
             this.setState({spotifyPlay:response.tracks.items[0].preview_url})
             
         })
@@ -101,6 +70,8 @@ class Spotifys extends Component {
     
     
 }
+
+
    
    getHashParams() {
         var hashParams = {};
@@ -111,48 +82,36 @@ class Spotifys extends Component {
         }
         return hashParams;
       }
-    
-//   addTrackToPlaylist() {
-// spotifyWebApi.addTracksToPlaylist("31X2aYn8tYimZl8F8SCeb8",["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"])
-// .then((response) => {
-//     console.log(response,'llllll')
-// // const hello = spotifyWebApi.getAccessToken()
-// //     spotifyWebApi.getAudioFeaturesForTrack("7vSm2hckpPHTrIHpqmqOze").then((response) => {
-// //         console.log(response,'llllll')
-// //      this.setState({
-// //         nowPlaying:0
-// //             name: response.analysis_url}})
-// // })
 
 
-// })
+    handleChange(e) {
+     const value = e.target.value
+     this.setState({target:value})  
+} 
 
 
-// }
 
+    addToPlaylist = (value) => { 
+    spotifyWebApi.searchTracks(`${this.props.params.band} ${this.props.params.songTitle}`).then(response => {
+    trackId(response.tracks.items[0].id)
+})
 
-handleChange(e,playlist) {
-    
-    spotifyWebApi.searchTracks('cher belive').then(response => {
-        trackId(response.tracks.items[0].id)
+    const trackId = (getSong) =>  { spotifyWebApi.getTrack([getSong]).then(response => {
+    spotifyWebApi.addTracksToPlaylist(this.state.playlists[this.state.target],[response.uri]).then(response => {
+    this.setState({trackAdded:response})
+  })
     })
-    const value = e.target.value
-    const trackId  = (getSong) => {
-spotifyWebApi.getTrack([getSong]).then(response => {
-        addToPlaylist(response.uri)
-    })
-}
-    const addToPlaylist = (trackId) => spotifyWebApi.addTracksToPlaylist(playlist[value],[trackId]).then(response => {
-       
-
-    })
+  }
 }
 
     render() {
         console.log(this.state.loggedIn,'user is logged in')
-       const notsignedinrender =  this.props.loginState === false ?  <div>Please login with spotify in the settings to play</div> :      <div className='container'>
+        console.log(this.state.spotifyPlay,'ooooooooooooooooooooooooooooooooo')
+        
+      return  this.state.loggedIn === false ?  <div>Please login with spotify in the settings to play a sample of this song</div> :      <div className='container'>
        <div>
-          <select onChange={(e) =>this.handleChange(e,this.state.playlists)}> 
+           {/* <Link to={}></Link> */}
+          <select onChange={(e) =>this.handleChange(e)}> 
             
 {Object.keys(this.state.playlists).map(name => {
     return <option tar ={Object.values(this.state.playlists)}>{name}</option>
@@ -170,7 +129,7 @@ spotifyWebApi.getTrack([getSong]).then(response => {
         
       
           
-          <button onClick={() => this.addTrackToPlaylist()}>
+          <button onClick={() => this.addToPlaylist(this.state.target) }>
               add track to playlist
           </button>
         <div>
@@ -191,13 +150,7 @@ spotifyWebApi.getTrack([getSong]).then(response => {
 
        
         
-    return (
-<div>
-        {notsignedinrender}
-        </div>
-  
-      
-    )
+   
   }
 }
 

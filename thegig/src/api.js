@@ -49,6 +49,10 @@ export const getAlbumInfo = (bandName, albumName) => {
   );
 };
 
+export const getTopArtistSongs = (bandName) => {
+  return axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`)
+}
+
 
 
 
