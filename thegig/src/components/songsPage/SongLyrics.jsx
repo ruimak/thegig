@@ -8,6 +8,7 @@ export default class SongLyrics extends Component {
   componentDidMount(){
       getLyrics(this.props.params.band, this.props.params.songTitle)
       .then(lyrics=> {
+        console.log(lyrics)
         const parsedData = JSON.parse(lyrics.data.slice(9, lyrics.data.length-2))
 
           this.setState({songLyrics: parsedData.message.body.lyrics.lyrics_body})

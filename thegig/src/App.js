@@ -19,7 +19,7 @@ import HomeBandNews from "./components/defaultPage/HomeBandNews";
 import Billboards from "./components/defaultPage/Billboards";
 import Settings from "./components/Settings";
 import Spotifys from "./components/Spotify";
-import Deezer from "./components/Deezer";
+import Deezer from "./components/songsPage/Deezer";
 import SongLyrics from "./components/songsPage/SongLyrics";
 import MyEvents from "./components/defaultPage/MyEvents";
 import ArtistNewsContent from "./components/bandPage/ArtistNewsContent";

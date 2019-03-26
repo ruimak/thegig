@@ -49,6 +49,7 @@ class NavBar extends Component {
   componentDidMount() {
     this.props.params &&
       getBandInfo(this.props.params.band).then(bandInfo => {
+        
         this.setState({ bio: bandInfo.data.artist });
       });
   }
@@ -56,6 +57,7 @@ class NavBar extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.params && this.props.params.band !== prevProps.params.band) {
       getBandInfo(this.props.params.band).then(bandInfo => {
+        console.log(bandInfo, 'BANDINFOOOOOOOOOOOOOOOOOOo')
         this.setState({ bio: bandInfo.data.artist });
       });
     }
@@ -81,7 +83,7 @@ class NavBar extends Component {
               <Grid item md={6}>
                 <Typography className={`${this.props.classes.header}`}>
                   {this.state.bio.name}
-                </Typography>{" "}
+                </Typography><div style={{color:'red', marginLeft:"10%", marginBottom:"2%"}}>{this.state.bio.ontour==='0' ? null : '(On Tour)'}</div>
                 <FollowUnfollowButton params={this.props.params} />
               </Grid>
             </Grid>
