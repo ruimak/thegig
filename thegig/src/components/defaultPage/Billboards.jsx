@@ -10,6 +10,7 @@ button : {
     marginTop : '30%',
     marginLeft : '10%',
     
+    
 },
 buttonText : {
     fontSize : '1.6em'
@@ -21,7 +22,7 @@ paperSongs : {
     paddingTop: '-8%',
     paddingBottom : '-5%',
     textAlign: 'center',
-    fontSize : '0.8em',
+    fontSize : '0.9em',
     
 },
 paper : {
@@ -34,30 +35,58 @@ paper : {
 },
 arrowUp : {
     color: 'green',
-    paddingRight : '65%',
-    position : 'left absolute',
+    
+    position : 'absolute',
+    marginBottom : '-1%',
+    paddingLeft : '65%'
     
 },
 arrowDown : {
     color : 'red',
-    paddingRight : '65%',
-    position : 'absolute left',
+    
+    paddingLeft : '65%',
+    position : 'absolute',
+    marginBottom : '-1%'
     
 
 },
 rank : {
-    fontSize : '1.9em'
+    marginLeft : '4%',
+    marginBottom : '2%',
+    fontFamily: "'Titillium Web', 'sans-serif'",
+    fontSize : '2.1em',
+    position : 'absolute',
+    color:'#444'
 },
 flatLine : {
     color : 'black',
-    paddingRight : '70%',
-    position : 'left absolute',
-    paddingTop: '-25%'
+    paddingLeft : '65%',
+    position : 'absolute',
+    
+    marginBottom : '-1%'
 
 },
 title : {
     fontFamily: "'Titillium Web', 'sans-serif'",
-    fontSize : '2.1em'
+    fontSize : '1.6em',
+    postion : 'relative',
+    color: '#b288c0',
+    
+   
+},
+picture : {
+    position : 'absolute right',
+    maxHeight : 700,
+    maxWidth : 700,
+    marginLeft : '83%',
+    marginTop: '-38%'
+    
+},
+artist : {
+    fontFamily: "'Titillium Web', 'sans-serif'",
+    fontSize : '1.5em',
+    postion : 'relative',
+    color: 'lightBlue',
 }
 }
 
@@ -103,46 +132,63 @@ const chartButton = (name, keyWord) => {
               {this.state.charts !== null ?
         <Paper className={this.props.classes.paper}>
         {this.state.charts.map((track,i) => {
-            if(this.state.buttonClicked) { 
+           
                 if(track.position.positionLastWeek > i + 1) {
-                    return  <Link className={this.props.classes.link} 
-                 to={`/artist/${track.artist}/song/${track.title}`}>
+                    return   (
                  <Paper className={this.props.classes.paperSongs}>
-                  <h1 className={this.props.classes.rank}>#{track.rank}
-                  <Icon fontSize={'large'} className={this.props.classes.arrowUp}>arrow_upward</Icon>
-                  </h1><h1 className={this.props.classes.title}>{track.title}</h1> <h1 className={this.props.classes.title}>{track.artist}</h1></Paper>
-            </Link>
+                  <div ><p className={this.props.classes.rank}>#{track.rank}<Icon fontSize={'large'} className={this.props.classes.arrowUp}>arrow_upward </Icon></p>
+                  
+                  <Link className={this.props.classes.link} 
+                 to={`/artist/${track.artist}/song/${track.title}`}><h1 className={this.props.classes.title}><b>{track.title}</b></h1></Link>
+                   <Link className={this.props.classes.link} 
+                 to={`/artist/${track.artist}/news`}><h1 className={this.props.classes.artist}>{track.artist}</h1> </Link>
+                 <img height={105} className={this.props.classes.picture} src={track.cover}></img></div></Paper>
+                    )
 
                 }
                 else if(track.position.positionLastWeek === i){    
-                 return  <Link className={this.props.classes.link} 
-                 to={`/artist/${track.artist}/song/${track.title}`}>
+                 return (  
                  <Paper className={this.props.classes.paperSongs}>
-                 <h1 className={this.props.classes.rank}>#{track.rank}<Icon fontSize={'large'} className={this.props.classes.flatLine}>
-                 trending_flat</Icon></h1><h1 className={this.props.classes.title}>{track.title}</h1> <h1 className={this.props.classes.title}>{track.artist}</h1></Paper>
-            </Link> 
+                 <div ><p className={this.props.classes.rank}>#{track.rank}<Icon fontSize={'large'} className={this.props.classes.flatLine}>
+                 trending_flat</Icon></p>
+                 <Link className={this.props.classes.link} 
+                 to={`/artist/${track.artist}/song/${track.title}`}><h1 className={this.props.classes.title}>{track.title}</h1></Link> 
+                 <Link className={this.props.classes.link} 
+                 to={`/artist/${track.artist}/news`}> <h1 className={this.props.classes.artist}>{track.artist}</h1></Link>
+                 <img height={105} className={this.props.classes.picture} src={track.cover}></img></div>
+                 </Paper>
+                 )
                 }
                 else if(track.position.positionLastWeek === null){
-                    return  <Link className={this.props.classes.link} 
-                 to={`/artist/${track.artist}/song/${track.title}`}>
+                    return  (
                  <Paper className={this.props.classes.paperSongs}>
-                 <h1 className={this.props.classes.rank}>#{track.rank}<Icon fontSize={'large'} className={this.props.classes.flatLine}>
-                 trending_flat</Icon></h1><h1 className={this.props.classes.title}>{track.title}</h1> <h1 className={this.props.classes.title}>{track.artist}</h1></Paper>
-            </Link> 
+                 <div><p className={this.props.classes.rank}>#{track.rank}<Icon fontSize={'large'} className={this.props.classes.flatLine}>
+                 trending_flat</Icon></p><Link className={this.props.classes.link} 
+                 to={`/artist/${track.artist}/song/${track.title}`}><h1 className={this.props.classes.title}>{track.title}</h1></Link>
+                 <Link className={this.props.classes.link} 
+                 to={`/artist/${track.artist}/news`}>
+                  <h1 className={this.props.classes.artist}>{track.artist}</h1></Link>
+                  <img height={105} className={this.props.classes.picture} src={track.cover}></img></div></Paper>
+                                   )
                 }
                 else{
-                    return  <Link className={this.props.classes.link} 
-                 to={`/artist/${track.artist}/song/${track.title}`}>
+                    return  (
                  <Paper className={this.props.classes.paperSongs}>
-                 <h1 className={this.props.classes.rank}>#{track.rank}
-                 <Icon fontSize={'large'} className={this.props.classes.arrowDown}>
-                 arrow_downward</Icon></h1><h1 className={this.props.classes.title}>{track.title}</h1> <h1 className={this.props.classes.title}>{track.artist}</h1></Paper>
-            </Link> 
+                 <div ><p className={this.props.classes.rank}>#{track.rank}<Icon fontSize={'large'} className={this.props.classes.arrowDown}>
+                 arrow_downward</Icon></p>
+                 
+                 <Link className={this.props.classes.link} 
+                 to={`/artist/${track.artist}/song/${track.title}`}><h1 className={this.props.classes.title}>{track.title}</h1></Link>
+                 <Link className={this.props.classes.link} 
+                 to={`/artist/${track.artist}/news`}> <h1 className={this.props.classes.artist}>{track.artist}</h1></Link>
+                 <img height={105} className={this.props.classes.picture} src={track.cover}></img></div>
+                 </Paper>
+                    )
                 }
 
             
         
-        }})}  </Paper> 
+        })}  </Paper> 
         
              : 
              null}
