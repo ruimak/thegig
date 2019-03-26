@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { getEventsForLocation } from "../../api";
 import firebase from "../../firebase.js";
+import "./defaultPage.css";
 
 //YOU NEED TO CHANGE THE SIZE PARAMETER IN THE API F IN ORDER TO GET MORE EVENTS
 export default class ArtistEvents extends Component {
   state = {
     eventsInfo: null,
-    bandsFollowed:[]
+    bandsFollowed: []
   };
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
@@ -17,14 +18,16 @@ export default class ArtistEvents extends Component {
           .once("value")
           .then(
             function(userData) {
-              const location = userData.val().users[user.uid]
-                .location;
-              const radius = userData.val().users[user.uid]
-                .radius;
-                const myBands = Object.values(userData.val().users[user.uid]
-                .bands)
+              const location = userData.val().users[user.uid].location;
+              const radius = userData.val().users[user.uid].radius;
+              const myBands = Object.values(
+                userData.val().users[user.uid].bands
+              );
               return getEventsForLocation(location, radius).then(events => {
-                this.setState({ eventsInfo: events.data._embedded.events, bandsFollowed: myBands });
+                this.setState({
+                  eventsInfo: events.data._embedded.events,
+                  bandsFollowed: myBands
+                });
               });
             }.bind(this)
           );
@@ -33,16 +36,52 @@ export default class ArtistEvents extends Component {
   }
   render() {
     return (
-      <div>
-        {
-        this.state.eventsInfo !== null
+      <div className="mainDiv">
+        <h1 className="title">{"My Events"}</h1>
+
+        {this.state.eventsInfo !== null
           ? this.state.eventsInfo.map(event => {
-if(event._embedded.attractions &&   this.state.bandsFollowed.includes(
-      event._embedded.attractions[0].name
-    )){ return <div>{event._embedded.attractions[0].name}</div>}
-             
+              if (
+                event._embedded.attractions &&
+                this.state.bandsFollowed.includes(
+                  event._embedded.attractions[0].name
+                )
+              ) {
+                return (
+                  <div className="individualEventDiv">
+                    <br />
+                    <div className="divContent">{event.name}</div>
+                    <br />
+                    <img
+                      className="divContent"
+                      src={event.images[0].url}
+                      height="150vh"
+                    />
+                    <div className="divContent">
+                      {"Locale: " +
+                        event._embedded.venues[0].country.name +
+                        ", " +
+                        event._embedded.venues[0].city.name}
+                    </div>
+                    <div className="divContent">
+                      {"Venue: " + event._embedded.venues[0].name}
+                    </div>
+                    <div className="divContent">
+                      {"Date: " + event.dates.start.localDate}
+                    </div>
+                    <div className="divContent">
+                      {event.priceRanges === undefined
+                        ? "Price Range: Unknown"
+                        : `Price Range: ${event.priceRanges[0].min} - ${
+                            event.priceRanges[0].max
+                          } ${event.priceRanges[0].currency}`}
+                    </div>
+                    <br />
+                  </div>
+                );
+              }
             })
-          : "no events to show yet"}
+          : "There are no events for this artist."}
       </div>
     );
   }

@@ -17,7 +17,8 @@ const styles = theme => ({
 
   avatar: {
     height: 210,
-    width: 210
+    width: 210,
+    marginLeft:'15%'
   },
   header: {
     fontSize: "4em",
@@ -72,8 +73,8 @@ class NavBar extends Component {
           <div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
-            <Grid container md={7} >
-              <Grid className={this.props.classes.titleAndAvatar} item md={5} >
+            <Grid container md={10} >
+              <Grid className={this.props.classes.titleAndAvatar} item md={4} >
                 <Avatar
                 justify='center'
                   className={this.props.classes.avatar}

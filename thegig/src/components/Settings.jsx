@@ -4,6 +4,8 @@ import { get } from "http";
 import Spotify from "spotify-web-api-js";
 import AutoGetLocation from "./location/AutoGetLocation";
 import SetLocation from './location/SetLocation'
+import LogOut from "./authentication/LogOut";
+
 const spotifyWebApi = new Spotify();
 
 export default class Settings extends Component {
@@ -134,10 +136,12 @@ export default class Settings extends Component {
         </form> */}
         <SetLocation />
         <AutoGetLocation />
-
+{/* 
         <a href={` https://spotify-thegig.herokuapp.com/`}>
           <button>login with spotify</button>
-        </a>
+        </a> */}
+                <LogOut />
+
       </div>
     );
   }
