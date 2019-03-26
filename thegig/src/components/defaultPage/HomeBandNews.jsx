@@ -81,15 +81,15 @@ class HomeBandNews extends Component {
 
     return (
       <div className={this.props.classes.root}>
-        <Carousel width="70%" autoplay="true">
+        <Carousel width="80%"  autoplay="true" autoGenerateStyleTag='true' heightMode='max'>
           {this.state.bandNews !== null
             ? arrayToDisplayInCarousel.map(news => {
                 return (
-                  <div>
-                    <img src={news.urlToImage} height="50%" width="50%" />
+                  <div style={{display: 'inline', justifyContent: 'center', marginLeft:'9%' }}>
+                    <img src={news.urlToImage} height="400vw" width="600vw"/>
                     <br />
-                    {news.content}
-                    {/* <a href={news.url}>{news.url}</a> */}
+                    <h2>{news.title}</h2>
+                    <div style={{paddingBottom:'10%',justifyContent: 'center' }}>{news.content}</div>                    {/* <a href={news.url}>{news.url}</a> */}
                   </div>
                 );
               })

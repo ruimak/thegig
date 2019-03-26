@@ -94,10 +94,12 @@ class ArtistNews extends Component {
           {this.state.news !== []
             ? arrayToDisplayInCarousel.map(news => {
                 return (
-                  <div style={{display: 'inline', justifyContent: 'center', marginLeft:'9%' }}>
+                  <div style={{display: 'inline', justifyContent: 'center', marginLeft:'9%'}}>
                     <img src={news.urlToImage} height="400vw" width="600vw" />
                     <br />
-                    <div style={{paddingBottom:'10%',justifyContent: 'center', marginLeft:'9%'}}>{news.title}</div>
+                    <h2>{news.title}</h2>
+
+                    <div style={{paddingBottom:'10%',justifyContent: 'center'}}>{news.content}</div>
                     {/* <a href={news.url}>{news.url}</a> */}
                   </div>
                 );

@@ -88,7 +88,7 @@ export const getFollowedBandNews = name => {
 
 export const getAllBandNews = () => {
   return axios.get(
-    `https://newsapi.org/v2/everything?q=music&language=en&apiKey=${mtvNewsAPIkey}`
+    `https://newsapi.org/v2/everything?q=music&sources=mtv-news,mtv-news-uk&language=en&apiKey=${mtvNewsAPIkey}`
   );
 };
 
