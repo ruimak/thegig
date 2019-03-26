@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import { getSetLists, getBandInfo } from "../../api";
 import { Link } from "react-router-dom";
+import { withStyles } from '@material-ui/core/styles';
 
-export default class SetLists extends Component {
+const styles = {
+
+}
+
+class SetLists extends Component {
   state = {
     setLists: null,
     // setListDisplayed: null
@@ -102,3 +107,4 @@ this.set = this.state.setLists === null ? 'There is no setlist for this artist' 
       );
     }
 }
+export default withStyles(styles)(SetLists)
