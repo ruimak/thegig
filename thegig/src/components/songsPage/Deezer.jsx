@@ -3,11 +3,14 @@ import React, { Component } from "react";
 
 import { getTrack, getSongInfo } from "../../api";
 import { Route, Link, Switch, withRouter } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+
 
 
 // const { DZ } = window
 
-export class SongPlayer extends Component {
+class SongPlayer extends Component {
   state = {
     //   loggedin: false
     track: null,
@@ -70,7 +73,9 @@ export class SongPlayer extends Component {
           <h2>{this.state.songInfo.data.track.album.title}</h2>
 
         </div>
-        <Link to={`/artist/${this.props.params.band}/song/${this.props.params.songTitle}/lyrics`}>{'Lyrics'}</Link>
+        <Button onClick={()=>{window.open(`http://localhost:3000/artist/${this.props.params.band}/song/${this.props.params.songTitle}/lyrics`, 'newwindow')}}>{'Lyrics'}</Button>
+        <Button onClick={()=>{window.open(`http://www.songsterr.com/a/wa/bestMatchForQueryString?s=${this.props.params.songTitle}&a=${this.props.params.band}`, 'newwindow')}}>{'Guitar Tabs'}</Button>
+<br/>
         <audio
           ref="audio_tag"
           src={this.state.track}
@@ -78,8 +83,8 @@ export class SongPlayer extends Component {
           controls
           autoPlay
         />
-
-        <div>{this.state.songInfo.data.track.wiki && this.state.songInfo.data.track.wiki.content}</div>
+<h3>{'Info'}</h3>
+        <div>{this.state.songInfo.data.track.wiki ? this.state.songInfo.data.track.wiki.content: 'No info avaiable for this song :('}</div>
 
         {/* THIS BUTTON WILL BE USEFULL LATER WHEN WE IMPLEMENT A WIDGET */}
         {/* <button
@@ -96,4 +101,8 @@ export class SongPlayer extends Component {
   }
 }
 
-export default SongPlayer;
+const styles = theme => ({
+ 
+});
+
+export default withStyles(styles) (SongPlayer);
