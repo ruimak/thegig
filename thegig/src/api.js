@@ -11,6 +11,12 @@ const musixmatchAPIkey = "6eeab426384ac332ae0f5ff63ced9b95";
 
 // API REQUESTS
 
+export const getTrack = (artist, track) => {
+  return axios.get(
+    `https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=${artist} ${track}`
+  )
+};
+
 export const getBandSuggestions = bandName => {
   return axios.get(
     `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
