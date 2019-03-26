@@ -9,13 +9,16 @@ export default class ArtistEvents extends Component {
   componentDidMount() {
     getArtistEvent(this.props.params.band).then(events => {
       console.log(events,'THESE ARE THE EVENTS')
-      this.setState({ eventsInfo: events.data._embedded.events });
+      
+      events.data._embedded && this.setState({ eventsInfo: events.data._embedded.events.filter(event=>event._embedded.attractions[0].name.toLowerCase() === this.props.params.band.toLowerCase()) });
     });
   }
   render() {
   
     if (!this.state.eventsInfo) {
-      return <div>{"No events to show."}</div>;
+      return <div className='mainDiv'>
+      <div className='title'>{'Events'}</div>
+      {"No events to show sorry :("}</div>;
     } else
       return (
         <div className='mainDiv'>

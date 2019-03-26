@@ -3,8 +3,6 @@ TO DO:
 SEARCHBAR
 searchbar needs 404
 
-SPOTIFY
-cant take props. There is a key there in the state and a func gethashparams that we can maybe used to check wether the user is logged in or not
 
 ORGANIZATION
 maybe use an index to group all the imports in app.js (its getting out of hand)
@@ -15,16 +13,16 @@ open in new window, as its shown in here : https://hackernoon.com/using-a-react-
 REGISTRATION
 should set location and radius in there
 
-BILLBOARDS
-the billboards are too slow, need to check why
 
 MINOR BUGS and ISSUES
-keep getting the unique id key yellow message
+need fixing on the yellow error messages
 create an error for when the acc already exists
 first 1 sec render of the 'un-authed' screen needs to go - must have to do with the async, auth function
+gotta get rid of the pre renders, that render before the state updates
 function that gets the bands on the app - component did mount should be in the api, need to find a way to make it wait for the user id before calling the other func (its passing down an unknown variable)
 the delete function still gives a yellow warning on the browser console
-
+tabs isnt super accurate
+possibly in the myEvents artists like Drake White will show up if you follow Drake
 
 MAJOR BUGS and ISSUES
 bands with / on their name bug the app (eg: AC/DC)
