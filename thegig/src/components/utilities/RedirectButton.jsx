@@ -40,7 +40,7 @@ const { classes } = props;
 
   return (
     <div>
-   <Link to={props.location} onClick={()=>{(props.location === '/') && props.eraseBandInfo();}}>
+   <Link to={props.location} >
   <Icon className={classes.icon} color="primary"/>
    </Link></div>
   );

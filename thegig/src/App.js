@@ -18,7 +18,7 @@ import { userBandsList } from "./api";
 import HomeBandNews from "./components/defaultPage/HomeBandNews";
 import Billboards from "./components/defaultPage/Billboards";
 import Settings from "./components/Settings";
-import Spotifys from "./components/Spotify";
+// import Spotifys from "./components/Spotify";
 import Deezer from "./components/songsPage/Deezer";
 import SongLyrics from "./components/songsPage/SongLyrics";
 import MyEvents from "./components/defaultPage/MyEvents";
@@ -27,7 +27,8 @@ import Discography from "./components/bandPage/Discography";
 import Album from "./components/bandPage/Album";
 import RedirectButton from "./components/utilities/RedirectButton";
 import SongInfo from "./components/songsPage/SongInfo";
-import SetLocationOnAuth from './components/authentication/SetLocationOnAuth'
+import SetLocationOnAuth from "./components/authentication/SetLocationOnAuth";
+import Loading from "./components/authentication/Loading";
 // const { database } = firebase;
 
 // import styles
@@ -134,18 +135,15 @@ const styles = theme => ({
 
 class App extends Component {
   state = {
-    bandInfoInApp: null,
-    userBands: [],
     userLocation: null,
     loggedInUserId: null,
-    newsArticle: null,
-    spotifyLoggedIn: ""
+    isLoading: true
   };
 
   componentDidMount() {
-    console.log(this.props, "CLASSES");
+    //This next function checks if the user is logged in. It also gets his location if he is.
+    //The location is needed because if he doesnt have one, a component to insert location will render.
     firebase.auth().onAuthStateChanged(user => {
-      console.log(user, "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
       if (user) {
         this.setState({ loggedInUserId: user.uid });
 
@@ -155,262 +153,214 @@ class App extends Component {
           .once("value")
           .then(
             function(userData) {
-              const bands = userData.val().users[this.state.loggedInUserId]
-                .bands
-                ? Object.values(
-                    userData.val().users[this.state.loggedInUserId].bands
-                  )
-                : [];
               const location = userData.val().users[this.state.loggedInUserId]
                 .location;
-              this.setState({ userBands: bands, userLocation: location });
+              this.setState({ userLocation: location, isLoading: false });
             }.bind(this)
           );
       } else {
-        this.setState({ loggedInUserId: null });
-        //WE SHOUT REMOVE THIS NEXT QUERY, JUST SET STATE WITH []
-        firebase
-          .database()
-          .ref()
-          .once("value")
-          .then(
-            function(userData) {
-              this.setState({ userBands: [] });
-            }.bind(this)
-          );
+        this.setState({ loggedInUserId: null, isLoading: false });
       }
     });
   }
 
-  userIsLoggedIn = this.userIsLoggedIn.bind(this);
-  userIsLoggedIn(loggedInState) {
-    console.log(loggedInState, "this is the logged in state");
-    this.setState({ spotifyLoggedIn: loggedInState });
-  }
-
-  getBandInformation = band => {
+  getLocationUpdate = location => {
     this.setState({
-      bandInfoInApp: band
+      userLocation: location
     });
-  };
-
-  eraseBandInfo = () => {
-    this.setState({
-      bandInfoInApp: null
-    });
-  };
-
-getLocationUpdate=(location)=>{
-  this.setState({
-    userLocation: location
-  });
-}
-
-  getSingleArticle = article => {
-    console.log(article, "THIS IS THE ARTICLE AHGPAWHGWAs");
-    this.setState({
-      newsArticle: article
-    });
-    // this.props.history.push(`/${this.state.input}/news/hello`);
   };
 
   render() {
-    console.log(this.state.spotifyLoggedIn, "this is spotify login");
+    const { isLoading } = this.state;
     const { classes } = this.props;
-    return (
-      <div>
-        {/* this is the main navbar, displayed throughout the app */}
-        <div className={classes.root}>
-          {/* <Toolbar> */}
-          <div className="navBar">
-            <img
-              src="https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/20604412_281592685577903_8591182496679565167_n.png?_nc_cat=107&_nc_ht=scontent-lhr3-1.xx&oh=7abfaffd608ac2791c39ad49f222db97&oe=5D19502A"
-              height="80"
-              width="80"
-              style={{
-                height: "80",
-                width: "80",
-                marginLeft: "auto",
-                marginRight: "auto",
-                marginTop: "2vh"
-              }}
-            />
-            <div className="searchAndNav">
-              <SearchBar
-                className="mainSearchBar"
-                getBandInformation={this.getBandInformation}
-              />
-              <Route
-                path="/*"
-                render={({ match }) => (
+
+    if (isLoading) {
+      return <Loading />;
+    } else
+      return (
+        <div>
+          {/* These next two are the login and registration components, rendered if the user isnt logged in to firebase */}
+          {!this.state.loggedInUserId && (
+            <div id="mainDiv">
+              {/* <div className="artist-nav-bar-background" /> */}
+              <LogIn />
+              <SignIn />
+            </div>
+          )}
+
+          {/* In the case the user IS logged in but doesnt have a location yet, this next component is rendered */}
+          {this.state.loggedInUserId && !this.state.userLocation && (
+            <div id="mainDiv">
+              <div className="artist-nav-bar-background" />
+              <SetLocationOnAuth updateLocationInApp={this.getLocationUpdate} />
+            </div>
+          )}
+
+          {/* And finally, if the user is logged in AND has a location, we render the proper app components */}
+          {this.state.loggedInUserId && this.state.userLocation && (
+            <div>
+              <div className={classes.root}>
+                {/* this is the main navbar, displayed throughout the app */}
+                {/* This navbar has the logo, the searchbar, the main navbar and the settings button */}
+                <div className="navBar">
+                  <img
+                    src="https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/20604412_281592685577903_8591182496679565167_n.png?_nc_cat=107&_nc_ht=scontent-lhr3-1.xx&oh=7abfaffd608ac2791c39ad49f222db97&oe=5D19502A"
+                    height="80"
+                    width="80"
+                    style={{
+                      height: "80",
+                      width: "80",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      marginTop: "2vh"
+                    }}
+                  />
+                  <div className="searchAndNav">
+                    <SearchBar className="mainSearchBar" />
+                    <Route
+                      path="/*"
+                      render={({ match }) => (
+                        <MuiThemeProvider theme={theme}>
+                          <NavBar
+                            tabs={[
+                              ["", "Home"],
+                              ["myBands", "My Bands"],
+                              ["myEvents", "My Events"],
+                              ["topCharts", "Top Charts"]
+                            ]}
+                          />
+                        </MuiThemeProvider>
+                      )}
+                    />
+                  </div>
                   <MuiThemeProvider theme={theme}>
-                    <NavBar
-                      tabs={[
-                        ["", "Home"],
-                        ["myBands", "My Bands"],
-                        ["myEvents", "My Events"],
-                        ["topCharts", "Top Charts"]
-                      ]}
+                    <RedirectButton
+                      location={"/Settings"}
+                      displayLocation={"Settings"}
                     />
                   </MuiThemeProvider>
-                )}
-              />
-            </div>
-            <MuiThemeProvider theme={theme}>
-              <RedirectButton
-                location={"/Settings"}
-                displayLocation={"Settings"}
-                eraseBandInfo={this.eraseBandInfo}
-              />
-            </MuiThemeProvider>
-          </div>
-          {/* </Toolbar> */}
-        </div>
-        {console.log(this.state.loggedInUserId, "LOGGED IN IDDDDDDDD")}
-        {/* IF THE USER ISNT LOGGED IN WE GET THE NEXT 2 */}
-        {!this.state.loggedInUserId && (
-          <div id="mainDiv">
-            <div className="artist-nav-bar-background" />
-            <LogIn />
-            <SignIn />
-          </div>
-        )}
+                </div>
+              </div>
 
-{console.log(this.state.userLocation, 'LOCATIOOOOON')}
-
-{/* THIS IS THE LOCATION SETTER AFTER REGISTER */}
-{this.state.loggedInUserId && !this.state.userLocation && (
-  <div id="mainDiv">
-    <div className="artist-nav-bar-background" />
-   <SetLocationOnAuth updateLocationInApp={this.getLocationUpdate}/>
-  </div>
-)}
-
-        {/* <LogOut loggedInUserId={this.state.loggedInUserId} /> */}
-
-        {this.state.loggedInUserId && this.state.userLocation && (
-          <div id="mainDiv">
-            <div className="artist-nav-bar-background" />
-            <div id="secondaryNavBarAndMainComponents">
-              <div id="bandNavBar">
-                <Route
-                  path="/artist/:band"
-                  render={({ match }) => (
-                    <NavBar
-                      tabs={[
-                        ["news", "News"],
-                        ["albums", "Discography"],
-                        ["info", "Band Info"],
-                        ["events", "Events"],
-                        ["setlists", "Setlists"]
-                      ]}
-                      params={match.params}
+              <div id="mainDiv">
+                <div className="artist-nav-bar-background" />
+                <div id="secondaryNavBarAndMainComponents">
+                  <div id="bandNavBar">
+                    <Route
+                      path="/artist/:band"
+                      render={({ match }) => (
+                        <NavBar
+                          tabs={[
+                            ["news", "News"],
+                            ["albums", "Discography"],
+                            ["info", "Band Info"],
+                            ["events", "Events"],
+                            ["setlists", "Setlists"]
+                          ]}
+                          params={match.params}
+                        />
+                      )}
                     />
-                  )}
-                />
-              </div>
-              <div>
-                <Switch>
-                  {/* <Route exact path="/NotFound" component={NotFound} /> */}
-                  {/* <Route exact path="/" component={DefaultBandNews} /> */}
-                  <Route exact path="/" render={props => <HomeBandNews />} />
-                  <Route
-                    exact
-                    path="/Settings"
-                    render={props => (
-                      <Settings
-                        loggedInUser={this.state.loggedInUserId}
-                        spotifylogin={this.userIsLoggedIn}
+                  </div>
+                  <div>
+                    <Switch>
+                      {/* <Route exact path="/NotFound" component={NotFound} /> */}
+                      {/* <Route exact path="/" component={DefaultBandNews} /> */}
+                      <Route
+                        exact
+                        path="/"
+                        render={props => <HomeBandNews />}
                       />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/myBands"
-                    render={props => <MyBands myBands={this.state.userBands} />}
-                  />
-                  <Route
-                    exact
-                    path="/myEvents"
-                    render={props => (
-                      <MyEvents
-                        myBands={this.state.userBands}
-                        loggedInUserId={this.state.loggedInUserId}
+                      <Route
+                        exact
+                        path="/Settings"
+                        render={props => (
+                          <Settings loggedInUser={this.state.loggedInUserId} />
+                        )}
                       />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/topCharts"
-                    render={props => <Billboards />}
-                  />
+                      <Route
+                        exact
+                        path="/myBands"
+                        render={props => <MyBands />}
+                      />
+                      <Route
+                        exact
+                        path="/myEvents"
+                        render={props => <MyEvents />}
+                      />
+                      <Route
+                        exact
+                        path="/topCharts"
+                        render={props => <Billboards />}
+                      />
 
-                  <Route
-                    exact
-                    path="/artist/:band/info"
-                    render={({ match }) => <BandInfo params={match.params} />}
-                  />
-                  <Route
-                    exact
-                    path="/artist/:band/news"
-                    render={({ match }) => (
-                      <ArtistNews
-                        params={match.params}
-                        getArticle={this.getSingleArticle}
+                      <Route
+                        exact
+                        path="/artist/:band/info"
+                        render={({ match }) => (
+                          <BandInfo params={match.params} />
+                        )}
                       />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/artist/:band/news/:newsTitle"
-                    render={({ match }) => (
-                      <ArtistNewsContent
-                        params={match.params}
-                        article={this.state.newsArticle}
+                      <Route
+                        exact
+                        path="/artist/:band/news"
+                        render={({ match }) => (
+                          <ArtistNews params={match.params} />
+                        )}
                       />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/artist/:band/albums"
-                    render={({ match }) => (
-                      <Discography params={match.params} />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/artist/:band/albums/:albumName"
-                    render={({ match }) => <Album params={match.params} />}
-                  />
-                  <Route
-                    exact
-                    path="/artist/:band/events"
-                    render={({ match }) => (
-                      <ArtistEvents params={match.params} />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/artist/:band/setlists"
-                    render={({ match }) => <SetLists params={match.params} />}
-                  />
-                  <Route
-                    exact
-                    path="/artist/:band/song/:songTitle/lyrics"
-                    render={({ match }) => <SongLyrics params={match.params} />}
-                  />
-                  <Route
-                    exact
-                    path="/artist/:band/song/:songTitle"
-                    render={({ match }) => <Deezer params={match.params} />}
-                  />
-                </Switch>
+                      <Route
+                        exact
+                        path="/artist/:band/news/:newsTitle"
+                        render={({ match }) => (
+                          <ArtistNewsContent params={match.params} />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/artist/:band/albums"
+                        render={({ match }) => (
+                          <Discography params={match.params} />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/artist/:band/albums/:albumName"
+                        render={({ match }) => <Album params={match.params} />}
+                      />
+                      <Route
+                        exact
+                        path="/artist/:band/events"
+                        render={({ match }) => (
+                          <ArtistEvents params={match.params} />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/artist/:band/setlists"
+                        render={({ match }) => (
+                          <SetLists params={match.params} />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/artist/:band/song/:songTitle/lyrics"
+                        render={({ match }) => (
+                          <SongLyrics params={match.params} />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path="/artist/:band/song/:songTitle"
+                        render={({ match }) => <Deezer params={match.params} />}
+                      />
+                    </Switch>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
-    );
+          )}
+        </div>
+      );
   }
 }
 

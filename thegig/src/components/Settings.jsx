@@ -47,7 +47,7 @@ export default class Settings extends Component {
   }
 
   componentDidMount() {
-    this.props.spotifylogin(this.state.loggedIn);
+    // this.props.spotifylogin(this.state.loggedIn);
   }
 
   render() {

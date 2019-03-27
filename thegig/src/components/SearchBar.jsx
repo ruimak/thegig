@@ -200,7 +200,7 @@ export default withStyles(styles)(
         if (!suggestionValue) {
           getBandInfo(suggestion).then(bandInfo => {
             console.log(bandInfo.data.artist.name, "NAME OF THE ARTIST");
-            this.props.getBandInformation(bandInfo.data.artist);
+            // this.props.getBandInformation(bandInfo.data.artist);
             this.setState({ value: "" });
             this.props.history.push(
               `/artist/${bandInfo.data.artist.name}/news`

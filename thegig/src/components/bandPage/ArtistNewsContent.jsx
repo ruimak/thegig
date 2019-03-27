@@ -9,9 +9,11 @@ export default class ArtistNewContent extends Component {
   };
   componentDidMount() {
     getArtistNews(this.props.params.band).then(artistNews => {
-      const clickedArticle = artistNews.data.articles.filter(article => {
-        return article.title === this.props.params.newsTitle;
-      });
+      const clickedArticle = artistNews.data.articles[0]
+      
+      // .filter(article => {
+      //   return article.title === this.props.params.newsTitle;
+      // });
       this.setState({ article: clickedArticle[0] });
       console.log(clickedArticle[0], "this state has been set");
     });
