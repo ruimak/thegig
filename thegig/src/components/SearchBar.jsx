@@ -118,7 +118,6 @@ const styles = theme => ({
 });
 
 const getSuggestions = value => {
-  console.log(value, "VALUEEEEEEEEEEEE");
   //IF YOU WANT TO SEARCH WITHOUT ACCENT IN WORDS REPLACE WITH THE FOLLOWING
   // const inputValue = deburr(value.trim()).toLowerCase();
   const inputValue = value.trim().toLowerCase();
@@ -127,7 +126,6 @@ const getSuggestions = value => {
     const bands = result;
     return getSongSuggestions(value).then(songsResult => {
       let songs = songsResult;
-console.log(songs, 'SONGSSSSSSSSSSSSSSSSSSSSss')
       return inputLength === 0
         ? []
         : [{title:'Bands', suggestions:bands.data.results.artistmatches.artist.slice(0, 4)}, {title:'Songs', suggestions:songs.data.results.trackmatches.track.slice(0, 4)}]
@@ -145,7 +143,7 @@ console.log(songs, 'SONGSSSSSSSSSSSSSSSSSSSSss')
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
 // input value for every given suggestion.
 const getSuggestionValue = suggestion => 
-{console.log(suggestion.name, 'SUGGESTION CONSOLEEEEEEEEEEEEEEEEEEEEE')
+{
   
   return suggestion.name;}
 
@@ -177,11 +175,9 @@ export default withStyles(styles)(
       // You already implemented this logic above, so just use it.
       onSuggestionsFetchRequested = ({ value }) => {
         getSuggestions(value).then(result => {
-          console.log(result, 'THIS IS THE RESULTING ARRAY')
           this.setState({
             suggestions: result
           });
-          console.log(this.state.suggestions, "SUGGESTIOS UPDATED IN STATE");
         });
       };
 
@@ -199,9 +195,7 @@ export default withStyles(styles)(
         suggestionIndex,
         sectionIndex,
         method
-      ) => {            console.log(sectionIndex, 'SECTION')
-      console.log(suggestion, 'THIS IS THE SUGGESTION')
-      console.log(suggestionValue, 'THIS IS THE SUGGESTION VALUEEE')
+      ) => {            
 
         if (!suggestionValue) {
           getBandInfo(suggestion).then(bandInfo => {
@@ -252,7 +246,6 @@ export default withStyles(styles)(
       }
 
       renderSuggestion(suggestion) {
-        console.log(suggestion, 'THIS IS THE SUGGESTION TO BE RENDERED!!!!!!!!!!!!!!!!!!!!!')
         return  suggestion.artist ? <div><span>{suggestion.name}</span><span style={{fontSize:'70%', fontStyle: 'italic'}}>{` by ${suggestion.artist}`}</span></div> : <span>{suggestion.name}</span>
         
       }
