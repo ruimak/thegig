@@ -250,6 +250,12 @@ export default withStyles(styles)(
       getSectionSuggestions(section) {
         return section.suggestions;
       }
+
+      renderSuggestion(suggestion) {
+        console.log(suggestion, 'THIS IS THE SUGGESTION TO BE RENDERED!!!!!!!!!!!!!!!!!!!!!')
+        return  suggestion.artist ? <div><span>{suggestion.name}</span><span style={{fontSize:'70%', fontStyle: 'italic'}}>{` by ${suggestion.artist}`}</span></div> : <span>{suggestion.name}</span>
+        
+      }
      
       render() {
         const { classes } = this.props;
@@ -260,7 +266,7 @@ export default withStyles(styles)(
           onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
           onSuggestionsClearRequested: this.onSuggestionsClearRequested,
           getSuggestionValue,
-          renderSuggestion,
+          renderSuggestion:this.renderSuggestion,
           onSuggestionSelected: this.onSuggestionSelected,
             multiSection:true,
             renderSectionTitle:this.renderSectionTitle,
