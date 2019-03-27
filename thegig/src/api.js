@@ -23,6 +23,12 @@ export const getBandSuggestions = bandName => {
   );
 };
 
+export const getSongSuggestions = song => {
+  return axios.get(
+    `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${song}&api_key=${lastFmAPIkey}&format=json`
+  );
+};
+
 export const getBandInfo = bandName => {
   return axios.get(
     `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
