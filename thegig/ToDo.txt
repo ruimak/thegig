@@ -13,6 +13,9 @@ open in new window, as its shown in here : https://hackernoon.com/using-a-react-
 REGISTRATION
 should set location and radius in there
 
+SETTINGS
+we could use a message or popup after we update something
+
 
 MINOR BUGS and ISSUES
 need fixing on the yellow error messages

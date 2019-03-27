@@ -5,7 +5,7 @@ const LogOut = (props) => {
     return (
         <div>
            
-          <div onClick={logout}>{"click here to log out"}</div>
+          <button onClick={logout}>{"See you later!"}</button>
         
         </div>
       )

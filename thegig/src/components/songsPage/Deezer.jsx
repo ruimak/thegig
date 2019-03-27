@@ -6,8 +6,6 @@ import { Route, Link, Switch, withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 
-
-
 // const { DZ } = window
 
 class SongPlayer extends Component {
@@ -60,22 +58,60 @@ class SongPlayer extends Component {
     );
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.params.songTitle !== prevProps.params.songTitle) {
+      getSongInfo(this.props.params.band, this.props.params.songTitle).then(
+        songInfo => {
+          console.log(songInfo);
+          this.setState({ songInfo: songInfo });
+        }
+      );
+      getTrack(this.props.params.band, this.props.params.songTitle).then(res => {
+
+        this.setState({ track: res.data.data[0].preview });
+      });
+    }
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+    }, 0);
+  }
+
   render() {
     //   console.log(this.state.loggedin, 'LOGGED IN YAY OR NAY ?')
     //   this.getLoginStatus()
-    return (
-      this.state.songInfo && this.state.songInfo.data.track ? <div>
-        <h1>{this.state.songInfo  && this.state.songInfo.data.track.name}</h1>
+    return this.state.songInfo && this.state.songInfo.data.track ? (
+      <div>
+        <h1>{this.state.songInfo && this.state.songInfo.data.track.name}</h1>
         <div>
-          
-            <img src={this.state.songInfo.data.track.album.image[2]["#text"]} />
-            
-          <h2>{this.state.songInfo.data.track.album.title}</h2>
+          <img src={this.state.songInfo.data.track.album.image[2]["#text"]} />
 
+          <h2>{this.state.songInfo.data.track.album.title}</h2>
         </div>
-        <Button onClick={()=>{window.open(`http://localhost:3000/artist/${this.props.params.band}/song/${this.props.params.songTitle}/lyrics`, 'newwindow')}}>{'Lyrics'}</Button>
-        <Button onClick={()=>{window.open(`http://www.songsterr.com/a/wa/bestMatchForQueryString?s=${this.props.params.songTitle}&a=${this.props.params.band}`, 'newwindow')}}>{'Guitar Tabs'}</Button>
-<br/>
+        <Button
+          onClick={() => {
+            window.open(
+              `http://localhost:3000/artist/${this.props.params.band}/song/${
+                this.props.params.songTitle
+              }/lyrics`,
+              "newwindow"
+            );
+          }}
+        >
+          {"Lyrics"}
+        </Button>
+        <Button
+          onClick={() => {
+            window.open(
+              `http://www.songsterr.com/a/wa/bestMatchForQueryString?s=${
+                this.props.params.songTitle
+              }&a=${this.props.params.band}`,
+              "newwindow"
+            );
+          }}
+        >
+          {"Guitar Tabs"}
+        </Button>
+        <br />
         <audio
           ref="audio_tag"
           src={this.state.track}
@@ -83,8 +119,12 @@ class SongPlayer extends Component {
           controls
           autoPlay
         />
-<h3>{'Info'}</h3>
-        <div>{this.state.songInfo.data.track.wiki ? this.state.songInfo.data.track.wiki.content: 'No info avaiable for this song :('}</div>
+        <h3>{"Info"}</h3>
+        <div>
+          {this.state.songInfo.data.track.wiki
+            ? this.state.songInfo.data.track.wiki.content
+            : "No info avaiable for this song :("}
+        </div>
 
         {/* THIS BUTTON WILL BE USEFULL LATER WHEN WE IMPLEMENT A WIDGET */}
         {/* <button
@@ -96,13 +136,11 @@ class SongPlayer extends Component {
         {this.state.loggedin ? 'FLOW' : 'Log In With Deezer'}
         
       </button> */}
-      </div> : null
-    )
+      </div>
+    ) : null;
   }
 }
 
-const styles = theme => ({
- 
-});
+const styles = theme => ({});
 
-export default withStyles(styles) (SongPlayer);
+export default withStyles(styles)(SongPlayer);
