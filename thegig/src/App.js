@@ -28,6 +28,7 @@ import Album from "./components/bandPage/Album";
 import RedirectButton from "./components/utilities/RedirectButton";
 import SongInfo from "./components/songsPage/SongInfo";
 import SetLocationOnAuth from './components/authentication/SetLocationOnAuth'
+
 // const { database } = firebase;
 
 // import styles
@@ -215,7 +216,7 @@ getLocationUpdate=(location)=>{
   };
 
   render() {
-    console.log(this.state.spotifyLoggedIn, "this is spotify login");
+    console.log(this.state, "this is fiarebase login");
     const { classes } = this.props;
     return (
       <div>
@@ -348,7 +349,7 @@ getLocationUpdate=(location)=>{
                   <Route
                     exact
                     path="/artist/:band/info"
-                    render={({ match }) => <BandInfo params={match.params} />}
+                    render={({ match }) => <BandInfo params={match.params} firebase={this.state.loggedInUserId} bands={this.state.userBands} />}
                   />
                   <Route
                     exact

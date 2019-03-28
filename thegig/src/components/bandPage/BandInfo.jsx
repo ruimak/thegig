@@ -4,6 +4,8 @@ import RelatedArtists from "./RelatedArtists";
 import {Tabs,Avatar,Typography,Grid} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import 'typeface-roboto';
+import ChooseGenres from "../firstTimeLogin/ChooseGenres"
+import { from } from "zen-observable";
 
 
 
@@ -28,6 +30,7 @@ class BandInfo extends Component {
 if(!this.state.bio) {return null}
 else return <div className={this.props.classes.wholeScreen}>
   <div className='container'>
+  <ChooseGenres firebase={this.props.firebase}bands={this.props.bands}/>
   
   <Grid container
   md={15}

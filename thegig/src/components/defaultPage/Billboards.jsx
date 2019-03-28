@@ -122,7 +122,7 @@ const chartButton = (name, keyWord) => {
 
     return (
       <div className={this.props.classes.button}>
-          <Grid container xs={12}>
+          <Grid container item xs={12}>
              {listOfButtons.map((element, index)=>{
                  
                  return <Grid item xs={2}>{chartButton(listOfButtons[index][0], listOfButtons[index][1])}</Grid>

@@ -19,9 +19,11 @@ export const getTrack = (artist, track) => {
 
 export const getBandSuggestions = bandName => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
   );
 };
+
+
 
 export const getBandInfo = bandName => {
   return axios.get(
@@ -54,6 +56,10 @@ export const getAlbumInfo = (bandName, albumName) => {
     `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${lastFmAPIkey}&artist=${bandName}&album=${albumName}&format=json`
   );
 };
+
+export const artistSuggestFromGenre = (ids) => {
+  return axios.get(`https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/artist.related.get?format=json&${ids}&page_size=10&page=1&apikey=fb62ad704ddfdef75fa06f8fb295f3a8`)
+}
 
 export const getTopArtistSongs = (bandName) => {
   return axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`)

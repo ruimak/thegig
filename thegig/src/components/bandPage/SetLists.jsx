@@ -43,7 +43,10 @@ eventName:e.target.id})
     });
   }
   
-  render() {   
+  render()
+  
+  {  
+    console.log(this.state.setLists,'uigiuyfuyfuyf') 
 this.set = this.state.setLists === null ? 'There is no setlist for this artist' : this.state.setLists.map((setlist,i) => {
   
   return   setlist.sets.set.length === 0 ? null : <div onClick={(e) => this.handleClick(e,setlist.sets.set)}
