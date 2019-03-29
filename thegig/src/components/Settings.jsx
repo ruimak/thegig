@@ -9,35 +9,30 @@ import LogOut from "./authentication/LogOut";
 const spotifyWebApi = new Spotify();
 
 export default class Settings extends Component {
-  constructor() {
-    super();
-    const params = this.getHashParams();
-    this.state = {
-      loggedIn: params.access_token ? true : false,
+
+    state = {
+      // loggedIn: params.access_token ? true : false,
       currentPassword: "",
       newPassword: "",
       radius: "",
       newLocation: "",
       newAvatar: ""
     };
-    if (params.access_token) {
-      spotifyWebApi.setAccessToken(params.access_token);
-    }
-  }
+  
 
   handleChange = this.handleChange.bind(this);
   handleSubmit = this.handleSubmit.bind(this);
 
-  getHashParams() {
-    var hashParams = {};
-    var e,
-      r = /([^&;=]+)=?([^&;]*)/g,
-      q = window.location.hash.substring(1);
-    while ((e = r.exec(q))) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
-    }
-    return hashParams;
-  }
+  // getHashParams() {
+  //   var hashParams = {};
+  //   var e,
+  //     r = /([^&;=]+)=?([^&;]*)/g,
+  //     q = window.location.hash.substring(1);
+  //   while ((e = r.exec(q))) {
+  //     hashParams[e[1]] = decodeURIComponent(e[2]);
+  //   }
+  //   return hashParams;
+  // }
 
   
   
@@ -52,13 +47,15 @@ export default class Settings extends Component {
   }
 
   componentDidMount() {
-    this.props.spotifylogin(this.state.loggedIn);
+    // this.props.spotifylogin(this.state.loggedIn);
   }
 
   render() {
     return (
       <div>
+        <h1>{'Settings'}</h1>
         <form onSubmit={this.handleSubmit}>
+        <h2>{'Password Updater'}</h2>
           <input
             onChange={this.handleChange}
             type="password"
@@ -76,13 +73,14 @@ export default class Settings extends Component {
               changePassword(this.state.currentPassword, this.state.newPassword)
             }
           >
-            reset password
+            Reset password
           </button>
         </form>
 
         {/* {listOfForms.map((element,index) => {
            return forms(listOfForms[index][0],listOfForms[index][1],listOfForms[index][2])
         }) } */}
+        <h2>{'Avatar Updater'}</h2>
         <form onSubmit={this.handleSubmit}>
           <input
             onChange={this.handleChange}
@@ -100,7 +98,7 @@ export default class Settings extends Component {
             Change Avatar
           </button>
         </form>
-
+<br/><h2>{'Radius Updater'}</h2>
         <form onSubmit={this.handleSubmit}>
           <input
             onChange={this.handleChange}
@@ -134,12 +132,17 @@ export default class Settings extends Component {
             Change Location
           </button>
         </form> */}
+        <br/>
+        <h2>{'Location Updater'}</h2>
         <SetLocation />
+        <h3>{'or'}</h3>
         <AutoGetLocation />
 {/* 
         <a href={` https://spotify-thegig.herokuapp.com/`}>
           <button>login with spotify</button>
         </a> */}
+        <br/>
+        <h3>{'Logout'}</h3>
                 <LogOut />
 
       </div>

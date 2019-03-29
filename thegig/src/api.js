@@ -19,9 +19,15 @@ export const getTrack = (artist, track) => {
 
 export const getBandSuggestions = bandName => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
+  `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
   );
-};
+  };
+
+  export const getSongSuggestions = song => {
+    return axios.get(
+    `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${song}&api_key=${lastFmAPIkey}&format=json`
+    );
+    };
 
 
 

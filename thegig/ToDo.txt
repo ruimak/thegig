@@ -13,6 +13,9 @@ open in new window, as its shown in here : https://hackernoon.com/using-a-react-
 REGISTRATION
 should set location and radius in there
 
+SETTINGS
+we could use a message or popup after we update something
+
 
 MINOR BUGS and ISSUES
 need fixing on the yellow error messages
@@ -27,3 +30,4 @@ possibly in the myEvents artists like Drake White will show up if you follow Dra
 MAJOR BUGS and ISSUES
 bands with / on their name bug the app (eg: AC/DC)
 drake comes up as undefined in the url, hes probably not the only one - REASON: thats because if the searchbar is not completed it will go to the uncompleted url
+searchbar if you go from a song page to another it wont render, need that newprops thingy
