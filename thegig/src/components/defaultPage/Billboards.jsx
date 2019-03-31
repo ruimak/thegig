@@ -109,7 +109,7 @@ class Billboards extends Component {
    
   render() {
       console.log(this.state,'this is the chsrts ')
-        const listOfButtons = [['Hot100', 'hot-100'], ['RnB', 'rnb'], ['Top UK', 'uksongs'], ['Top Rock', 'rock'], ['Top Pop', 'pop'] ]
+        const listOfButtons = [['Hot100', 'hot-100'], ['RnB', 'rnb'], ['Top UK', 'uksongs'], ['Top Rock', 'rock'], ['Top Pop', 'pop']]
 const chartButton = (name, keyWord) => {
     return <div >
         

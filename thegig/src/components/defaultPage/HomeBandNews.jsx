@@ -13,8 +13,9 @@ import {
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Carousel from "nuka-carousel";
-const { red, blue, green } = require("@material-ui/core/colors");
 
+import "../../styles/App.css";
+const { red, blue, green } = require("@material-ui/core/colors");
 const { database } = firebase;
 
 class HomeBandNews extends Component {
@@ -62,54 +63,80 @@ class HomeBandNews extends Component {
   }
 
   render() {
-   
     let arrayToDisplayInCarousel = [];
     let otherNews = [];
-   
+
     arrayToDisplayInCarousel = this.state.bandNews.slice(0, 6);
     otherNews = this.state.bandNews.slice(6, this.state.bandNews.length);
- let leftSideNews = otherNews.filter((element, index)=>{
-   if(index===0 || index%2===0)
-   return element
- })
- let rightSideNews = otherNews.filter((element, index)=>{
-  if(index!==0 && index%2!==0)
-  return element
-})
-
-
+    let leftSideNews = otherNews.filter((element, index) => {
+      if (index === 0 || index % 2 === 0) return element;
+    });
+    let rightSideNews = otherNews.filter((element, index) => {
+      if (index !== 0 && index % 2 !== 0) return element;
+    });
 
     return (
       <div className={this.props.classes.root}>
-        <Carousel width="80%"  autoplay="true" autoGenerateStyleTag='true' heightMode='max'>
+        <Carousel
+          width="70%"
+          autoplay="true"
+          autoGenerateStyleTag="true"
+          heightMode="max"
+          className="stand-out-container"
+          // style={{marginLeft:'10%'}}
+        >
           {this.state.bandNews !== null
             ? arrayToDisplayInCarousel.map(news => {
                 return (
-                  <div style={{display: 'inline', justifyContent: 'center', marginLeft:'9%' }}>
-                    <img src={news.urlToImage} height="400vw" width="600vw"/>
+                  <div
+                    style={{
+                      display: "inline",
+                      justifyContent: "center"
+                      // marginLeft: "9%"
+                    }}
+                  >
+                    <img
+                      src={news.urlToImage}
+                      height="400vw"
+                      width="600vw"
+                      style={{ marginTop: "4%" }}
+                    />
                     <br />
                     <h2>{news.title}</h2>
-                    <div style={{paddingBottom:'10%',justifyContent: 'center' }}>{news.content}</div>                    {/* <a href={news.url}>{news.url}</a> */}
+                    <div
+                      style={{
+                        paddingBottom: "8%",
+                        justifyContent: "center",
+                        overflow: "hidden"
+                      }}
+                    >
+                      {news.description}
+                    </div>
+                    {/* <a href={news.url}>{news.url}</a> */}
                   </div>
                 );
               })
             : null}
         </Carousel>
 
-        <Grid container item sm={12}>
+        <Grid container item sm={12} style={{ paddingTop: "5vh" }}>
           <Grid item sm={6}>
             {this.state.bandNews !== null
               ? leftSideNews.map(news => {
                   return (
-                    <div>
-                      <Grid item md={6}>
-                        <h1>{news.title}</h1>
+                    <div className="stand-out-container">
+                      <Grid
+                        item
+                        md={6}
+                        style={{ height: "50vh", maxWidth: "100%" }}
+                      >
                         <img
                           src={news.urlToImage}
                           className={this.props.classes.image}
                           height="250"
-                          width="350"
+                          width="85%"
                         />
+                        <div className="article-title">{news.title}</div>
                         <Grid
                           container
                           item
@@ -117,17 +144,23 @@ class HomeBandNews extends Component {
                           direction="row"
                           justify="center"
                           alignItems="center"
+                          className="article-description"
+                          style={{ maxWidth: "100%" }}
                         >
-                          >
-                          {news.content !== null
-                            ? news.content.substring(0, 70)
-                            : null}
-                          <a
+                          {news.description !== null ? (
+                            <div
+                              className="centered-container"
+                              style={{ width: "90%" }}
+                            >
+                              {news.description}
+                            </div>
+                          ) : null}
+                          {/* <div
                             className={this.props.classes.link}
                             href={news.url}
                           >
                             {news.url.substring(0, 30)}
-                          </a>
+                          </div> */}
                         </Grid>
                       </Grid>
                     </div>
@@ -140,15 +173,19 @@ class HomeBandNews extends Component {
             {this.state.bandNews !== null
               ? rightSideNews.map(news => {
                   return (
-                    <div>
-                      <Grid item md={6}>
-                        <h1>{news.title}</h1>
+                    <div className="stand-out-container">
+                      <Grid
+                        item
+                        md={6}
+                        style={{ height: "50vh", maxWidth: "100%" }}
+                      >
                         <img
                           className={this.props.classes.image}
                           src={news.urlToImage}
                           height="250"
-                          width="350"
+                          width="85%"
                         />
+                        <div className="article-title">{news.title}</div>
                         <Grid
                           container
                           item
@@ -156,17 +193,23 @@ class HomeBandNews extends Component {
                           direction="row"
                           justify="center"
                           alignItems="center"
+                          className="article-description"
+                          style={{ maxWidth: "100%" }}
                         >
-                          >
-                          {news.content !== null
-                            ? news.content.substring(0, 70)
-                            : null}
-                          <a
+                          {news.description !== null ? (
+                            <div
+                              className="centered-container"
+                              style={{ width: "90%" }}
+                            >
+                              {news.description}
+                            </div>
+                          ) : null}
+                          {/* <div
                             className={this.props.classes.link}
                             href={news.url}
                           >
                             {news.url.substring(0, 30)}
-                          </a>
+                          </div> */}
                         </Grid>
                       </Grid>
                     </div>
@@ -184,7 +227,7 @@ const styles = {
     position: "absolute"
   },
   backgroundColor: {
-    backgroundColor: red
+    // backgroundColor: red
   },
   height: {
     height: "500",
@@ -193,12 +236,12 @@ const styles = {
   root: {
     flexGrow: 1,
     // paddingRight: "25%",
-    paddingLeft: "10%",
+    // paddingLeft: "10%",
 
     paddingTop: "10%"
   },
   image: {
-    paddingBottom: "8%"
+    paddingTop: "8%"
   },
   link: {
     paddingBottom: "15%"

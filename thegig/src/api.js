@@ -45,7 +45,7 @@ export const getSongInfo = (bandName, songTitle) => {
 //YOU NEED TO CHANGE THE SIZE PARAMETER IN ORDER TO GET MORE EVENTS
 export const getEventsForLocation = (location, radius) => {
   return axios.get(
-    `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&radius=${radius}&geoPoint=${location}&size=40&apikey=${ticketMasterAPIkey}`
+    `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&radius=${radius}&geoPoint=${location}&size=400&apikey=${ticketMasterAPIkey}`
   );
 };
 

@@ -128,13 +128,21 @@ const getSuggestions = value => {
       let songs = songsResult;
       return inputLength === 0
         ? []
-        : [{title:'Bands', suggestions:bands.data.results.artistmatches.artist.slice(0, 4)}, {title:'Songs', suggestions:songs.data.results.trackmatches.track.slice(0, 4)}]
-            //  add this part to filter exact matches rather than relevant ones
-            // .filter(
-            //   artist =>
-            //     artist.name.toLowerCase().slice(0, inputLength) === inputValue
-            // )
-            ;
+        : [
+            {
+              title: "Bands",
+              suggestions: bands.data.results.artistmatches.artist.slice(0, 4)
+            },
+            {
+              title: "Songs",
+              suggestions: songs.data.results.trackmatches.track.slice(0, 4)
+            }
+          ];
+      //  add this part to filter exact matches rather than relevant ones
+      // .filter(
+      //   artist =>
+      //     artist.name.toLowerCase().slice(0, inputLength) === inputValue
+      // )
     });
   });
 };
@@ -142,11 +150,9 @@ const getSuggestions = value => {
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
 // input value for every given suggestion.
-const getSuggestionValue = suggestion => 
-{
-  
-  return suggestion.name;}
-
+const getSuggestionValue = suggestion => {
+  return suggestion.name;
+};
 
 // Use your imagination to render suggestions.
 // const renderSuggestion = suggestion => <div>{suggestion.name}</div>;
@@ -181,7 +187,6 @@ export default withStyles(styles)(
         });
       };
 
-
       // Autosuggest will call this function every time you need to clear suggestions.
       onSuggestionsClearRequested = () => {
         this.setState({
@@ -195,8 +200,7 @@ export default withStyles(styles)(
         suggestionIndex,
         sectionIndex,
         method
-      ) => {            
-
+      ) => {
         if (!suggestionValue) {
           getBandInfo(suggestion).then(bandInfo => {
             console.log(bandInfo.data.artist.name, "NAME OF THE ARTIST");
@@ -206,29 +210,32 @@ export default withStyles(styles)(
               `/artist/${bandInfo.data.artist.name}/news`
             );
           });
-        } else 
-        if (suggestionValue && suggestionValue.method === "click") {
-            suggestionValue.sectionIndex===0 ? this.props.history.push(
-              `/artist/${suggestionValue.suggestion.name}/news/`
-            ) : this.props.history.push(
-              `/artist/${suggestionValue.suggestion.artist}/song/${suggestionValue.suggestion.name}`
-            )
-            this.setState({ value: "" });
-      
-        } else {
-          suggestionValue.sectionIndex===0 ? this.props.history.push(
-            `/artist/${suggestionValue.suggestion.name}/news/`
-          ) : this.props.history.push(
-            `/artist/${suggestionValue.suggestion.artist}/song/${suggestionValue.suggestion.name}`
-          )
+        } else if (suggestionValue && suggestionValue.method === "click") {
+          suggestionValue.sectionIndex === 0
+            ? this.props.history.push(
+                `/artist/${suggestionValue.suggestion.name}/news/`
+              )
+            : this.props.history.push(
+                `/artist/${suggestionValue.suggestion.artist}/song/${
+                  suggestionValue.suggestion.name
+                }`
+              );
           this.setState({ value: "" });
-    
+        } else {
+          suggestionValue.sectionIndex === 0
+            ? this.props.history.push(
+                `/artist/${suggestionValue.suggestion.name}/news/`
+              )
+            : this.props.history.push(
+                `/artist/${suggestionValue.suggestion.artist}/song/${
+                  suggestionValue.suggestion.name
+                }`
+              );
+          this.setState({ value: "" });
         }
       };
 
-
       // HAVE TO ENABLE ON KEY DOWN IN ORDER TO FETCH BANDS THAT ARENT SUGGESTED
-
 
       // onKeyDown(event) {
       //   if (event.key === "Enter") {
@@ -237,19 +244,25 @@ export default withStyles(styles)(
       // }
 
       renderSectionTitle(section) {
-        return (
-          <strong>{`- - ${section.title} - - `}</strong>
-        );
+        return <strong>{`- - ${section.title} - - `}</strong>;
       }
       getSectionSuggestions(section) {
         return section.suggestions;
       }
 
       renderSuggestion(suggestion) {
-        return  suggestion.artist ? <div><span>{suggestion.name}</span><span style={{fontSize:'70%', fontStyle: 'italic'}}>{` by ${suggestion.artist}`}</span></div> : <span>{suggestion.name}</span>
-        
+        return suggestion.artist ? (
+          <div>
+            <span>{suggestion.name}</span>
+            <span style={{ fontSize: "70%", fontStyle: "italic" }}>{` by ${
+              suggestion.artist
+            }`}</span>
+          </div>
+        ) : (
+          <span>{suggestion.name}</span>
+        );
       }
-     
+
       render() {
         const { classes } = this.props;
 
@@ -259,12 +272,11 @@ export default withStyles(styles)(
           onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
           onSuggestionsClearRequested: this.onSuggestionsClearRequested,
           getSuggestionValue,
-          renderSuggestion:this.renderSuggestion,
+          renderSuggestion: this.renderSuggestion,
           onSuggestionSelected: this.onSuggestionSelected,
-            multiSection:true,
-            renderSectionTitle:this.renderSectionTitle,
-          getSectionSuggestions:this.getSectionSuggestions,
-        
+          multiSection: true,
+          renderSectionTitle: this.renderSectionTitle,
+          getSectionSuggestions: this.getSectionSuggestions
         };
 
         const { value, suggestions } = this.state;
@@ -288,7 +300,7 @@ export default withStyles(styles)(
                 classes,
                 placeholder: "Search for an artist...",
                 value: this.state.value,
-                onChange: this.handleChange("value"),
+                onChange: this.handleChange("value")
                 // onKeyDown: this.onKeyDown.bind(this)
               }}
               theme={{
@@ -311,19 +323,7 @@ export default withStyles(styles)(
   )
 );
 
-
-
-
-
-
-
-
-
-
 ///////////
-
-
-
 
 // //THIS IS THE NEW IMPLEMENTATION OF AUTOSUGGEST
 

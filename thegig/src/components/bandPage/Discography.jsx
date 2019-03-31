@@ -15,7 +15,7 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { timingSafeEqual } from "crypto";
-import "./Discography.css";
+import "../../styles/Discography.css";
 import { isAbsolute } from "path";
 
 //I CAN ADD A FUNCTION THAT CHANGES SOMETHING IN THE STATE SO THAT IT EITHER RENDERS 5 OR ALL ALBUMS

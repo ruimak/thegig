@@ -9,8 +9,8 @@ export default class ArtistNewContent extends Component {
   };
   componentDidMount() {
     getArtistNews(this.props.params.band).then(artistNews => {
-      const clickedArticle = artistNews.data.articles[0]
-      
+      const clickedArticle = artistNews.data.articles[0];
+
       // .filter(article => {
       //   return article.title === this.props.params.newsTitle;
       // });
@@ -25,15 +25,11 @@ export default class ArtistNewContent extends Component {
   render() {
     console.log(this.state.article.content, "@@@@@@@@@@@@@@@@@@@@@@@@@@");
     return (
-    
-    <div>
-    
-    <h1>{this.state.article.title}</h1>
-<img src={this.state.article.urlToImage} height='400' width='700'></img>
-    <p>{this.state.article.content}</p>
-    
-    
-    </div>
-    )
+      <div>
+        <h1>{this.state.article.title}</h1>
+        <img src={this.state.article.urlToImage} height="400" width="700" />
+        <p>{this.state.article.content}</p>
+      </div>
+    );
   }
 }

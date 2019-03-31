@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { getEventsForLocation } from "../../api";
 import firebase from "../../firebase.js";
-import "./defaultPage.css";
+import "../../styles/defaultPage.css";
+import '../../styles/App.css'
 
 //YOU NEED TO CHANGE THE SIZE PARAMETER IN THE API F IN ORDER TO GET MORE EVENTS
 export default class ArtistEvents extends Component {
   state = {
     eventsInfo: null,
-    bandsFollowed: []
+    bandsFollowed: [],
+    isLoading:true
   };
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
@@ -24,9 +26,11 @@ export default class ArtistEvents extends Component {
                 userData.val().users[user.uid].bands
               );
               return getEventsForLocation(location, radius).then(events => {
+                console.log(events.data._embedded, 'THE EVENTS')
                 this.setState({
                   eventsInfo: events.data._embedded.events,
-                  bandsFollowed: myBands
+                  bandsFollowed: myBands,
+                  isLoading:false
                 });
               });
             }.bind(this)
@@ -36,7 +40,7 @@ export default class ArtistEvents extends Component {
   }
   render() {
     return (
-      <div className="mainDiv">
+     !this.state.isLoading && <div className="mainDiv">
         <h1 className="title">{"My Events"}</h1>
 
         {this.state.eventsInfo !== null
@@ -48,7 +52,7 @@ export default class ArtistEvents extends Component {
                 )
               ) {
                 return (
-                  <div className="individualEventDiv">
+                  <div className="individualEventDiv stand-out-container">
                     <br />
                     <div className="divContent">{event.name}</div>
                     <br />

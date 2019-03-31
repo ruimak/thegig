@@ -32,7 +32,7 @@ import Loading from "./components/authentication/Loading";
 // const { database } = firebase;
 
 // import styles
-import "./App.css";
+import "./styles/App.css";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -178,7 +178,7 @@ class App extends Component {
       return <Loading />;
     } else
       return (
-        <div>
+        <div className='app' style={{backgroundColor:'#f7f7f7', height:'100%'}}>
           {/* These next two are the login and registration components, rendered if the user isnt logged in to firebase */}
           {!this.state.loggedInUserId && (
             <div id="mainDiv">

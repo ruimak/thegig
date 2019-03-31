@@ -1,20 +1,50 @@
 
 TO DO:
-SEARCHBAR
+SEARCHBAR - not that important
 searchbar needs 404
+need to add on key down -enter
 
 
-ORGANIZATION
+ORGANIZATION - not that important
 maybe use an index to group all the imports in app.js (its getting out of hand)
 
-LYRICS
+LYRICS - not that important
 open in new window, as its shown in here : https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202
 
-REGISTRATION
-should set location and radius in there
-
-SETTINGS
+SETTINGS - somewhat important
 we could use a message or popup after we update something
+
+COMPONENTS THAT NEED ISLOADING - important
+myEvents, events, setlists, followUnfollowButton
+
+MYEVENTS - somewhat important
+need to fix that thing for secondary acts like i did for the artist events
+the reason why myevents is low might be because we're fetching 400 events
+
+BillBoards - important
+Should render hot100 by default
+
+ARTICLES - important
+all article divs should have the same size and be aligned
+they also need a link to the article
+bands with no news (eg: capitao fausto) should display a message and not the empty carousel. Also thats gonna need an isLoading
+
+BANDINFO - important
+could use "Bio" and "related artists" titles
+
+SETLISTS - really important
+some artists, drake for example, arent displaying setlists
+also need to include encore
+also need styling
+
+DISCOGRAPHY - really important
+name of artist not displaying correctly
+order should be 123 - 456 and not 135-246 on the top rated albums
+songtitle overlapping the number of plays in top rated albums
+when you press "show more albums you should see all of the other albums, not just 10", and they should be organized in a grid, not a column
+
+SONGPAGE - not that important
+should add related songs
 
 
 MINOR BUGS and ISSUES
@@ -31,3 +61,4 @@ MAJOR BUGS and ISSUES
 bands with / on their name bug the app (eg: AC/DC)
 drake comes up as undefined in the url, hes probably not the only one - REASON: thats because if the searchbar is not completed it will go to the uncompleted url
 searchbar if you go from a song page to another it wont render, need that newprops thingy
+
