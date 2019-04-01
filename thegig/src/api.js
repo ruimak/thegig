@@ -5,8 +5,6 @@ const lastFmAPIkey = "d63d16f26b892d97b89a72c35c36967a";
 const ticketMasterAPIkey = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
 const setListAPIkey = "01779b2b-84a5-48ad-b7fb-f9d1eed51cdc";
 const mtvNewsAPIkey = "d356f459298440eab7ae6a18762d0d61";
-const googleAPIkey = "AIzaSyA3m4wya3xoNIm5M5vzhUUdX56I4upK4ME";
-const spotifyClientid = "a5daa539d04b45b481d35143568b01d0";
 const musixmatchAPIkey = "6eeab426384ac332ae0f5ff63ced9b95";
 
 // API REQUESTS
@@ -42,7 +40,7 @@ export const getSongInfo = (bandName, songTitle) => {
 };
 
 
-//YOU NEED TO CHANGE THE SIZE PARAMETER IN ORDER TO GET MORE EVENTS
+//If you change the size parameter you will get more-less events, making it more accurate/faster
 export const getEventsForLocation = (location, radius) => {
   return axios.get(
     `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&radius=${radius}&geoPoint=${location}&size=400&apikey=${ticketMasterAPIkey}`
@@ -64,9 +62,6 @@ export const getAlbumInfo = (bandName, albumName) => {
 export const getTopArtistSongs = (bandName) => {
   return axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`)
 }
-
-
-
 
 export const getArtistEvent = name => {
   return axios.get(
@@ -218,7 +213,6 @@ export const removeBandFromFollowedList = (userId, bandName) => {
   const query = firebase
     .database()
     .ref(`/users/${userId}/bands`)
-    // .child('/bands')
     .orderByValue()
     .equalTo(bandName);
 
@@ -228,7 +222,8 @@ export const removeBandFromFollowedList = (userId, bandName) => {
 };
 
 export const getUsersFollowedBand = (user => {
-  database.ref('bands').get().then(snapshot => {
-console.log(snapshot.docs)
+  database.ref('bands').get()
+  .then(snapshot => {
+// console.log(snapshot.docs)
   })
 })
