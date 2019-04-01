@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-// import fetchJsonp from 'fetch-jsonp'
-
 import { getTrack, getSongInfo } from "../../api";
-import { Route, Link, Switch, withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
-
 // const { DZ } = window
 
 class SongPlayer extends Component {
@@ -14,6 +10,9 @@ class SongPlayer extends Component {
     track: null,
     songInfo: null
   };
+
+  //In this particular file we will keep the commented sections in, because they are part of a future implementation
+  //That implementation will be an internal music player, a widget that will allow you to listen to songs and have playlists while on the app
 
   // login =()=> {
   //     DZ.login(function(response) {
@@ -44,15 +43,11 @@ class SongPlayer extends Component {
 
   componentDidMount() {
     // this.getLoginStatus()
-    console.log(this.props.params.band, this.props.params.songTitle, "PROPS");
     getTrack(this.props.params.band, this.props.params.songTitle).then(res => {
-      console.log(res, "TRAAAAAAAAAAAAACKKK");
-      console.log(this.props.params.band, this.props.params.songTitle, "PROPS");
       this.setState({ track: res.data.data[0].preview });
     });
     getSongInfo(this.props.params.band, this.props.params.songTitle).then(
       songInfo => {
-        console.log(songInfo);
         this.setState({ songInfo: songInfo });
       }
     );
@@ -66,10 +61,11 @@ class SongPlayer extends Component {
           this.setState({ songInfo: songInfo });
         }
       );
-      getTrack(this.props.params.band, this.props.params.songTitle).then(res => {
-
-        this.setState({ track: res.data.data[0].preview });
-      });
+      getTrack(this.props.params.band, this.props.params.songTitle).then(
+        res => {
+          this.setState({ track: res.data.data[0].preview });
+        }
+      );
     }
     setTimeout(() => {
       window.dispatchEvent(new Event("resize"));
@@ -77,7 +73,6 @@ class SongPlayer extends Component {
   }
 
   render() {
-    //   console.log(this.state.loggedin, 'LOGGED IN YAY OR NAY ?')
     //   this.getLoginStatus()
     return this.state.songInfo && this.state.songInfo.data.track ? (
       <div>
@@ -85,7 +80,7 @@ class SongPlayer extends Component {
         <div>
           <img src={this.state.songInfo.data.track.album.image[2]["#text"]} />
 
-          <h2>{this.state.songInfo.data.track.album.title}</h2>
+          <h2>{"Album: " + this.state.songInfo.data.track.album.title}</h2>
         </div>
         <Button
           onClick={() => {

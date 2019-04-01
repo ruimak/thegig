@@ -15,7 +15,7 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { timingSafeEqual } from "crypto";
-import "./Discography.css";
+import "../../styles/Discography.css";
 import { isAbsolute } from "path";
 
 //I CAN ADD A FUNCTION THAT CHANGES SOMETHING IN THE STATE SO THAT IT EITHER RENDERS 5 OR ALL ALBUMS
@@ -406,14 +406,12 @@ const styles = {
     maxheight: 375
   },
   cardHeader: {
-    // justify:"center"
   },
   cardImage: {
     height: "5%",
     paddingTop: "56.25%"
   },
   cardContent: {
-    // paddingBottom : '40%'
     position: "absolute",
     bottom: "20%",
     left: "5%"
@@ -497,8 +495,6 @@ const styles = {
   },
   moreAlbumcard : {
     backgroundColor: "white",
-    // marginLeft: "10%",
-    // marginRight: "10%",
     position: "relative",
     textAlign: "center",
     color: "white",

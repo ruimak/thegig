@@ -1,18 +1,14 @@
 import React, { Component } from "react";
 import { getArtistNews } from "../../api";
-import { Link } from "react-router-dom";
 import {
-  Tabs,
-  Avatar,
-  Typography,
+
   Grid,
-  Slide,
-  GridList
+
 } from "@material-ui/core";
 import Carousel from "nuka-carousel";
 import { withStyles } from "@material-ui/core/styles";
-import './CarouselStyle.css'
-const { red, blue, green } = require("@material-ui/core/colors");
+import "../../styles/CarouselStyle.css";
+import "../../styles/App.css";
 
 class ArtistNews extends Component {
   state = {
@@ -24,39 +20,7 @@ class ArtistNews extends Component {
       this.setState({ news: news.data.articles });
     });
   }
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   console.log(nextProps, "NEXTPROPS ");
-  //   console.log(prevState, "PREVSTATE");
-  //   console.log(
-  //     nextProps.params.band !== prevState.band,
-  //     "COMPARISON !!!!!!!!!!!!!!!!!!!!!"
-  //   );
 
-  //   let band = nextProps.params.band;
-  //   let newsToGoInState = [];
-
-  //   nextProps.params.band !== prevState.band && getArtistNews(nextProps.params.band).then(news => {
-  //       console.log(
-  //         "FUCK YOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"
-  //       );
-  //       // this.setState({ news: news.data.articles, band:band });
-  //       // console.log('the state has been updated!!')
-
-  //       newsToGoInState = news.data.articles;
-  //       console.log(
-  //         newsToGoInState,
-  //         "NEWSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
-  //       );
-  //        console.log(
-  //       newsToGoInState,
-  //       "news right before being updated!!!!!!!!!!!!!!!"
-  //     );
-
-  //       return { news: newsToGoInState, band: band };
-  //     });
-  //    return null
-
-  // }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.params.band !== prevProps.params.band) {
@@ -72,7 +36,6 @@ class ArtistNews extends Component {
     setTimeout(() => {
       window.dispatchEvent(new Event("resize"));
     }, 0);
-  
   }
 
   render() {
@@ -87,40 +50,78 @@ class ArtistNews extends Component {
     let rightSideNews = otherNews.filter((element, index) => {
       if (index !== 0 && index % 2 !== 0) return element;
     });
-    console.log(arrayToDisplayInCarousel)
+    console.log(arrayToDisplayInCarousel);
+
     return (
       <div className={this.props.classes.root}>
-        <Carousel width="80%"  autoplay="true" autoGenerateStyleTag='true' heightMode='max'>
+        <Carousel
+          width="70%"
+          autoplay="true"
+          autoGenerateStyleTag="true"
+          heightMode="max"
+          className="stand-out-container"
+        >
           {this.state.news !== []
             ? arrayToDisplayInCarousel.map(news => {
                 return (
-                  <div style={{display: 'inline', justifyContent: 'center', marginLeft:'9%'}}>
-                    <img src={news.urlToImage} height="400vw" width="600vw" />
+                  <div
+                    style={{
+                      display: "inline",
+                      justifyContent: "center"
+                    }}
+                    onClick={()=>{window.open(
+                      `${news.url}`,
+                      'mywindow'
+                    ).focus();}
+                  }
+                  >
+                    <img
+                      src={news.urlToImage}
+                      height="400vw"
+                      width="600vw"
+                      style={{ marginTop: "4%" }}
+                    />
                     <br />
                     <h2>{news.title}</h2>
 
-                    <div style={{paddingBottom:'10%',justifyContent: 'center'}}>{news.content}</div>
-                    {/* <a href={news.url}>{news.url}</a> */}
+                    <div
+                      style={{
+                        paddingBottom: "8%",
+                        justifyContent: "center",
+                        overflow: "hidden"
+                      }}
+                    >
+                      {news.description}
+                    </div>
                   </div>
                 );
               })
             : null}
         </Carousel>
 
-        <Grid container item sm={12}>
+        <Grid container item sm={12} style={{ paddingTop: "5vh" }}>
           <Grid item sm={6}>
             {this.state.bandNews !== null
               ? leftSideNews.map(news => {
                   return (
-                    <div>
-                      <Grid item md={6}>
-                        <h1>{news.title}</h1>
+                    <div className="stand-out-container" onClick={()=>{window.open(
+                      `${news.url}`,
+                      'mywindow'
+                    ).focus();}}
+                    style={{cursor:'pointer'}}
+                    >
+                      <Grid
+                        item
+                        md={6}
+                        style={{ height: "50vh", maxWidth: "100%" }}
+                      >
                         <img
                           src={news.urlToImage}
                           className={this.props.classes.image}
                           height="250"
-                          width="350"
+                          width="85%"
                         />
+                        <div className="article-title">{news.title}</div>
                         <Grid
                           container
                           item
@@ -128,17 +129,19 @@ class ArtistNews extends Component {
                           direction="row"
                           justify="center"
                           alignItems="center"
+                          className="article-description"
+                          style={{ maxWidth: "100%" }}
                         >
-                          >
-                          {news.content !== null
-                            ? news.content.substring(0, 70)
-                            : null}
-                          <a
-                            className={this.props.classes.link}
-                            href={news.url}
-                          >
-                            {news.url.substring(0, 30)}
-                          </a>
+                          
+                          {news.description !== null ? (
+                            <div
+                              className="centered-container"
+                              style={{ width: "90%" }}
+                            >
+                              {news.description}
+                            </div>
+                          ) : null}
+                          
                         </Grid>
                       </Grid>
                     </div>
@@ -151,15 +154,25 @@ class ArtistNews extends Component {
             {this.state.bandNews !== null
               ? rightSideNews.map(news => {
                   return (
-                    <div>
-                      <Grid item md={6}>
-                        <h1>{news.title}</h1>
+                    <div className="stand-out-container" onClick={()=>{window.open(
+                      `${news.url}`,
+                      'mywindow'
+                    ).focus();}}
+                    style={{cursor:'pointer'}}
+
+                    >
+                      <Grid
+                        item
+                        md={6}
+                        style={{ height: "50vh", maxWidth: "100%" }}
+                      >
                         <img
                           className={this.props.classes.image}
                           src={news.urlToImage}
                           height="250"
-                          width="350"
+                          width="85%"
                         />
+                        <div className="article-title">{news.title}</div>
                         <Grid
                           container
                           item
@@ -167,17 +180,17 @@ class ArtistNews extends Component {
                           direction="row"
                           justify="center"
                           alignItems="center"
+                          className="article-description"
+                          style={{ maxWidth: "100%" }}
                         >
-                          >
-                          {news.content !== null
-                            ? news.content.substring(0, 70)
-                            : null}
-                          <a
-                            className={this.props.classes.link}
-                            href={news.url}
-                          >
-                            {news.url.substring(0, 30)}
-                          </a>
+                        {news.description !== null ? (
+                            <div
+                              className="centered-container"
+                              style={{ width: "90%" }}
+                            >
+                              {news.description}
+                            </div>
+                          ) : null}
                         </Grid>
                       </Grid>
                     </div>
@@ -187,8 +200,6 @@ class ArtistNews extends Component {
           </Grid>
         </Grid>
       </div>
-
-     
     );
   }
 }
@@ -198,7 +209,7 @@ const styles = {
     position: "absolute"
   },
   backgroundColor: {
-    backgroundColor: red
+
   },
   height: {
     height: "500",
@@ -206,13 +217,10 @@ const styles = {
   },
   root: {
     flexGrow: 1,
-    // paddingRight: "5%",
-    paddingLeft: "10%",
-
     paddingTop: "10%"
   },
   image: {
-    paddingBottom: "8%"
+    paddingTop: "8%"
   },
   link: {
     paddingBottom: "15%"

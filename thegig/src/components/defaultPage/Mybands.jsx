@@ -13,7 +13,8 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Fab from "@material-ui/core/Fab";
-import "./defaultPage.css";
+import "../../styles/defaultPage.css";
+import '../../styles/App.css'
 
 const styles = theme => ({
   position: {
@@ -78,7 +79,6 @@ export default withStyles(styles)(
                   ? Object.values(userData.val().users[user.uid].bands)
                   : [];
                 this.setState({ bandsFollowed: bands });
-                console.log(bands);
               }.bind(this)
             );
         }
@@ -89,10 +89,10 @@ export default withStyles(styles)(
       return (
         <div className={this.props.classes.root} style={{paddingTop: "5vh"}}>
           <h1 className="title" style={{paddingBottom:'10vh'}}>{"My Bands"}</h1>{" "}
-          {this.state.bandsFollowed.sort().map(band => {
-            // IF WE REMOVE THE SORT IT SORTS BY DATE FOLLOWED, CAN USE THAT LATER
+          <div className='centered-container'>  {this.state.bandsFollowed.sort().map(band => {
+            // Remove the sort if you want the bands to be displayed by date-followed. We can add sorting buttons later. 
             return (
-              <div>
+              <div className='stand-out-container' style={{marginLeft:'25%',width:'50%',marginBottom:'1%', textAlign:'left'}}>
                 <Fab
                   color="primary"
                   size="small"
@@ -105,12 +105,13 @@ export default withStyles(styles)(
                       this.unfollowBand(band);
                     }}
                   />
-                </Fab>{" "}
+                </Fab>
                 <Link to={`/artist/${band}/news`}>{band}</Link>
                 <br />
               </div>
             );
-          })}
+          })}</div>
+         
         </div>
       );
     }

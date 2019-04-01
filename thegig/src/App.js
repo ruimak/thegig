@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SearchBar from "./components/SearchBar";
 import BandInfo from "./components/bandPage/BandInfo";
-import { Route, Link, Switch, withRouter } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import ArtistEvents from "./components/bandPage/ArtistEvents";
 import SetLists from "./components/bandPage/SetLists";
@@ -9,16 +9,10 @@ import ArtistNews from "./components/bandPage/ArtistNews";
 import SignIn from "./components/authentication/SignIn";
 import LogIn from "./components/authentication/LogIn";
 import firebase from "./firebase.js";
-import FollowUnfollowButton from "./components/bandPage/FollowUnfollowButton";
 import MyBands from "./components/defaultPage/Mybands";
-import LogOut from "./components/authentication/LogOut";
-import SetLocation from "./components/location/SetLocation";
-import AutoGetLocation from "./components/location/AutoGetLocation";
-import { userBandsList } from "./api";
 import HomeBandNews from "./components/defaultPage/HomeBandNews";
 import Billboards from "./components/defaultPage/Billboards";
 import Settings from "./components/Settings";
-// import Spotifys from "./components/Spotify";
 import Deezer from "./components/songsPage/Deezer";
 import SongLyrics from "./components/songsPage/SongLyrics";
 import MyEvents from "./components/defaultPage/MyEvents";
@@ -26,36 +20,23 @@ import ArtistNewsContent from "./components/bandPage/ArtistNewsContent";
 import Discography from "./components/bandPage/Discography";
 import Album from "./components/bandPage/Album";
 import RedirectButton from "./components/utilities/RedirectButton";
-import SongInfo from "./components/songsPage/SongInfo";
 import SetLocationOnAuth from "./components/authentication/SetLocationOnAuth";
 import Loading from "./components/authentication/Loading";
-// const { database } = firebase;
 
-// import styles
-import "./App.css";
+import "./styles/App.css";
 
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { purple, white } from "@material-ui/core/colors";
 
-// import MenuIcon from '@material-ui/icons/Menu';
 const { database } = firebase;
 
-//THIS IS THE THEME THAT IS BEING PASSED TO COMPONENTS, TO CHANGE ITS COLOR.
-//WE CAN ADD EXTRA COLORS AND CHANGE THE PROPS IN IT TO PRIMARY, SECONDARY AND SO ON
+//This is the personalized theme passed to components to change their color.
+//We're using it to personalize the buttons in the main navbar, making them white.
 const theme = createMuiTheme({
   palette: {
     primary: { main: "#FFFFFF" }
     // secondary: { main: '#11cb5f' },
-
     // error: red,
   },
 
@@ -72,7 +53,6 @@ const theme = createMuiTheme({
       boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .30)"
     }
   }
-  // padding: '300px'
 });
 
 const styles = theme => ({
@@ -178,11 +158,13 @@ class App extends Component {
       return <Loading />;
     } else
       return (
-        <div>
+        <div
+          className="app"
+          style={{ backgroundColor: "#f7f7f7", height: "100%" }}
+        >
           {/* These next two are the login and registration components, rendered if the user isnt logged in to firebase */}
           {!this.state.loggedInUserId && (
             <div id="mainDiv">
-              {/* <div className="artist-nav-bar-background" /> */}
               <LogIn />
               <SignIn />
             </div>
@@ -191,7 +173,6 @@ class App extends Component {
           {/* In the case the user IS logged in but doesnt have a location yet, this next component is rendered */}
           {this.state.loggedInUserId && !this.state.userLocation && (
             <div id="mainDiv">
-              <div className="artist-nav-bar-background" />
               <SetLocationOnAuth updateLocationInApp={this.getLocationUpdate} />
             </div>
           )}
@@ -200,9 +181,10 @@ class App extends Component {
           {this.state.loggedInUserId && this.state.userLocation && (
             <div>
               <div className={classes.root}>
-                {/* this is the main navbar, displayed throughout the app */}
-                {/* This navbar has the logo, the searchbar, the main navbar and the settings button */}
+                {/* This is the main navbar, displayed throughout the app */}
+                {/* This navbar has the logo, the searchbar, the navbar and the settings button */}
                 <div className="navBar">
+                  {/* Logo */}
                   <img
                     src="https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/20604412_281592685577903_8591182496679565167_n.png?_nc_cat=107&_nc_ht=scontent-lhr3-1.xx&oh=7abfaffd608ac2791c39ad49f222db97&oe=5D19502A"
                     height="80"
@@ -215,6 +197,7 @@ class App extends Component {
                       marginTop: "2vh"
                     }}
                   />
+                  {/* SearchBar and Navbar */}
                   <div className="searchAndNav">
                     <SearchBar className="mainSearchBar" />
                     <Route
@@ -234,6 +217,7 @@ class App extends Component {
                     />
                   </div>
                   <MuiThemeProvider theme={theme}>
+                    {/* Settings Button */}
                     <RedirectButton
                       location={"/Settings"}
                       displayLocation={"Settings"}
@@ -242,9 +226,12 @@ class App extends Component {
                 </div>
               </div>
 
+              {/* This is gonna be the actual page and the secondary navbar if it does exist */}
               <div id="mainDiv">
+                {/* Blurred background picture */}
                 <div className="artist-nav-bar-background" />
                 <div id="secondaryNavBarAndMainComponents">
+                  {/* Secondary navbar */}
                   <div id="bandNavBar">
                     <Route
                       path="/artist/:band"
@@ -262,10 +249,11 @@ class App extends Component {
                       )}
                     />
                   </div>
+
+                  {/* This is the switch that chooses which component is being displayed depending on the url */}
                   <div>
                     <Switch>
                       {/* <Route exact path="/NotFound" component={NotFound} /> */}
-                      {/* <Route exact path="/" component={DefaultBandNews} /> */}
                       <Route
                         exact
                         path="/"
@@ -294,17 +282,18 @@ class App extends Component {
                         render={props => <Billboards />}
                       />
 
-                  <Route
-                    exact
-                    path="/artist/:band/info"
-                    render={({ match }) => <BandInfo params={match.params} 
-                    // firebase={this.state.loggedInUserId} 
-                    // bands={this.state.userBands} 
-                    />}
-                  />
-                 
-                           
-                           
+                      <Route
+                        exact
+                        path="/artist/:band/info"
+                        render={({ match }) => (
+                          <BandInfo
+                            params={match.params}
+                            // firebase={this.state.loggedInUserId}
+                            // bands={this.state.userBands}
+                          />
+                        )}
+                      />
+
                       <Route
                         exact
                         path="/artist/:band/news"
@@ -357,21 +346,15 @@ class App extends Component {
                         path="/artist/:band/song/:songTitle"
                         render={({ match }) => <Deezer params={match.params} />}
                       />
-                      
                     </Switch>
-                    
                   </div>
                 </div>
               </div>
             </div>
           )}
-        
-        
+        </div>
       );
-    </div>
-  
-      )}
+  }
 }
-
 
 export default withStyles(styles)(App);

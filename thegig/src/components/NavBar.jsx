@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../NavBar.css";
+import "../styles/NavBar.css";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
@@ -33,10 +33,6 @@ const styles = theme => ({
     color: "#444",
     lineHeight: 2
   },
-  // wholeScreen: {
-  //   paddingRight: "20%",
-  //   paddingLeft: "20%"
-  // },
   titleAndAvatar: {
     paddingBottom: "2%"
   }
@@ -58,7 +54,6 @@ class NavBar extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.params && this.props.params.band !== prevProps.params.band) {
       getBandInfo(this.props.params.band).then(bandInfo => {
-        console.log(bandInfo, 'BANDINFOOOOOOOOOOOOOOOOOOo')
         this.setState({ bio: bandInfo.data.artist });
       });
     }

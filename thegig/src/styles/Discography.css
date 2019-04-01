@@ -9,7 +9,6 @@
 .content:hover {
     font-size: 1.7em;
     color: pink;
-    /* font-size-adjust: 20px; */
   }
 
   .moreAlbumContent{
@@ -21,7 +20,6 @@
   .moreAlbumContent:hover {
     font-size: 2.1em;
     color: pink;
-    /* font-size-adjust: 20px; */
   }
 
 
