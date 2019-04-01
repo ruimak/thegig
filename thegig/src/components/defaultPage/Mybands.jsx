@@ -79,7 +79,6 @@ export default withStyles(styles)(
                   ? Object.values(userData.val().users[user.uid].bands)
                   : [];
                 this.setState({ bandsFollowed: bands });
-                console.log(bands);
               }.bind(this)
             );
         }
@@ -91,7 +90,7 @@ export default withStyles(styles)(
         <div className={this.props.classes.root} style={{paddingTop: "5vh"}}>
           <h1 className="title" style={{paddingBottom:'10vh'}}>{"My Bands"}</h1>{" "}
           <div className='centered-container'>  {this.state.bandsFollowed.sort().map(band => {
-            // IF WE REMOVE THE SORT IT SORTS BY DATE FOLLOWED, CAN USE THAT LATER
+            // Remove the sort if you want the bands to be displayed by date-followed. We can add sorting buttons later. 
             return (
               <div className='stand-out-container' style={{marginLeft:'25%',width:'50%',marginBottom:'1%', textAlign:'left'}}>
                 <Fab
@@ -106,7 +105,7 @@ export default withStyles(styles)(
                       this.unfollowBand(band);
                     }}
                   />
-                </Fab>{" "}
+                </Fab>
                 <Link to={`/artist/${band}/news`}>{band}</Link>
                 <br />
               </div>

@@ -19,13 +19,10 @@ export default class Album extends Component {
       return null;
     } else
       return (
-        <div>
+        <div style={{paddingTop:'10%'}}>
           <img src={this.state.albumInfo.image[4]["#text"]} />
           <div>{this.state.albumInfo.name}</div>
           <br />
-          <Link to={`/artist/${this.props.params.band}/albums`}>
-            {this.props.params.band}
-          </Link>
           {this.state.albumInfo !== null
             ? this.state.albumInfo.tracks.track.map(track => {
                 return (

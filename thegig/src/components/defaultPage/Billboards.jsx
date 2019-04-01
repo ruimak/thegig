@@ -9,10 +9,6 @@ import "../../styles/App.css";
 const styles = {
   root: {
     flexGrow: 1,
-
-    // paddingRight: "25%",
-    // paddingLeft: "25%",
-
     paddingTop: "5%"
   },
   button: {
@@ -38,7 +34,7 @@ const styles = {
     marginLeft: "20%",
     marginRight: "20%",
     marginBottom: "10%",
-    marginTop:'5vh'
+    marginTop: "5vh"
   },
   arrowUp: {
     color: "green",
@@ -92,7 +88,6 @@ const styles = {
 class Billboards extends Component {
   state = {
     charts: []
-    // buttonClicked: ""
   };
 
   componentDidMount() {
@@ -128,7 +123,6 @@ class Billboards extends Component {
             className={this.props.classes.buttonText}
             name={name}
             onClick={() => this.handleClick(keyWord)}
-            // color="primary"
             variant="outlined"
           >
             {name}
@@ -176,8 +170,6 @@ class Billboards extends Component {
         {this.state.charts !== null ? (
           <Paper className={this.props.classes.paper}>
             {this.state.charts.map((track, i) => {
-              console.log(track, "THIS IS THE TRACK!!!!!");
-
               return (
                 <Paper className={this.props.classes.paperSongs}>
                   <div>
@@ -210,160 +202,6 @@ class Billboards extends Component {
                   </div>
                 </Paper>
               );
-
-              //   if (track.position.positionLastWeek > i + 1) {
-              //     return (
-              //       <Paper className={this.props.classes.paperSongs}>
-              //         <div>
-              //           <p className={this.props.classes.rank}>
-              //             #{i + 1}
-              //             <Icon
-              //               fontSize={"large"}
-              //               className={this.props.classes.arrowUp}
-              //             >
-              //               arrow_upward{" "}
-              //             </Icon>
-              //           </p>
-
-              //           <Link
-              //             className={this.props.classes.link}
-              //             to={`/artist/${track.artist}/song/${track.title}`}
-              //           >
-              //             <h1 className={this.props.classes.title}>
-              //               <b>{track.title}</b>
-              //             </h1>
-              //           </Link>
-              //           <Link
-              //             className={this.props.classes.link}
-              //             to={`/artist/${track.artist}/news`}
-              //           >
-              //             <h1 className={this.props.classes.artist}>
-              //               {track.artist}
-              //             </h1>{" "}
-              //           </Link>
-              //           <img
-              //             height={105}
-              //             className={this.props.classes.picture}
-              //             src={track.cover}
-              //           />
-              //         </div>
-              //       </Paper>
-              //     );
-              //   } else if (track.position.positionLastWeek === i) {
-              //     return (
-              //       <Paper className={this.props.classes.paperSongs}>
-              //         <div>
-              //           <p className={this.props.classes.rank}>
-              //             #{i + 1}
-              //             <Icon
-              //               fontSize={"large"}
-              //               className={this.props.classes.flatLine}
-              //             >
-              //               trending_flat
-              //             </Icon>
-              //           </p>
-              //           <Link
-              //             className={this.props.classes.link}
-              //             to={`/artist/${track.artist}/song/${track.title}`}
-              //           >
-              //             <h1 className={this.props.classes.title}>
-              //               {track.title}
-              //             </h1>
-              //           </Link>
-              //           <Link
-              //             className={this.props.classes.link}
-              //             to={`/artist/${track.artist}/news`}
-              //           >
-              //             {" "}
-              //             <h1 className={this.props.classes.artist}>
-              //               {track.artist}
-              //             </h1>
-              //           </Link>
-              //           <img
-              //             height={105}
-              //             className={this.props.classes.picture}
-              //             src={track.cover}
-              //           />
-              //         </div>
-              //       </Paper>
-              //     );
-              //   } else if (track.position.positionLastWeek === null) {
-              //     return (
-              //       <Paper className={this.props.classes.paperSongs}>
-              //         <div>
-              //           <p className={this.props.classes.rank}>
-              //             #{i + 1}
-              //             <Icon
-              //               fontSize={"large"}
-              //               className={this.props.classes.flatLine}
-              //             >
-              //               trending_flat
-              //             </Icon>
-              //           </p>
-              //           <Link
-              //             className={this.props.classes.link}
-              //             to={`/artist/${track.artist}/song/${track.title}`}
-              //           >
-              //             <h1 className={this.props.classes.title}>
-              //               {track.title}
-              //             </h1>
-              //           </Link>
-              //           <Link
-              //             className={this.props.classes.link}
-              //             to={`/artist/${track.artist}/news`}
-              //           >
-              //             <h1 className={this.props.classes.artist}>
-              //               {track.artist}
-              //             </h1>
-              //           </Link>
-              //           <img
-              //             height={105}
-              //             className={this.props.classes.picture}
-              //             src={track.cover}
-              //           />
-              //         </div>
-              //       </Paper>
-              //     );
-              //   } else {
-              //     return (
-              //       <Paper className={this.props.classes.paperSongs}>
-              //         <div>
-              //           <p className={this.props.classes.rank}>
-              //             #{i + 1}
-              //             <Icon
-              //               fontSize={"large"}
-              //               className={this.props.classes.arrowDown}
-              //             >
-              //               arrow_downward
-              //             </Icon>
-              //           </p>
-
-              //           <Link
-              //             className={this.props.classes.link}
-              //             to={`/artist/${track.artist}/song/${track.title}`}
-              //           >
-              //             <h1 className={this.props.classes.title}>
-              //               {track.title}
-              //             </h1>
-              //           </Link>
-              //           <Link
-              //             className={this.props.classes.link}
-              //             to={`/artist/${track.artist}/news`}
-              //           >
-              //             {" "}
-              //             <h1 className={this.props.classes.artist}>
-              //               {track.artist}
-              //             </h1>
-              //           </Link>
-              //           <img
-              //             height={105}
-              //             className={this.props.classes.picture}
-              //             src={track.cover}
-              //           />
-              //         </div>
-              //       </Paper>
-              //     );
-              //   }
             })}
           </Paper>
         ) : null}

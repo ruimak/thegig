@@ -33,10 +33,6 @@ const styles = theme => ({
     color: "#444",
     lineHeight: 2
   },
-  // wholeScreen: {
-  //   paddingRight: "20%",
-  //   paddingLeft: "20%"
-  // },
   titleAndAvatar: {
     paddingBottom: "2%"
   }
@@ -58,7 +54,6 @@ class NavBar extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.params && this.props.params.band !== prevProps.params.band) {
       getBandInfo(this.props.params.band).then(bandInfo => {
-        console.log(bandInfo, 'BANDINFOOOOOOOOOOOOOOOOOOo')
         this.setState({ bio: bandInfo.data.artist });
       });
     }

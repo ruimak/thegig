@@ -14,12 +14,6 @@ class SetLists extends Component {
     eventName: null
   };
 
-  // openAndCloseSetlist = setListIndex => {
-  //   !this.state.setListDisplayed
-  //     ? this.setState({ setListDisplayed: setListIndex })
-  //     : this.setState({ setListDisplayed: null });
-  // };
-
   backTosetLists = back => {
     this.setState({ songs: back });
   };
@@ -82,48 +76,6 @@ class SetLists extends Component {
               })}
         </div>
       )
-
-      // if (!this.state.setLists) {
-      //   return "There are no setlists for this artist.";
-      // }
-      // //the songs are rendered here if you click on a setlist
-      // else if (this.state.setListDisplayed) {
-      //   return (
-      //     <div>
-      //       <div
-      //         onClick={() => {
-      //           this.openAndCloseSetlist(null);
-      //         }}
-      //       >
-      //         {this.state.setLists[this.state.setListDisplayed].venue.name}
-      //       </div>
-      //       {this.state.setLists[this.state.setListDisplayed].sets.set[0] &&
-      //         this.state.setLists[
-      //           this.state.setListDisplayed
-      //         ].sets.set[0].song.map(song => {
-      //           return <Link to={`/artist/${this.props.params.band}/song/${song.name}`}>{song.name}<br/></Link>;
-      //         })}
-      //     </div>
-      //   );
-      // }
-      // //this is the list of setlists, pardon the redundancy
-      // else
-      //   return (
-      //     <div>
-      //       <div>
-      //         {this.state.setLists.map((setList, index) => {
-      //           return (
-      //             <div
-      //               onClick={() => {
-      //                 this.openAndCloseSetlist(index);
-      //               }}
-      //             >
-      //               {setList.venue.name}
-      //             </div>
-      //           );
-      //         })}
-      //       </div>
-      //     </div>
     );
   }
 }

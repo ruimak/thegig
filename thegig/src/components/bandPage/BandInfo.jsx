@@ -17,8 +17,6 @@ class BandInfo extends Component {
   }
 
   render() {
-    console.log(this.props, "this is the bio");
-    // const { classes } = this.props.classes;
     if (!this.state.bio) {
       return null;
     } else
@@ -32,23 +30,7 @@ class BandInfo extends Component {
               md={15}
               className="stand-out-container"
               style={{ paddingTop: "2vh", paddingLeft: "3vh" }}
-              // direction="row"
-              // justify="center"
-              // alignItems="center"
             >
-              {/* <Grid container md={8}>
-<Grid className={this.props.classes.titleAndAvatar} item md={4}> 
-
-<Avatar  direction="row"
-  justify="center"
-  alignItems="center"   className={this.props.classes.avatar}  src={this.state.bio.image[4]["#text"]} />
-</Grid>
-<Grid item md={4}> 
-<Typography  className={`${this.props.classes.header}`} >{this.state.bio.name}</Typography>
-
-</Grid>
-</Grid> */}
-
               <Grid item sm={9}>
                 <Typography inline={true} className={this.props.classes.text}>
                   {this.state.bio.bio.content}
@@ -68,8 +50,6 @@ class BandInfo extends Component {
 
 const styles = {
   container: {
-    // paddingLeft:'20%',
-    // paddingRight:'20%'
   },
   avatar: {
     height: 150,
@@ -88,14 +68,9 @@ const styles = {
     color: "#444",
     lineHeight: 2
   },
-  wholeScreen: {
-    // paddingRight:'20%',
-    // paddingLeft:'20%'
-  },
   titleAndAvatar: {
     paddingBottom: "8%"
   }
 };
-// console.log(styles,'these are the styles')
 
 export default withStyles(styles)(BandInfo);

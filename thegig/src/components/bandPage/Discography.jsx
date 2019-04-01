@@ -404,14 +404,12 @@ const styles = {
     maxheight: 375
   },
   cardHeader: {
-    // justify:"center"
   },
   cardImage: {
     height: "5%",
     paddingTop: "56.25%"
   },
   cardContent: {
-    // paddingBottom : '40%'
     position: "absolute",
     bottom: "20%",
     left: "5%"
@@ -495,8 +493,6 @@ const styles = {
   },
   moreAlbumcard : {
     backgroundColor: "white",
-    // marginLeft: "10%",
-    // marginRight: "10%",
     position: "relative",
     textAlign: "center",
     color: "white",

@@ -191,12 +191,6 @@ class ArtistNews extends Component {
                               {news.description}
                             </div>
                           ) : null}
-                          {/* <a
-                            className={this.props.classes.link}
-                            href={news.url}
-                          >
-                            {news.url.substring(0, 30)}
-                          </a> */}
                         </Grid>
                       </Grid>
                     </div>
@@ -215,7 +209,7 @@ const styles = {
     position: "absolute"
   },
   backgroundColor: {
-    // backgroundColor: red
+
   },
   height: {
     height: "500",
@@ -223,9 +217,6 @@ const styles = {
   },
   root: {
     flexGrow: 1,
-    // paddingRight: "5%",
-    // paddingLeft: "10%",
-
     paddingTop: "10%"
   },
   image: {

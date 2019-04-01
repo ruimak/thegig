@@ -92,11 +92,9 @@ class HomeBandNews extends Component {
                       display: "inline",
                       justifyContent: "center"
                     }}
-                    onClick={()=>{window.open(
-                      `${news.url}`,
-                      'mywindow'
-                    ).focus();}}
-                  
+                    onClick={() => {
+                      window.open(`${news.url}`, "mywindow").focus();
+                    }}
                   >
                     <img
                       src={news.urlToImage}
@@ -126,11 +124,13 @@ class HomeBandNews extends Component {
             {this.state.bandNews !== null
               ? leftSideNews.map(news => {
                   return (
-                    <div className="stand-out-container" onClick={()=>{window.open(
-                      `${news.url}`,
-                      'mywindow'
-                    ).focus();}}
-                    style={{cursor:'pointer'}}>
+                    <div
+                      className="stand-out-container"
+                      onClick={() => {
+                        window.open(`${news.url}`, "mywindow").focus();
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
                       <Grid
                         item
                         md={6}
@@ -161,7 +161,6 @@ class HomeBandNews extends Component {
                               {news.description}
                             </div>
                           ) : null}
-                        
                         </Grid>
                       </Grid>
                     </div>
@@ -174,11 +173,13 @@ class HomeBandNews extends Component {
             {this.state.bandNews !== null
               ? rightSideNews.map(news => {
                   return (
-                    <div className="stand-out-container" onClick={()=>{window.open(
-                      `${news.url}`,
-                      'mywindow'
-                    ).focus();}}
-                    style={{cursor:'pointer'}}>
+                    <div
+                      className="stand-out-container"
+                      onClick={() => {
+                        window.open(`${news.url}`, "mywindow").focus();
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
                       <Grid
                         item
                         md={6}
@@ -209,7 +210,6 @@ class HomeBandNews extends Component {
                               {news.description}
                             </div>
                           ) : null}
-                          
                         </Grid>
                       </Grid>
                     </div>

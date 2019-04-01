@@ -32,20 +32,16 @@
 
 .artist-nav-bar-background {
   background-image: url("../picture1.png");
-  /* background-size: 100% 30vh; */
 
   /* Add the blur effect */
   filter: blur(7px)  grayscale(50%);
-  /* -webkit-filter: blur(5px); */
-  position: "absolute";
-  /* -webkit-filter: blur(8px); */
 
-  /* Full height */
+  position: "absolute";
+
   height: 35vh;
   width:'100%';
 
-  /* Center and scale the image nicely */
-  /* background-position: center; */
+
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 2;
@@ -63,9 +59,6 @@
 
 }
 
-/* .settings-icon {
-  margin-left:50%
-} */
 #secondaryNavBarAndMainComponents{ width:60%;  position: absolute; display:'flex'; top: 16%; margin-left:20%; margin-right:20%;  justify-content: center; display: inline;
   float: none;}
 
