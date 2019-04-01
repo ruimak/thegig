@@ -1,0 +1,32 @@
+
+
+.content{
+  font-weight: bold;
+  font-size: 1.4em;
+  transition: all 500ms;
+}
+
+.content:hover {
+    font-size: 1.7em;
+    color: pink;
+    /* font-size-adjust: 20px; */
+  }
+
+  .moreAlbumContent{
+    font-weight: bold;
+  font-size: 1.9em;
+  transition: all 500ms;
+  }
+
+  .moreAlbumContent:hover {
+    font-size: 55em;
+    color: blue;
+    /* font-size-adjust: 20px; */
+  }
+
+
+  .button:active {
+    height: "5%";
+    width : '77%';
+  }
+  

@@ -328,7 +328,7 @@ class Discography extends Component {
                               this.props.classes.moreAlbumPlayCountText
                             }`}
                           >
-                            Number {i + 3} : {album.playcount} plays
+                            Number {i + 6} : {album.playcount} plays
                           </p>
                         </CardContent>
                         <br />
@@ -377,7 +377,7 @@ class Discography extends Component {
                               this.props.classes.moreAlbumPlayCountText
                             }`}
                           >
-                            Number {i + 3} : {album.playcount} plays
+                            Number {i + 6} : {album.playcount} plays
                           </p>
                         </CardContent>
                         <br />
