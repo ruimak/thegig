@@ -2,12 +2,12 @@
 
 .content{
   font-weight: bold;
-  font-size: 1.7em;
+  font-size: 1.4em;
   transition: all 500ms;
 }
 
 .content:hover {
-    font-size: 2em;
+    font-size: 1.7em;
     color: pink;
     /* font-size-adjust: 20px; */
   }

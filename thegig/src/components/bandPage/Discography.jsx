@@ -54,13 +54,14 @@ class Discography extends Component {
   }
   showMore = this.showMore.bind(this);
   render() {
+    console.log(this.props.params.band.slice(0, 3),'llllllllllllllllllll')
     console.log(this.state.discography, "jjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
     const bestAlbums =
       this.state.discography !== null
         ? this.state.discography.slice(0, 6)
         : null;
     const restOfAlbums =
-      this.state.discography !== null ? this.state.discography.slice(5) : null;
+      this.state.discography !== null ? this.state.discography.slice(6) : null;
     const fiveTopsongs =
       this.state.topSongs !== null
         ? this.state.topSongs.data.toptracks.track.slice(0, 5)
@@ -99,9 +100,9 @@ class Discography extends Component {
       <div>
         <h1 className={this.props.classes.title} justify="center">
           Top rated{" "}
-          {this.props.params.band.slice(0, 3) === "the" || "The"
+          {this.props.params.band.startsWith("The")
             ? `${this.props.params.band.slice(4)}'s`
-            : `${this.props.params.band}'s`}{" "}
+            : `${this.props.params.band}`}{" "}
           songs
         </h1>
         {this.state.topSongs !== null
@@ -123,9 +124,9 @@ class Discography extends Component {
 
         <h1 className={this.props.classes.title}>
           Top rated{" "}
-          {this.props.params.band.slice(0, 3) === "the" || "The"
+          {this.props.params.band.startsWith("The")
             ? `${this.props.params.band.slice(4)}'s`
-            : null}{" "}
+            : `${this.props.params.band}`}{" "}
           albums
         </h1>
         <Grid
@@ -284,10 +285,10 @@ class Discography extends Component {
         >
           {this.state.discography !== null && this.state.showmore === true
             ? restOfAlbums.map((album, i) => {
-                if (i < 4) {
+                if (i < 5) {
                   return (
                     <Card
-                      className={`${this.props.classes.card} ${
+                      className={`${this.props.classes.moreAlbumcard} ${
                         this.props.classes.moreAlbumscard
                       }`}
                     >
@@ -316,7 +317,7 @@ class Discography extends Component {
                         >
                           <h1
                             className={`${
-                              this.props.classes.cardContent
+                              this.props.classes.moreAlbumscardContent
                             } content moreAlbumContent`}
                           >
                             {album.name}
@@ -336,7 +337,7 @@ class Discography extends Component {
                 } else if (i > 4 && i < 8) {
                   return (
                     <Card
-                      className={`${this.props.classes.card} ${
+                      className={`${this.props.classes.moreAlbumcard} ${
                         this.props.classes.moreAlbumscard
                       }`}
                     >
@@ -365,7 +366,7 @@ class Discography extends Component {
                         >
                           <h1
                             className={`${
-                              this.props.classes.cardContent
+                              this.props.classes.moreAlbumscardContent
                             } content moreAlbumContent`}
                           >
                             {album.name}
@@ -394,8 +395,8 @@ class Discography extends Component {
 const styles = {
   card: {
     backgroundColor: "white",
-    marginLeft: "25%",
-    marginRight: "25%",
+    marginLeft: "10%",
+    marginRight: "10%",
     position: "relative",
     textAlign: "center",
     color: "white",
@@ -422,7 +423,7 @@ const styles = {
     textDecoration: "none"
   },
   playCountText: {
-    fontSize: "1.5em",
+    fontSize: "1.1em",
     fontFamily: "'Titillium Web', 'sans-serif'"
   },
   cardCon: {
@@ -431,27 +432,29 @@ const styles = {
     backgroundColor: "sandWhite"
   },
   leftGrid: {
-    marginRight: "-15.2%"
+    marginRight: "-6.7%"
   },
   rightGrid: {
-    marginLeft: "-15.2%"
+    marginLeft: "-6.5%"
   },
   mainGrid: {
     marginBottom: "4%"
   },
   button: {
     position: "absolute",
-    marginLeft: "43%",
+    marginLeft: "40%",
     marginBottom: "15%",
     backgroundColor: "pink",
-    height: "8%"
+    height: "5%",
+    width : '15em'
+    
   },
   moreAlbumscard: {
     maxWidth: 150,
     maxheight: 150,
     left: "20%",
     position: "relative",
-    direction: "row"
+    direction: "row",
   },
   moreAlbumPlayCountText: {
     fontSize: "0.9em",
@@ -485,8 +488,25 @@ const styles = {
     textDecoration: "none"
   },
   moreAlbumsGrid: {
-    marginTop: "10%",
-    marginLeft: "10%"
+    marginTop: "25%",
+    marginLeft: '5%',
+    
+    marginBottom : '25%'
+  },
+  moreAlbumcard : {
+    backgroundColor: "white",
+    // marginLeft: "10%",
+    // marginRight: "10%",
+    position: "relative",
+    textAlign: "center",
+    color: "white",
+    maxWidth: 375,
+    maxheight: 375
+  },
+  moreAlbumscardContent : {
+    position: "absolute",
+    bottom: "26%",
+    left: "5%"
   }
 };
 
