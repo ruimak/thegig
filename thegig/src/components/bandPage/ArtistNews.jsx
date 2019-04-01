@@ -1,19 +1,14 @@
 import React, { Component } from "react";
 import { getArtistNews } from "../../api";
-import { Link } from "react-router-dom";
 import {
-  Tabs,
-  Avatar,
-  Typography,
+
   Grid,
-  Slide,
-  GridList
+
 } from "@material-ui/core";
 import Carousel from "nuka-carousel";
 import { withStyles } from "@material-ui/core/styles";
 import "../../styles/CarouselStyle.css";
 import "../../styles/App.css";
-const { red, blue, green } = require("@material-ui/core/colors");
 
 class ArtistNews extends Component {
   state = {
@@ -25,39 +20,7 @@ class ArtistNews extends Component {
       this.setState({ news: news.data.articles });
     });
   }
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   console.log(nextProps, "NEXTPROPS ");
-  //   console.log(prevState, "PREVSTATE");
-  //   console.log(
-  //     nextProps.params.band !== prevState.band,
-  //     "COMPARISON !!!!!!!!!!!!!!!!!!!!!"
-  //   );
 
-  //   let band = nextProps.params.band;
-  //   let newsToGoInState = [];
-
-  //   nextProps.params.band !== prevState.band && getArtistNews(nextProps.params.band).then(news => {
-  //       console.log(
-  //         "FUCK YOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"
-  //       );
-  //       // this.setState({ news: news.data.articles, band:band });
-  //       // console.log('the state has been updated!!')
-
-  //       newsToGoInState = news.data.articles;
-  //       console.log(
-  //         newsToGoInState,
-  //         "NEWSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
-  //       );
-  //        console.log(
-  //       newsToGoInState,
-  //       "news right before being updated!!!!!!!!!!!!!!!"
-  //     );
-
-  //       return { news: newsToGoInState, band: band };
-  //     });
-  //    return null
-
-  // }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.params.band !== prevProps.params.band) {
@@ -105,8 +68,12 @@ class ArtistNews extends Component {
                     style={{
                       display: "inline",
                       justifyContent: "center"
-                      // marginLeft: "9%"
                     }}
+                    onClick={()=>{window.open(
+                      `${news.url}`,
+                      'mywindow'
+                    ).focus();}
+                  }
                   >
                     <img
                       src={news.urlToImage}
@@ -126,7 +93,6 @@ class ArtistNews extends Component {
                     >
                       {news.description}
                     </div>
-                    {/* <a href={news.url}>{news.url}</a> */}
                   </div>
                 );
               })
@@ -138,7 +104,12 @@ class ArtistNews extends Component {
             {this.state.bandNews !== null
               ? leftSideNews.map(news => {
                   return (
-                    <div className="stand-out-container">
+                    <div className="stand-out-container" onClick={()=>{window.open(
+                      `${news.url}`,
+                      'mywindow'
+                    ).focus();}}
+                    style={{cursor:'pointer'}}
+                    >
                       <Grid
                         item
                         md={6}
@@ -170,12 +141,7 @@ class ArtistNews extends Component {
                               {news.description}
                             </div>
                           ) : null}
-                          {/* <a
-                            className={this.props.classes.link}
-                            href={news.url}
-                          >
-                            {news.url.substring(0, 30)}
-                          </a> */}
+                          
                         </Grid>
                       </Grid>
                     </div>
@@ -188,7 +154,13 @@ class ArtistNews extends Component {
             {this.state.bandNews !== null
               ? rightSideNews.map(news => {
                   return (
-                    <div className="stand-out-container">
+                    <div className="stand-out-container" onClick={()=>{window.open(
+                      `${news.url}`,
+                      'mywindow'
+                    ).focus();}}
+                    style={{cursor:'pointer'}}
+
+                    >
                       <Grid
                         item
                         md={6}

@@ -83,7 +83,6 @@ class HomeBandNews extends Component {
           autoGenerateStyleTag="true"
           heightMode="max"
           className="stand-out-container"
-          // style={{marginLeft:'10%'}}
         >
           {this.state.bandNews !== null
             ? arrayToDisplayInCarousel.map(news => {
@@ -92,8 +91,12 @@ class HomeBandNews extends Component {
                     style={{
                       display: "inline",
                       justifyContent: "center"
-                      // marginLeft: "9%"
                     }}
+                    onClick={()=>{window.open(
+                      `${news.url}`,
+                      'mywindow'
+                    ).focus();}}
+                  
                   >
                     <img
                       src={news.urlToImage}
@@ -112,7 +115,6 @@ class HomeBandNews extends Component {
                     >
                       {news.description}
                     </div>
-                    {/* <a href={news.url}>{news.url}</a> */}
                   </div>
                 );
               })
@@ -124,7 +126,11 @@ class HomeBandNews extends Component {
             {this.state.bandNews !== null
               ? leftSideNews.map(news => {
                   return (
-                    <div className="stand-out-container">
+                    <div className="stand-out-container" onClick={()=>{window.open(
+                      `${news.url}`,
+                      'mywindow'
+                    ).focus();}}
+                    style={{cursor:'pointer'}}>
                       <Grid
                         item
                         md={6}
@@ -155,12 +161,7 @@ class HomeBandNews extends Component {
                               {news.description}
                             </div>
                           ) : null}
-                          {/* <div
-                            className={this.props.classes.link}
-                            href={news.url}
-                          >
-                            {news.url.substring(0, 30)}
-                          </div> */}
+                        
                         </Grid>
                       </Grid>
                     </div>
@@ -173,7 +174,11 @@ class HomeBandNews extends Component {
             {this.state.bandNews !== null
               ? rightSideNews.map(news => {
                   return (
-                    <div className="stand-out-container">
+                    <div className="stand-out-container" onClick={()=>{window.open(
+                      `${news.url}`,
+                      'mywindow'
+                    ).focus();}}
+                    style={{cursor:'pointer'}}>
                       <Grid
                         item
                         md={6}
@@ -204,12 +209,7 @@ class HomeBandNews extends Component {
                               {news.description}
                             </div>
                           ) : null}
-                          {/* <div
-                            className={this.props.classes.link}
-                            href={news.url}
-                          >
-                            {news.url.substring(0, 30)}
-                          </div> */}
+                          
                         </Grid>
                       </Grid>
                     </div>
@@ -226,18 +226,13 @@ const styles = {
   position: {
     position: "absolute"
   },
-  backgroundColor: {
-    // backgroundColor: red
-  },
+
   height: {
     height: "500",
     width: "100%"
   },
   root: {
     flexGrow: 1,
-    // paddingRight: "25%",
-    // paddingLeft: "10%",
-
     paddingTop: "10%"
   },
   image: {

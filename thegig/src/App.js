@@ -228,10 +228,10 @@ class App extends Component {
 
               {/* This is gonna be the actual page and the secondary navbar if it does exist */}
               <div id="mainDiv">
-              {/* Blurred background picture */}
+                {/* Blurred background picture */}
                 <div className="artist-nav-bar-background" />
                 <div id="secondaryNavBarAndMainComponents">
-                {/* Secondary navbar */}
+                  {/* Secondary navbar */}
                   <div id="bandNavBar">
                     <Route
                       path="/artist/:band"
@@ -286,9 +286,14 @@ class App extends Component {
                         exact
                         path="/artist/:band/info"
                         render={({ match }) => (
-                          <BandInfo params={match.params} />
+                          <BandInfo
+                            params={match.params}
+                            // firebase={this.state.loggedInUserId}
+                            // bands={this.state.userBands}
+                          />
                         )}
                       />
+
                       <Route
                         exact
                         path="/artist/:band/news"

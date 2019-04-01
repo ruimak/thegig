@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<Billboards
+  classes={
+    Object {
+      "arrowDown": "Billboards-arrowDown-7",
+      "arrowUp": "Billboards-arrowUp-6",
+      "artist": "Billboards-artist-12",
+      "button": "Billboards-button-1",
+      "buttonText": "Billboards-buttonText-2",
+      "flatLine": "Billboards-flatLine-9",
+      "link": "Billboards-link-3",
+      "paper": "Billboards-paper-5",
+      "paperSongs": "Billboards-paperSongs-4",
+      "picture": "Billboards-picture-11",
+      "rank": "Billboards-rank-8",
+      "title": "Billboards-title-10",
+    }
+  }
+/>
+`;
+
+exports[`renders correctly 2`] = `
+<div
+  class="Billboards-button-1"
+>
+  <div
+    class="MuiGrid-container-13 MuiGrid-item-14 MuiGrid-grid-xs-12-53"
+  >
+    <div
+      class="MuiGrid-item-14 MuiGrid-grid-xs-2-43"
+    >
+      <div>
+        <button
+          class="MuiButtonBase-root-136 MuiButton-root-110 MuiButton-text-112 MuiButton-flat-115 Billboards-buttonText-2"
+          name="Hot100"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-111"
+          >
+            Hot100
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="MuiGrid-item-14 MuiGrid-grid-xs-2-43"
+    >
+      <div>
+        <button
+          class="MuiButtonBase-root-136 MuiButton-root-110 MuiButton-text-112 MuiButton-flat-115 Billboards-buttonText-2"
+          name="RnB"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-111"
+          >
+            RnB
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="MuiGrid-item-14 MuiGrid-grid-xs-2-43"
+    >
+      <div>
+        <button
+          class="MuiButtonBase-root-136 MuiButton-root-110 MuiButton-text-112 MuiButton-flat-115 Billboards-buttonText-2"
+          name="Top UK"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-111"
+          >
+            Top UK
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="MuiGrid-item-14 MuiGrid-grid-xs-2-43"
+    >
+      <div>
+        <button
+          class="MuiButtonBase-root-136 MuiButton-root-110 MuiButton-text-112 MuiButton-flat-115 Billboards-buttonText-2"
+          name="Top Rock"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-111"
+          >
+            Top Rock
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="MuiGrid-item-14 MuiGrid-grid-xs-2-43"
+    >
+      <div>
+        <button
+          class="MuiButtonBase-root-136 MuiButton-root-110 MuiButton-text-112 MuiButton-flat-115 Billboards-buttonText-2"
+          name="Top Pop"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-111"
+          >
+            Top Pop
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="MuiPaper-root-139 MuiPaper-elevation2-143 MuiPaper-rounded-140 Billboards-paper-5"
+  >
+      
+  </div>
+</div>
+`;

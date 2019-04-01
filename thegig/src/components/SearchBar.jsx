@@ -172,6 +172,7 @@ export default withStyles(styles)(
       };
 
       handleChange = name => (event, { newValue }) => {
+        console.log(newValue,'this is newvalue')
         this.setState({
           [name]: newValue
         });
@@ -265,6 +266,8 @@ export default withStyles(styles)(
 
       render() {
         const { classes } = this.props;
+        console.log(this.state.value,'this is the state')
+        console.log(this.state.suggestions,'this is the suggestions')
 
         const autosuggestProps = {
           renderInputComponent,

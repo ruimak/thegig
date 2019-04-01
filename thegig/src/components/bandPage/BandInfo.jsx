@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { getBandInfo } from "../../api";
 import RelatedArtists from "./RelatedArtists";
-import { Tabs, Avatar, Typography, Grid } from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import "typeface-roboto";
-import "../../styles/App.css";
 
 class BandInfo extends Component {
   state = {
@@ -25,13 +24,14 @@ class BandInfo extends Component {
     } else
       return (
         <div className={this.props.classes.wholeScreen}>
-          <div className="container" style={{paddingTop: "5vh"}}>
-          <div className='title'>{'Biography'}</div><br/>
-            <Grid 
+          <div className="container" style={{ paddingTop: "5vh" }}>
+            <div className="title">{"Biography"}</div>
+            <br />
+            <Grid
               container
               md={15}
-              className='stand-out-container'
-              style={{paddingTop:'2vh', paddingLeft:'3vh'}}
+              className="stand-out-container"
+              style={{ paddingTop: "2vh", paddingLeft: "3vh" }}
               // direction="row"
               // justify="center"
               // alignItems="center"
@@ -49,7 +49,7 @@ class BandInfo extends Component {
 </Grid>
 </Grid> */}
 
-              <Grid item sm={9} >
+              <Grid item sm={9}>
                 <Typography inline={true} className={this.props.classes.text}>
                   {this.state.bio.bio.content}
                 </Typography>

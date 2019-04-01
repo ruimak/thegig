@@ -17,15 +17,17 @@ export const getTrack = (artist, track) => {
 
 export const getBandSuggestions = bandName => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
+  `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
   );
-};
+  };
 
-export const getSongSuggestions = song => {
-  return axios.get(
+  export const getSongSuggestions = song => {
+    return axios.get(
     `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${song}&api_key=${lastFmAPIkey}&format=json`
-  );
-};
+    );
+    };
+
+
 
 export const getBandInfo = bandName => {
   return axios.get(
@@ -43,7 +45,7 @@ export const getSongInfo = (bandName, songTitle) => {
 //If you change the size parameter you will get more-less events, making it more accurate/faster
 export const getEventsForLocation = (location, radius) => {
   return axios.get(
-    `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&radius=${radius}&geoPoint=${location}&size=400&apikey=${ticketMasterAPIkey}`
+    `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&radius=${radius}&geoPoint=${location}&size=80&apikey=${ticketMasterAPIkey}`
   );
 };
 
@@ -58,6 +60,10 @@ export const getAlbumInfo = (bandName, albumName) => {
     `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${lastFmAPIkey}&artist=${bandName}&album=${albumName}&format=json`
   );
 };
+
+export const artistSuggestFromGenre = (ids) => {
+  return axios.get(`https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/artist.related.get?format=json&${ids}&page_size=10&page=1&apikey=fb62ad704ddfdef75fa06f8fb295f3a8`)
+}
 
 export const getTopArtistSongs = (bandName) => {
   return axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`)
