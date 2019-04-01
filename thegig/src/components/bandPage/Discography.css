@@ -14,13 +14,19 @@
 
   .moreAlbumContent{
     font-weight: bold;
-  font-size: 0.9em;
+  font-size: 1.9em;
   transition: all 500ms;
   }
 
   .moreAlbumContent:hover {
-    font-size: 1.1em;
+    font-size: 2.1em;
     color: pink;
     /* font-size-adjust: 20px; */
+  }
+
+
+  button:active {
+    height: "5%";
+    width : '15em';
   }
   
