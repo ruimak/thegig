@@ -6,18 +6,17 @@ import {
 import firebase from "../../firebase.js";
 import Button from "@material-ui/core/Button";
 
-
 export default class SignIn extends Component {
   state = {
-    bandsFollowed: [], 
+    bandsFollowed: [],
     userId: null
   };
 
   addOrRemoveBand = (command, id, band) => {
     if (command === "follow") {
-      const newArray = this.state.bands;
-      this.state.bandsFollowed.push(band);
-      this.setState({ bands: newArray });
+      const newArray = this.state.bandsFollowed;
+      newArray.push(band);
+      this.setState({ bandsFollowed: newArray });
       addBandToFollowedList(id, band);
     } else {
       const index = this.state.bandsFollowed.indexOf(band);
@@ -33,18 +32,15 @@ export default class SignIn extends Component {
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setState({userId:user.uid})
+        this.setState({ userId: user.uid });
         firebase
           .database()
           .ref()
           .once("value")
           .then(
             function(userData) {
-              const bands = userData.val().users[user.uid]
-                .bands
-                ? Object.values(
-                    userData.val().users[user.uid].bands
-                  )
+              const bands = userData.val().users[user.uid].bands
+                ? Object.values(userData.val().users[user.uid].bands)
                 : [];
               this.setState({ bandsFollowed: bands });
             }.bind(this)
@@ -54,35 +50,38 @@ export default class SignIn extends Component {
   }
 
   render() {
-   if (!this.state.bandsFollowed.includes(this.props.params.band)) {
+    if (!this.state.bandsFollowed.includes(this.props.params.band)) {
       return (
         <Button
-        onClick={() => {
-            this.addOrRemoveBand("follow", this.state.userId, this.props.params.band);
+          onClick={() => {
+            this.addOrRemoveBand(
+              "follow",
+              this.state.userId,
+              this.props.params.band
+            );
           }}
-          variant='extendedFab'
-          color='primary'
-
-      >
-        {'Follow'}
-      </Button>
-        
+          variant="extendedFab"
+          color="primary"
+        >
+          {"Follow"}
+        </Button>
       );
     } else {
       return (
         <Button
-        onClick={() => {
-          this.addOrRemoveBand(
-            "unfollow",
-            this.state.userId,
-            this.props.params.band
-          );
+          onClick={() => {
+            this.addOrRemoveBand(
+              "unfollow",
+              this.state.userId,
+              this.props.params.band
+            );
           }}
-          variant='extendedFab'
-          color='primary'
-      >
-        {'Unfollow'}
-      </Button>
+          variant="extendedFab"
+          color="primary"
+        >
+          {"Unfollow"}
+        </Button>
       );
-    }}}
-  
+    }
+  }
+}

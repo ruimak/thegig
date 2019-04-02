@@ -12,22 +12,20 @@ const musixmatchAPIkey = "6eeab426384ac332ae0f5ff63ced9b95";
 export const getTrack = (artist, track) => {
   return axios.get(
     `https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=${artist} ${track}`
-  )
+  );
 };
 
 export const getBandSuggestions = bandName => {
   return axios.get(
-  `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
   );
-  };
+};
 
-  export const getSongSuggestions = song => {
-    return axios.get(
+export const getSongSuggestions = song => {
+  return axios.get(
     `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${song}&api_key=${lastFmAPIkey}&format=json`
-    );
-    };
-
-
+  );
+};
 
 export const getBandInfo = bandName => {
   return axios.get(
@@ -40,7 +38,6 @@ export const getSongInfo = (bandName, songTitle) => {
     `http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${lastFmAPIkey}&artist=${bandName}&track=${songTitle}&autocorrect[1]&format=json`
   );
 };
-
 
 //If you change the size parameter you will get more-less events, making it more accurate/faster
 export const getEventsForLocation = (location, radius) => {
@@ -61,13 +58,17 @@ export const getAlbumInfo = (bandName, albumName) => {
   );
 };
 
-export const artistSuggestFromGenre = (ids) => {
-  return axios.get(`https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/artist.related.get?format=json&${ids}&page_size=10&page=1&apikey=fb62ad704ddfdef75fa06f8fb295f3a8`)
-}
+export const artistSuggestFromGenre = ids => {
+  return axios.get(
+    `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/artist.related.get?format=json&${ids}&page_size=10&page=1&apikey=fb62ad704ddfdef75fa06f8fb295f3a8`
+  );
+};
 
-export const getTopArtistSongs = (bandName) => {
-  return axios.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`)
-}
+export const getTopArtistSongs = bandName => {
+  return axios.get(
+    `http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
+  );
+};
 
 export const getArtistEvent = name => {
   return axios.get(
@@ -164,8 +165,8 @@ export const login = (email, password) =>
             return data;
           }
         })
-        .catch(err => alert(err))
-  });
+        .catch(err => alert(err));
+    });
 
 export const logout = () => {
   firebase
@@ -180,39 +181,46 @@ export const logout = () => {
     .catch(function(error) {
       // An error happened.
     });
-  }
+};
 
-  export const updateUser = (uid, entriesToUpdateObj) => database()
- .ref(`/users/${uid}`)
- .update(entriesToUpdateObj);
+export const updateUser = (uid, entriesToUpdateObj) =>
+  database()
+    .ref(`/users/${uid}`)
+    .update(entriesToUpdateObj);
 
+export const changePassword = (currentPassword, newPassword) => {
+  reauthenticate(currentPassword)
+    .then(() => {
+      let user = firebase.auth().currentUser;
+      user
+        .updatePassword(newPassword)
+        .then(() => {
+          alert("password was changed");
+        })
+        .catch(err => {
+          alert(err.message);
+        });
+    })
+    .catch(err => {
+      alert(err.message);
+    });
+};
 
- export const changePassword = (currentPassword,newPassword) => {
-   reauthenticate(currentPassword).then(() => {
-       let user = firebase.auth().currentUser
-       user.updatePassword(newPassword).then(() => {
-         alert('password was changed')
-       }).catch((err) => {
-         alert(err.message)
-       })
-   }).catch((err) => {
-   alert(err.message)
-   })
-   }
+export const reauthenticate = currentPassword => {
+  let user = firebase.auth().currentUser;
+  let cred = firebase.auth.EmailAuthProvider.credential(
+    user.email,
+    currentPassword
+  );
+  return user.reauthenticateWithCredential(cred);
+};
 
-   export const reauthenticate = (currentPassword) => {
-     let user = firebase.auth().currentUser;
-    let cred = firebase.auth.EmailAuthProvider.credential(user.email,currentPassword);
-    return user.reauthenticateWithCredential(cred)
-
-   }
-  
-  export const addBandToFollowedList = (userId, bandName) => {
-    firebase.
-    database()
+export const addBandToFollowedList = (userId, bandName) => {
+  firebase
+    .database()
     .ref(`/users/${userId}`)
     .child("/bands")
-    .push(bandName)
+    .push(bandName);
 };
 
 export const removeBandFromFollowedList = (userId, bandName) => {
@@ -227,9 +235,11 @@ export const removeBandFromFollowedList = (userId, bandName) => {
   });
 };
 
-export const getUsersFollowedBand = (user => {
-  database.ref('bands').get()
-  .then(snapshot => {
-// console.log(snapshot.docs)
-  })
-})
+export const getUsersFollowedBand = user => {
+  database
+    .ref("bands")
+    .get()
+    .then(snapshot => {
+      // console.log(snapshot.docs)
+    });
+};

@@ -25,6 +25,7 @@ the reason why myevents is low might be because we're fetching 400 events
 ARTICLES - important
 need a link to the article
 bands with no news (eg: capitao fausto) should display a message and not the empty carousel. Also thats gonna need an isLoading
+we still have that idiot drake bell, whoever he is, displayed amongst the drake news, need a filter
 
 BANDINFO - important
 could use "related artists" titles

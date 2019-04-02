@@ -3,18 +3,11 @@ import { Link } from "react-router-dom";
 import firebase from "../../firebase.js";
 import { removeBandFromFollowedList } from "../../api.js";
 import { withStyles } from "@material-ui/core/styles";
-import {
-  Tabs,
-  Avatar,
-  Typography,
-  Grid,
-  Slide,
-  GridList
-} from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Fab from "@material-ui/core/Fab";
 import "../../styles/defaultPage.css";
 import '../../styles/App.css'
+import {bandRemover} from './utils'
 
 const styles = theme => ({
   position: {
@@ -56,15 +49,13 @@ export default withStyles(styles)(
 
     unfollowBand = band => {
       let bandsInState = this.state.bandsFollowed;
-      for (let i = bandsInState.length - 1; i >= 0; i--) {
-        if (bandsInState[i] === band) {
-          bandsInState.splice(i, 1);
-          break; //<-- Uncomment  if only the first term has to be removed
-        }
-      }
+      //bandRemover scans an array and deletes a band if there is a match.
+      bandRemover(bandsInState, band)
+      //Removing said band from state and from the firebase.
       this.setState({ bandsFollowed: bandsInState });
       removeBandFromFollowedList(this.state.user, band);
     };
+
     componentDidMount() {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {

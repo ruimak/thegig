@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getArtistEvent } from "../../api";
+import { artistEventsFilter } from "./utils";
 import "../../styles/artistEvents.css";
 import "../../styles/App.css";
 
@@ -11,30 +12,28 @@ export default class ArtistEvents extends Component {
   componentDidMount() {
     // This function updates the events for the artist in the state.
     getArtistEvent(this.props.params.band).then(events => {
+      // If there are no events we proceed to the rendering
       if (!events.data._embedded) {
         this.setState({ isLoading: false });
-      } else {
+      }
+
+      //But if there are, we have to analize and format them properly first
+      else {
         let attractionsArrays = events.data._embedded.events.map(event => {
           return event._embedded.attractions;
         });
 
+        //This next line removes the 'non attractions', we get an array of info for multiple events
+        // (one event can have multiple attractions, opening band, main event, so we need arrays of attractions for all the events. An array of arrays)
         attractionsArrays = attractionsArrays.filter(entry => {
           return Array.isArray(entry);
         });
 
-        attractionsArrays = attractionsArrays.reduce(
-          (acc, attractionsArray, indexOfAttractionsArray) => {
-            for (let i = 0; i < attractionsArray.length; i++) {
-              if (
-                attractionsArray[i].name.toLowerCase() ===
-                this.props.params.band.toLowerCase()
-              ) {
-                acc.push(events.data._embedded.events[indexOfAttractionsArray]);
-              }
-            }
-            return acc;
-          },
-          []
+        //This next one gets us an array of all the events that have the band performing, being it an opening act, main event, etc.
+        attractionsArrays = artistEventsFilter(
+          attractionsArrays,
+          events.data._embedded.events,
+          this.props.params.band
         );
 
         events.data._embedded &&
@@ -62,7 +61,13 @@ export default class ArtistEvents extends Component {
             <div className="title">{"Events"}</div>
             {this.state.eventsInfo.map(event => {
               return (
-                <div className="individualEventDiv stand-out-container">
+                <div
+                  className="individualEventDiv stand-out-container"
+                  onClick={() => {
+                    window.open(`${event.url}`, "mywindow").focus();
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
                   <br />
                   <div className="divContent">{event.name}</div>
                   <br />

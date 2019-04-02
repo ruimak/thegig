@@ -25,6 +25,8 @@ export default class ArtistEvents extends Component {
               const myBands = Object.values(
                 userData.val().users[user.uid].bands
               );
+
+              // Having fetched your location and radius from the firebase, we can get the events for that location.
               return getEventsForLocation(location, radius).then(events => {
                 this.setState({
                   eventsInfo: events.data._embedded.events,
@@ -52,7 +54,13 @@ export default class ArtistEvents extends Component {
                   )
                 ) {
                   return (
-                    <div className="individualEventDiv stand-out-container">
+                    <div
+                      className="individualEventDiv stand-out-container"
+                      onClick={() => {
+                        window.open(`${event.url}`, "mywindow").focus();
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
                       <br />
                       <div className="divContent">{event.name}</div>
                       <br />
