@@ -237,8 +237,8 @@ class Discography extends Component {
           </Grid>
         </Grid>
         <Button
-          className={this.props.classes.button}
-          variant="extended"
+          className={`${this.props.classes.button} button`}
+          // variant="extended"
           color="pink"
           onClick={this.showMore}
         >
@@ -246,11 +246,12 @@ class Discography extends Component {
         </Button>
         <Grid
           container
-          sm={8}
+          sm={12}
           spacing={0}
-          direction="row"
+          direction="column"
           className={this.props.classes.moreAlbumsGrid}
         >
+        <Grid item sm={6}>
           {this.state.discography !== null && this.state.showmore === true
             ? restOfAlbums.map((album, i) => {
                 if (i < 5) {
@@ -295,7 +296,7 @@ class Discography extends Component {
                               this.props.classes.moreAlbumPlayCountText
                             }`}
                           >
-                            Number {i + 3} : {album.playcount} plays
+                            Number {i + 6} : {album.playcount} plays
                           </p>
                         </CardContent>
                         <br />
@@ -344,7 +345,7 @@ class Discography extends Component {
                               this.props.classes.moreAlbumPlayCountText
                             }`}
                           >
-                            Number {i + 3} : {album.playcount} plays
+                            Number {i + 6} : {album.playcount} plays
                           </p>
                         </CardContent>
                         <br />
@@ -354,6 +355,7 @@ class Discography extends Component {
                 }
               })
             : null}
+        </Grid>
         </Grid>
       </div>
     );
@@ -416,12 +418,12 @@ const styles = {
   moreAlbumscard: {
     maxWidth: 150,
     maxheight: 150,
-    left: "20%",
+    left: "50%",
     position: "relative",
     direction: "row"
   },
   moreAlbumPlayCountText: {
-    fontSize: "0.9em",
+    fontSize: "1.4em",
     fontFamily: "'Titillium Web', 'sans-serif'",
 
     bottom: "10%",
