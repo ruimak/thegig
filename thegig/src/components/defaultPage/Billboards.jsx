@@ -156,6 +156,7 @@ class Billboards extends Component {
               arrow_downward
             </Icon>
           );
+        // no default
       }
     };
 
@@ -209,6 +210,7 @@ class Billboards extends Component {
                       height={105}
                       className={this.props.classes.picture}
                       src={track.cover}
+                      alt={track.title}
                     />
                   </div>
                 </Paper>

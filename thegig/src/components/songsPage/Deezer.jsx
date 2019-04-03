@@ -79,7 +79,7 @@ class SongPlayer extends Component {
       <div>
         <h1>{this.state.songInfo && this.state.songInfo.data.track.name}</h1>
         <div>
-          <img src={this.state.songInfo.data.track.album.image[2]["#text"]} />
+          <img src={this.state.songInfo.data.track.album.image[2]["#text"]} alt={this.state.songInfo.data.track.album.title}/>
 
           <h2>{"Album: " + this.state.songInfo.data.track.album.title}</h2>
         </div>

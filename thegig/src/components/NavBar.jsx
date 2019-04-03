@@ -4,13 +4,10 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { getBandInfo } from "../api";
-import { Tabs, Avatar, Typography, Grid } from "@material-ui/core";
+import { Avatar, Typography, Grid } from "@material-ui/core";
 import FollowUnfollowButton from "./bandPage/FollowUnfollowButton";
 
 const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit * 9
-  },
   input: {
     display: "none"
   },
@@ -60,8 +57,6 @@ class NavBar extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-
     const navBarComponent = (
       <div className={"Inline"} style={{ width: "100%"}}>
         {this.props.params && this.state.bio && (
@@ -95,7 +90,6 @@ class NavBar extends Component {
                   key={tab[0]}
                 >
                   <Button
-                    className={classes.button}
                     component={Link}
                     to={`/artist/${this.props.params.band}/${tab[0]}/`}
                     className="NavBar"
@@ -110,7 +104,6 @@ class NavBar extends Component {
               return (
                 <div className="Inline" key={tab[0]}>
                   <Button
-                    className={classes.button}
                     color="primary"
                     variant="text"
                     style={{

@@ -5,9 +5,9 @@ import SetLocation from "../location/SetLocation";
 //It will only be rendered once.
 
 export default class Settings extends Component {
-  state = {
-    radius: ""
-  };
+  // state = {
+  //   radius: ""
+  // };
 
   handleChange = this.handleChange.bind(this);
   handleSubmit = this.handleSubmit.bind(this);

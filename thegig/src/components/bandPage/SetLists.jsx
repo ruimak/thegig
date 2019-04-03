@@ -4,14 +4,6 @@ import { Link } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import './SetLists.css'
 import {
-  Tabs,
-  Avatar,
-  Typography,
-  Grid,
-  CardHeader,
-  Card,
-  CardContent,
-  CardMedia,
   Button,
   Paper
 } from "@material-ui/core";

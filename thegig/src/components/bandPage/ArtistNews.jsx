@@ -41,9 +41,11 @@ class ArtistNews extends Component {
     otherNews = this.state.news.slice(6, this.state.news.length);
     let leftSideNews = otherNews.filter((element, index) => {
       if (index === 0 || index % 2 === 0) return element;
+      return null;
     });
     let rightSideNews = otherNews.filter((element, index) => {
       if (index !== 0 && index % 2 !== 0) return element;
+      return null;
     });
     console.log(arrayToDisplayInCarousel);
 
@@ -67,6 +69,7 @@ class ArtistNews extends Component {
                       height="400vw"
                       width="600vw"
                       style={{ marginTop: "4%" }}
+                      alt={news.title}
                     />
                     <br />
                     <h2>{news.title}</h2>
@@ -107,6 +110,7 @@ class ArtistNews extends Component {
                       className={this.props.classes.image}
                       height="250"
                       width="85%"
+                      alt={news.title}
                     />
                     <div className="article-title">{news.title}</div>
                     <Grid
@@ -154,6 +158,7 @@ class ArtistNews extends Component {
                       src={news.urlToImage}
                       height="250"
                       width="85%"
+                      alt={news.title}
                     />
                     <div className="article-title">{news.title}</div>
                     <Grid

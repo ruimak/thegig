@@ -172,12 +172,12 @@ export const logout = () => {
   firebase
     .auth()
     .signOut()
-    .then(function() {
-      // Sign-out successful.
-      {
-        console.log("successfully signed out");
-      }
-    })
+    // .then(function() {
+    //   // Sign-out successful.
+    //   {
+    //     console.log("successfully signed out");
+    //   }
+    // })
     .catch(function(error) {
       // An error happened.
     });

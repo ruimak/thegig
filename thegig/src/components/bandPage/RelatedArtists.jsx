@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Tabs, Avatar, Typography, Grid } from "@material-ui/core";
+import { Avatar} from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
 const RelatedArtists = props => {

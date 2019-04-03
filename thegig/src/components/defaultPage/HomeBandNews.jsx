@@ -34,9 +34,11 @@ class HomeBandNews extends Component {
     otherNews = this.state.bandNews.slice(6, this.state.bandNews.length);
     let leftSideNews = otherNews.filter((element, index) => {
       if (index === 0 || index % 2 === 0) return element;
+      return null
     });
     let rightSideNews = otherNews.filter((element, index) => {
       if (index !== 0 && index % 2 !== 0) return element;
+      return null
     });
 
     return (
@@ -59,6 +61,7 @@ class HomeBandNews extends Component {
                   height="400vw"
                   width="600vw"
                   style={{ marginTop: "4%" }}
+                  alt={news.title}
                 />
                 <br />
                 <h2>{news.title}</h2>
@@ -98,6 +101,7 @@ class HomeBandNews extends Component {
                       className={this.props.classes.image}
                       height="250"
                       width="85%"
+                      alt={news.title}
                     />
                     <div className="article-title">{news.title}</div>
                     <Grid
@@ -146,6 +150,7 @@ class HomeBandNews extends Component {
                       src={news.urlToImage}
                       height="250"
                       width="85%"
+                      alt={news.title}
                     />
                     <div className="article-title">{news.title}</div>
                     <Grid

@@ -20,7 +20,7 @@ export default class Album extends Component {
     } else
       return (
         <div style={{paddingTop:'10%'}}>
-          <img src={this.state.albumInfo.image[4]["#text"]} />
+          <img src={this.state.albumInfo.image[4]["#text"]} alt={`${this.state.albumInfo.name}`} />
           <div>{this.state.albumInfo.name}</div>
           <br />
           {this.state.albumInfo !== null

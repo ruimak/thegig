@@ -68,6 +68,7 @@ export default class ArtistEvents extends Component {
                         className="divContent"
                         src={event.images[0].url}
                         height="150vh"
+                        alt={event.name}
                       />
                       <div className="divContent">
                         {"Locale: " +
@@ -92,6 +93,7 @@ export default class ArtistEvents extends Component {
                     </div>
                   );
                 }
+                return null;
               })
             : "There are no events for this artist."}
         </div>
