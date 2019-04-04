@@ -6,8 +6,6 @@ import NavBar from "./components/NavBar";
 import ArtistEvents from "./components/bandPage/ArtistEvents";
 import SetLists from "./components/bandPage/SetLists";
 import ArtistNews from "./components/bandPage/ArtistNews";
-import SignIn from "./components/authentication/SignIn";
-import LogIn from "./components/authentication/LogIn";
 import firebase from "./firebase.js";
 import MyBands from "./components/defaultPage/Mybands";
 import HomeBandNews from "./components/defaultPage/HomeBandNews";
@@ -22,13 +20,14 @@ import Album from "./components/bandPage/Album";
 import RedirectButton from "./components/utilities/RedirectButton";
 import SetLocationOnAuth from "./components/authentication/SetLocationOnAuth";
 import Loading from "./components/authentication/Loading";
-import logo from './cropped.jpg'
+import logo from "./cropped.jpg";
 
 import "./styles/App.css";
 
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import AuthenticationScreen from "./components/authentication/AuthenticationScreen";
 
 //This is the personalized theme passed to components to change their color.
 //We're using it to personalize the buttons in the main navbar, making them white.
@@ -134,7 +133,10 @@ class App extends Component {
             function(userData) {
               const location = userData.val().users[this.state.loggedInUserId]
                 .location;
-              this.setState({ userLocation: location, isLoading: false });
+              this.setState({
+                userLocation: location,
+                isLoading: false,
+              });
             }.bind(this)
           );
       } else {
@@ -157,21 +159,14 @@ class App extends Component {
       return <Loading />;
     } else
       return (
-        <div
-          className="app"
-          style={{ backgroundColor: "#f7f7f7", height: "100%" }}
-        >
+        <div className="app" style={{ height: "100%" }}>
           {/* These next two are the login and registration components, rendered if the user isnt logged in to firebase */}
-          {!this.state.loggedInUserId && (
-            <div id="mainDiv">
-              <LogIn />
-              <SignIn />
-            </div>
-          )}
+          {!this.state.loggedInUserId && <AuthenticationScreen />}
 
           {/* In the case the user IS logged in but doesnt have a location yet, this next component is rendered */}
-          {this.state.loggedInUserId && !this.state.userLocation && (
+          {this.state.loggedInUserId && !isLoading && !this.state.userLocation && (
             <div id="mainDiv">
+              {console.log(this.state)}
               <SetLocationOnAuth updateLocationInApp={this.getLocationUpdate} />
             </div>
           )}
@@ -179,6 +174,7 @@ class App extends Component {
           {/* And finally, if the user is logged in AND has a location, we render the proper app components */}
           {this.state.loggedInUserId && this.state.userLocation && (
             <div>
+              {console.log(this.state)}
               <div className={classes.root}>
                 {/* This is the main navbar, displayed throughout the app */}
                 {/* This navbar has the logo, the searchbar, the navbar and the settings button */}
@@ -186,11 +182,11 @@ class App extends Component {
                   {/* Logo */}
                   <img
                     src={logo}
-                    alt='The Gig logo'
+                    alt="The Gig logo"
                     // width="120"
                     style={{
-                      width: '110%',
-                      height: '9vh',
+                      width: "110%",
+                      height: "9vh",
                       marginTop: "2vh"
                     }}
                   />

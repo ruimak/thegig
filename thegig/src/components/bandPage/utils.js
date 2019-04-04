@@ -14,3 +14,7 @@ export const artistEventsFilter = (attractionsArrays, originalArray, band) => {
     []
   );
 };
+
+export const adder = (a,b) => {
+  return a+b
+};
