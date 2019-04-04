@@ -113,7 +113,7 @@ class Discography extends Component {
                     className={this.props.classes.titleLink}
                     to={`/artist/${this.props.params.band}/song/${song.name}`}
                   >
-                    <Paper className={this.props.classes.paperSong}>
+                    <Paper data-cy="Paper" className={this.props.classes.paperSong}>
                       {i + 1} : <b>{song.name}</b> Playcount: {song.playcount}
                     </Paper>
                   </Link>
@@ -288,7 +288,7 @@ class Discography extends Component {
             ? restOfAlbums.map((album, i) => {
                 if (i < 5) {
                   return (
-                    <Card
+                    <Card data-cy="Card"
                       className={`${this.props.classes.moreAlbumcard} ${
                         this.props.classes.moreAlbumscard
                       }`}
@@ -311,7 +311,7 @@ class Discography extends Component {
                         }/`}
                         className={this.props.classes.link}
                       >
-                        <CardContent
+                        <CardContent 
                           className={`${this.props.classes.cardCon} ${
                             this.props.classes.moreAlbumCardCon
                           }`}
@@ -323,12 +323,12 @@ class Discography extends Component {
                           >
                             {album.name}
                           </h1>
-                          <p
+                          <p 
                             className={`${this.props.classes.playCountText} ${
                               this.props.classes.moreAlbumPlayCountText
                             }`}
                           >
-                            Number {i + 6} : {album.playcount} plays
+                            Number {i + 7} : {album.playcount} plays
                           </p>
                         </CardContent>
                         <br />
@@ -505,6 +505,9 @@ const styles = {
     position: "absolute",
     bottom: "26%",
     left: "5%"
+  },
+  moreAlbumslink : {
+    height : 100
   }
 };
 

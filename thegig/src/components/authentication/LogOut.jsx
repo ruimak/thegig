@@ -7,7 +7,7 @@ const LogOut = (props) => {
     return (
         <div>
            
-          <button onClick={logout}>{"See you later!"}</button>
+          <button data-cy="logout" onClick={logout}>{"See you later!"}</button>
         
         </div>
       )

@@ -100,13 +100,14 @@ export default withStyles(styles)(
                   className={classes.fab}
                 >
                   <DeleteIcon
+                  data-cy="MybandRemove"
                     className={classes.deleteIcon}
                     onClick={() => {
                       this.unfollowBand(band);
                     }}
                   />
                 </Fab>
-                <Link to={`/artist/${band}/news`}>{band}</Link>
+                <Link data-cy="MybandLink" to={`/artist/${band}/news`}>{band}</Link>
                 <br />
               </div>
             );

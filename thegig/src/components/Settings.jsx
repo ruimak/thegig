@@ -33,7 +33,7 @@ export default class Settings extends Component {
         <h1>{"Settings"}</h1>
         <form onSubmit={this.handleSubmit}>
           <h2>{"Password Updater"}</h2>
-          <input
+          <input data-cy="passwordInput"
             onChange={this.handleChange}
             type="password"
             name="currentPassword"
@@ -97,8 +97,8 @@ export default class Settings extends Component {
         <AutoGetLocation />
 
         <br />
-        <h3>{"Logout"}</h3>
-        <LogOut />
+        <h3 >{"Logout"}</h3>
+        <LogOut/>
       </div>
     );
   }
