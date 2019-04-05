@@ -15,11 +15,14 @@ const styles = theme => ({
   avatar: {
     height: 210,
     width: 210,
-    marginLeft:'15%'
+    marginLeft:'15%',
+    border:'solid',
+    borderWidth:'1px',
+    borderColor:'#545495'
   },
   header: {
     fontSize: "4em",
-    color: "#b288c0",
+    color: "#BBCFE7",
     fontFamily: "'Lilita One', 'cursive'",
     textColor: "grey",
     paddingTop: "4vh"
@@ -72,7 +75,7 @@ class NavBar extends Component {
                 />
               </Grid>
               <Grid item md={6}>
-                <Typography className={`${this.props.classes.header}`}>
+                <Typography className={`${this.props.classes.header}`} style={{WebkitTextStroke:'1px #545495'}}>
                   {this.state.bio.name}
                 </Typography><div style={{color:'red', marginLeft:"10%", marginBottom:"2%"}}>{this.state.bio.ontour==='0' ? null : '(On Tour)'}</div>
                 <FollowUnfollowButton params={this.props.params} />
@@ -86,7 +89,7 @@ class NavBar extends Component {
               return (
                 <div
                   className="Inline"
-                  style={{ paddingLeft: "1%", paddingRight: "1%" }}
+                  style={{ paddingLeft: "1%", paddingRight: "1%",  width:'13%' }}
                   key={tab[0]}
                 >
                   <Button
@@ -94,6 +97,7 @@ class NavBar extends Component {
                     to={`/artist/${this.props.params.band}/${tab[0]}/`}
                     className="NavBar"
                     variant="outlined"
+                    style={{backgroundColor:'white', color:'#545495',  width:'100%' }}
                   >
                     {tab[1]}
                   </Button>

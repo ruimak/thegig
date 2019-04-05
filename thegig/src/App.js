@@ -21,7 +21,7 @@ import RedirectButton from "./components/utilities/RedirectButton";
 import SetLocationOnAuth from "./components/authentication/SetLocationOnAuth";
 import Loading from "./components/authentication/Loading";
 import InvalidUrl from "./components/error/InvalidUrl";
-import logo from "./cropped.jpg";
+import logo from "./cropped2.jpg";
 import { createUserWithFacebook } from "./api";
 
 import "./styles/App.css";
@@ -177,7 +177,7 @@ class App extends Component {
       return <Loading />;
     } else
       return (
-        <div className="app" style={{ height: "100%" }}>
+        <div className="app" style={{ height: "100%", width:'100vw' }}>
           {/* These next two are the login and registration components, rendered if the user isnt logged in to firebase */}
           {!this.state.loggedInUserId && <AuthenticationScreen />}
 
@@ -202,7 +202,7 @@ class App extends Component {
                     alt="The Gig logo"
                     // width="120"
                     style={{
-                      width: "110%",
+                      width: "130%",
                       height: "9vh",
                       marginTop: "2vh"
                     }}

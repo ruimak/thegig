@@ -4,6 +4,8 @@ import AutoGetLocation from "./location/AutoGetLocation";
 import SetLocation from "./location/SetLocation";
 import LogOut from "./authentication/LogOut";
 import firebase from "../firebase.js";
+import Button from "@material-ui/core/Button";
+import "../styles/App.css";
 
 export default class Settings extends Component {
   state = {
@@ -32,104 +34,125 @@ export default class Settings extends Component {
     return (
       <div>
         <h1>{"Settings"}</h1>
-        <form onSubmit={this.handleSubmit}>
-          <h2>{"Password Updater"}</h2>
-          <input
-            onChange={this.handleChange}
-            type="password"
-            name="currentPassword"
-            placeholder="current password"
-          />
-          <input
-            onChange={this.handleChange}
-            type="password"
-            name="newPassword"
-            placeholder="new password"
-          />
-          <button
-            onClick={() =>
-              changePassword(this.state.currentPassword, this.state.newPassword)
-            }
-          >
-            Reset password
-          </button>
-        </form>
-
-        <h2>{"Avatar Updater"}</h2>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="newAvatar"
-            placeholder="Insert new avatar..."
-          />
-          <button
-            onClick={() =>
-              updateUser(this.props.loggedInUser, {
-                avatar: this.state.newAvatar
-              })
-            }
-          >
-            Change Avatar
-          </button>
-        </form>
-        <br />
-        <h2 style={{ marginBottom: "0px" }}>{"Radius Updater"}</h2>
-        <h3 style={{ marginTop: "0px" }}>(in miles)</h3>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="radius"
-            placeholder="Insert new radius..."
-          />
-          <button
-            onClick={() => {
-              if (Number.isInteger(this.state.radius)) {
-                return updateUser(this.props.loggedInUser, {
-                  radius: this.state.radius
-                });
-              } else {
-                return alert("Radius needs to be an integer");
+        <div className="stand-out-container" style={{width:'55%', paddingBottom:'2%'}}>
+          <form onSubmit={this.handleSubmit}>
+            <h2>{"Password Updater"}</h2>
+            <input
+              onChange={this.handleChange}
+              type="password"
+              name="currentPassword"
+              placeholder="current password"
+            />
+            <input
+              onChange={this.handleChange}
+              type="password"
+              name="newPassword"
+              placeholder="new password"
+            />
+            <Button
+              onClick={() =>
+                changePassword(
+                  this.state.currentPassword,
+                  this.state.newPassword
+                )
               }
+              variant='extendedFab'
+              color='primary'
+              style={{marginTop:'4%'}}
+            >
+              Reset password
+            </Button>
+          </form>
+        </div>
+        <div className="stand-out-container" style={{width:'55%', paddingBottom:'2%'}}>
+          <h2>{"Avatar Updater"}</h2>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              onChange={this.handleChange}
+              type="text"
+              name="newAvatar"
+              placeholder="Insert new avatar..."
+            /><br/>
+            <Button
+              onClick={() =>
+                updateUser(this.props.loggedInUser, {
+                  avatar: this.state.newAvatar
+                })
+              }
+              variant='extendedFab'
+              color='primary'
+              style={{marginTop:'4%'}}
+            >
+              Change Avatar
+            </Button>
+          </form>
+        </div>
+
+        <div className="stand-out-container" style={{width:'55%', paddingBottom:'2%'}}>
+          <h2 style={{ marginBottom: "0px" }}>{"Radius Updater"}</h2>
+          <h3 style={{ marginTop: "0px" }}>(in miles)</h3>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              onChange={this.handleChange}
+              type="text"
+              name="radius"
+              placeholder="Insert new radius..."
+            />
+<br/>
+            <Button
+              onClick={() => {
+                if (Number.isInteger(Number(this.state.radius))) {
+                  return updateUser(this.props.loggedInUser, {
+                    radius: this.state.radius
+                  });
+                } else {
+                  return alert("Radius needs to be an integer");
+                }
+              }}
+              variant='extendedFab'
+              color='primary'
+              style={{marginTop:'4%'}}
+            >
+              Change Radius
+            </Button>
+          </form>
+        </div>
+
+        <div className="stand-out-container" style={{width:'55%', paddingBottom:'2%'}}>
+          <h2>{"Location Updater"}</h2>
+          <SetLocation />
+          <h3>{"or"}</h3>
+          <AutoGetLocation />
+        </div>
+
+        <div className="stand-out-container" style={{width:'55%', paddingBottom:'2%'}}>
+          <h2>{"Facebook"}</h2>
+          <Button
+            onClick={() => {
+              var provider = new firebase.auth.FacebookAuthProvider();
+
+              firebase
+                .auth()
+                .currentUser.linkWithPopup(provider)
+                // .then(function(result) {
+                //   // Accounts successfully linked.
+                //   var credential = result.credential;
+                //   var user = result.user;
+                //   console.log(credential, user)
+                // })
+                .catch(err => alert(err));
             }}
+            variant='extendedFab'
+              color='primary'
+              style={{marginTop:'4%'}}
           >
-            Change radius
-          </button>
-        </form>
-
-        <br />
-        <h2>{"Location Updater"}</h2>
-        <SetLocation />
-        <h3>{"or"}</h3>
-        <AutoGetLocation />
-
-        <br />
-
-        <button
-          onClick={() => {
-            var provider = new firebase.auth.FacebookAuthProvider();
-
-            firebase
-              .auth()
-              .currentUser.linkWithPopup(provider)
-              .then(function(result) {
-                // Accounts successfully linked.
-                var credential = result.credential;
-                var user = result.user;
-                // ...
-              })
-              .catch(function(error) {
-                // Handle Errors here.
-                // ...
-              });
-          }}
-        >
-          {"Sync with Facebook"}
-        </button>
-        <br />
-        <h3>{"Logout"}</h3>
-        <LogOut />
+            {"Sync with Facebook"}
+          </Button>
+        </div>
+        <div className="stand-out-container" style={{width:'55%', paddingBottom:'2%'}}>
+          <h2>{"Logout"}</h2>
+          <LogOut />
+        </div>
       </div>
     );
   }
