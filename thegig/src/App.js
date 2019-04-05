@@ -6,8 +6,6 @@ import NavBar from "./components/NavBar";
 import ArtistEvents from "./components/bandPage/ArtistEvents";
 import SetLists from "./components/bandPage/SetLists";
 import ArtistNews from "./components/bandPage/ArtistNews";
-import SignIn from "./components/authentication/SignIn";
-import LogIn from "./components/authentication/LogIn";
 import firebase from "./firebase.js";
 import MyBands from "./components/defaultPage/Mybands";
 import HomeBandNews from "./components/defaultPage/HomeBandNews";
@@ -22,13 +20,16 @@ import Album from "./components/bandPage/Album";
 import RedirectButton from "./components/utilities/RedirectButton";
 import SetLocationOnAuth from "./components/authentication/SetLocationOnAuth";
 import Loading from "./components/authentication/Loading";
-import logo from './cropped.jpg'
+import InvalidUrl from "./components/error/InvalidUrl";
+import logo from "./cropped.jpg";
+import { createUserWithFacebook } from "./api";
 
 import "./styles/App.css";
 
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import AuthenticationScreen from "./components/authentication/AuthenticationScreen";
 
 //This is the personalized theme passed to components to change their color.
 //We're using it to personalize the buttons in the main navbar, making them white.
@@ -123,7 +124,10 @@ class App extends Component {
     //This next function checks if the user is logged in. It also gets his location if he is.
     //The location is needed because if he doesnt have one, a component to insert location will render.
     firebase.auth().onAuthStateChanged(user => {
+      this.setState({ isLoading: true });
       if (user) {
+        console.log(user);
+        // console.log(user.displayName.split(' ')[0], user.displayName.split(' ')[1], user.email, 'USERSTATS')
         this.setState({ loggedInUserId: user.uid });
 
         firebase
@@ -132,9 +136,25 @@ class App extends Component {
           .once("value")
           .then(
             function(userData) {
-              const location = userData.val().users[this.state.loggedInUserId]
-                .location;
-              this.setState({ userLocation: location, isLoading: false });
+              console.log(userData, 'USERDATAAAAAAAA')
+              if (userData.val().users[user.uid]) {
+                const location = userData.val().users[this.state.loggedInUserId]
+                  .location;
+                this.setState({
+                  userLocation: location,
+                  isLoading: false
+                });
+              } else {
+                createUserWithFacebook(
+                  user.displayName.split(' ')[0],
+                  user.displayName.split(' ')[1],
+                  user.email,
+                  user.uid
+                ).then(something =>{
+                  console.log(something)
+                  this.setState({ loggedInUserId: user.uid, isLoading: false });
+                } );
+              }
             }.bind(this)
           );
       } else {
@@ -157,21 +177,14 @@ class App extends Component {
       return <Loading />;
     } else
       return (
-        <div
-          className="app"
-          style={{ backgroundColor: "#f7f7f7", height: "100%" }}
-        >
+        <div className="app" style={{ height: "100%" }}>
           {/* These next two are the login and registration components, rendered if the user isnt logged in to firebase */}
-          {!this.state.loggedInUserId && (
-            <div id="mainDiv">
-              <LogIn />
-              <SignIn />
-            </div>
-          )}
+          {!this.state.loggedInUserId && <AuthenticationScreen />}
 
           {/* In the case the user IS logged in but doesnt have a location yet, this next component is rendered */}
-          {this.state.loggedInUserId && !this.state.userLocation && (
+          {this.state.loggedInUserId && !isLoading && !this.state.userLocation && (
             <div id="mainDiv">
+              {console.log(this.state)}
               <SetLocationOnAuth updateLocationInApp={this.getLocationUpdate} />
             </div>
           )}
@@ -186,11 +199,11 @@ class App extends Component {
                   {/* Logo */}
                   <img
                     src={logo}
-                    alt='The Gig logo'
+                    alt="The Gig logo"
                     // width="120"
                     style={{
-                      width: '110%',
-                      height: '9vh',
+                      width: "110%",
+                      height: "9vh",
                       marginTop: "2vh"
                     }}
                   />
@@ -226,8 +239,10 @@ class App extends Component {
               {/* This is gonna be the actual page and the secondary navbar if it does exist */}
               <div id="mainDiv">
                 {/* Blurred background picture */}
+
                 <div className="artist-nav-bar-background" />
                 <div id="secondaryNavBarAndMainComponents">
+                 
                   {/* Secondary navbar */}
                   <div id="bandNavBar">
                     <Route
@@ -250,7 +265,6 @@ class App extends Component {
                   {/* This is the switch that chooses which component is being displayed depending on the url */}
                   <div>
                     <Switch>
-                      {/* <Route exact path="/NotFound" component={NotFound} /> */}
                       <Route
                         exact
                         path="/"
@@ -343,6 +357,8 @@ class App extends Component {
                         path="/artist/:band/song/:songTitle"
                         render={({ match }) => <Deezer params={match.params} />}
                       />
+                      <Route path="/*" component={InvalidUrl} />
+                      <Route path="/error" component={InvalidUrl} />
                     </Switch>
                   </div>
                 </div>

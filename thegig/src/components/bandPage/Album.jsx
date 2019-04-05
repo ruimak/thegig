@@ -11,7 +11,7 @@ export default class Album extends Component {
     // This function updates the album info in state
     getAlbumInfo(this.props.params.band, this.props.params.albumName).then(
       albumInfo => this.setState({ albumInfo: albumInfo.data.album })
-    );
+    )
   }
 
   render() {

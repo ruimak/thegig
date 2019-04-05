@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { login } from "../../api";
+import "../../styles/App.css";
+import Button from "@material-ui/core/Button";
+
 
 //This is the Login component, for users that already have an account.
 
@@ -26,17 +29,46 @@ export default class SignIn extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        className="stand-out-container centered-container"
+        style={{ paddingBottom: "2%", width: "30%" }}
+      >
+        <h2>Log In:</h2>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Email:
-            <input type="text" name="email" onChange={this.handleChange} />
-          </label>
-          <label>
-            Password:
-            <input type="text" name="password" onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
+          <div style={{ display: "grid", gridTemplateColumns: "50% 50%" }}>
+            <div>
+              <p>Email:</p>
+              <p>Password:</p>
+            </div>
+            <div>
+              <p>
+                <label>
+                  <input
+                    type="text"
+                    name="email"
+                    onChange={this.handleChange}
+                    style={{maxWidth:'90%'}}
+                  />
+                </label>
+              </p>
+
+              <p>
+                {" "}
+                <label>
+                  <input
+                    type="password"
+                    name="password"
+                    onChange={this.handleChange}
+                    style={{maxWidth:'90%'}}
+                  />
+                </label>
+              </p>
+            </div>
+          </div>
+
+          <br />
+          <Button type="submit" color='primary' variant='outlined'>Log In</Button>
+          {/* <input type="submit" value="Log in" /> */}
         </form>
       </div>
     );

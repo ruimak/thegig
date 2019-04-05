@@ -8,6 +8,7 @@ export default class ArtistEvents extends Component {
   state = {
     eventsInfo: [],
     isLoading: true
+
   };
   componentDidMount() {
     // This function updates the events for the artist in the state.
@@ -42,7 +43,7 @@ export default class ArtistEvents extends Component {
             isLoading: false
           });
       }
-    });
+    })
   }
   render() {
     if (this.state.eventsInfo.length === 0) {

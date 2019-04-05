@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { createUser } from "../../api";
-import {regexTester} from './utils'
+import { regexTester } from "./utils";
+import "../../styles/App.css";
+import Button from "@material-ui/core/Button";
+
 
 export default class SignIn extends Component {
   state = {
@@ -17,8 +20,13 @@ export default class SignIn extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    
-    regexTester(this.state.fName, this.state.lName, this.state.email, this.state.password)
+
+    regexTester(
+      this.state.fName,
+      this.state.lName,
+      this.state.email,
+      this.state.password
+    );
 
     return createUser(
       this.state.fName,
@@ -40,25 +48,65 @@ export default class SignIn extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        className="stand-out-container centered-container"
+        style={{ paddingBottom: "2%", width: "30%" }}
+      >
+        <h2>Register</h2>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            First name:
-            <input type="text" name="fName" onChange={this.handleChange} />
-          </label>
-          <label>
-            Last name:
-            <input type="text" name="lName" onChange={this.handleChange} />
-          </label>
-          <label>
-            email:
-            <input type="text" name="email" onChange={this.handleChange} />
-          </label>
-          <label>
-            password:
-            <input type="text" name="password" onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
+          <div style={{ display: "grid", gridTemplateColumns: "50% 50%" }}>
+            <div>
+              <p>First Name:</p>
+              <p>Last Name:</p>
+              <p>Email:</p>
+              <p>Password:</p>
+            </div>
+            <div>
+              <p>
+                {" "}
+                <label>
+                  <input
+                    type="text"
+                    name="fName"
+                    onChange={this.handleChange}
+                    style={{maxWidth:'90%'}}
+                  />
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input
+                    type="text"
+                    name="lName"
+                    onChange={this.handleChange}
+                    style={{maxWidth:'90%'}}
+                  />
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input
+                    type="text"
+                    name="email"
+                    onChange={this.handleChange}
+                    style={{maxWidth:'90%'}}
+                  />
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input
+                    type="password"
+                    name="password"
+                    onChange={this.handleChange}
+                    style={{maxWidth:'90%'}}
+                  />
+                </label>
+              </p>
+            </div>
+            <br />
+          </div>{" "}
+          <Button type="submit" color='primary' variant='outlined'>Register</Button>
         </form>
       </div>
     );
