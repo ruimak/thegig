@@ -274,13 +274,13 @@ export const removeBandFromFollowedList = (userId, bandName) => {
     .ref(`/users/${userId}/bands`)
     .orderByValue()
     .equalTo(bandName)
-    .catch(err => {
-      alert(err.message);
-    });
+    
 
   query.once("value", function(snapshot) {
     snapshot.ref.update({ [snapshot.node_.children_.root_.key]: null });
-  });
+  }).catch(err => {
+      alert(err.message);
+    });;
 };
 
 export const getUsersFollowedBand = user => {
