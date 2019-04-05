@@ -56,8 +56,7 @@ export default class ArtistEvents extends Component {
           style={{ width: "25%", padding: "10%" }}
         >
           <h2>No bands ?</h2>
-          You have no bands, therefore no events as well. Please start following
-          some bands! :)
+          You have no bands, therefore no events as well. You should start following some if you dont want to miss any concerts! :)
         </div>
       </div>
     ) : (
@@ -81,7 +80,7 @@ export default class ArtistEvents extends Component {
                   style={{ cursor: "pointer" }}
                 >
                   <br />
-                  <div className="divContent">{event.name}</div>
+                  <div className="divContent" style={{fontSize:'1.5vw', fontWeight:'bold'}}>{event.name}</div>
                   <br />
                   <img
                     className="divContent"

@@ -3,6 +3,7 @@ import Autocomplete from "./AutoComplete";
 import Geohash from "latlon-geohash";
 import { updateUser } from "../../api";
 import firebase from "../../firebase.js";
+import Button from "@material-ui/core/Button";
 
 export default class SetLocation extends Component {
   state = {
@@ -13,7 +14,7 @@ export default class SetLocation extends Component {
     this.setState({ place });
   }
 
-  updateUsersLocation = (place) => {
+  updateUsersLocation = place => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         updateUser(user.uid, {
@@ -48,16 +49,19 @@ export default class SetLocation extends Component {
       <div>
         <Autocomplete onPlaceChanged={this.showPlaceDetails.bind(this)} />
         {/* <AddressDetails place={this.state.place} /> */}
-        <button
+        <br />
+        <Button
           onClick={() => {
-            console.log(this.props)
-            this.updateUsersLocation(this.state.place)
-           this.props.updateLocationInApp(this.state.place)
-            
+            console.log(this.props);
+            this.updateUsersLocation(this.state.place);
+            this.props.updateLocationInApp(this.state.place);
           }}
+          variant="extendedFab"
+          color="primary"
+          style={{ backgroundColor: "#738DD9", marginTop: "4%" }}
         >
           {"Submit Location"}
-        </button>
+        </Button>
       </div>
     );
   }

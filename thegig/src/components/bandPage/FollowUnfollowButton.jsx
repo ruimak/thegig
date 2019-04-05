@@ -62,6 +62,7 @@ export default class SignIn extends Component {
           }}
           variant="extendedFab"
           color="primary"
+          style={{backgroundColor:'#738DD9',boxShadow: '3px 3px 8px #545495'}}
         >
           {"Follow"}
         </Button>
@@ -78,6 +79,8 @@ export default class SignIn extends Component {
           }}
           variant="extendedFab"
           color="primary"
+          style={{backgroundColor:'#738DD9',boxShadow: '3px 3px 8px #545495'}}
+
         >
           {"Unfollow"}
         </Button>

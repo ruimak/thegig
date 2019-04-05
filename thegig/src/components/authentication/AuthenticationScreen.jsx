@@ -5,7 +5,6 @@ import logo from "../../cropped.jpg";
 import "../../styles/App.css";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "../../firebase.js";
-import { createUserWithFacebook } from "../../api";
 
 //This is the Logout component, a simple button that you can press and immediately log out.
 const uiConfig = {

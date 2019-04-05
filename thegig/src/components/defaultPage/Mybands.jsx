@@ -79,7 +79,7 @@ export default withStyles(styles)(
       const { classes } = this.props;
       return (
         <div className={this.props.classes.root} style={{paddingTop: "5vh"}}>
-          <h1 className="title" style={{paddingBottom:'10vh'}}>{"My Bands"}</h1>{" "}
+          <h1 className="title" style={{paddingBottom:'5vw'}}>{"My Bands"}</h1>{" "}
           <div className='centered-container'>  {this.state.bandsFollowed.sort().map(band => {
             // Remove the sort if you want the bands to be displayed by date-followed. We can add sorting buttons later. 
             return (

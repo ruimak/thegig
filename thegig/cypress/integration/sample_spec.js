@@ -206,7 +206,7 @@ describe('testing searchbar',() => {
           })
                })
 
-               describe.only('tests for artist navbar',() => {
+               describe('tests for artist navbar',() => {
                
                    it('clicks on discography',() => {
                     cy.visit('http://localhost:3000/artist/Foals/news')
@@ -238,6 +238,20 @@ describe('testing searchbar',() => {
                     cy.contains(/^Setlists/).click()
                     cy.url().should('include', 'setlists/')
                    })
+               })
+
+
+
+
+
+               describe.only('error testing', () =>{
+                  it('',() => {
+                    cy.visit('http://localhost:3000/band')
+                    cy.wait(7000)
+                    cy.contains('Whoops')
+
+
+                  }) 
                })
 
 
