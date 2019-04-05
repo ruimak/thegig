@@ -46,9 +46,9 @@ export default class AutoGetLocation extends Component {
           onClick={() => {
             this.addLocationToUser();
           }}
-          variant='extendedFab'
-              color='primary'
-              style={{marginTop:'4%'}}
+          variant="extendedFab"
+          color="primary"
+          style={{ backgroundColor: "#738DD9", marginTop: "4%" }}
         >
           {"Set my location automatically"}
         </Button>

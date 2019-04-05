@@ -49,7 +49,7 @@ export default class SetLocation extends Component {
       <div>
         <Autocomplete onPlaceChanged={this.showPlaceDetails.bind(this)} />
         {/* <AddressDetails place={this.state.place} /> */}
-        <br/>
+        <br />
         <Button
           onClick={() => {
             console.log(this.props);
@@ -58,7 +58,7 @@ export default class SetLocation extends Component {
           }}
           variant="extendedFab"
           color="primary"
-          style={{ marginTop: "4%" }}
+          style={{ backgroundColor: "#738DD9", marginTop: "4%" }}
         >
           {"Submit Location"}
         </Button>

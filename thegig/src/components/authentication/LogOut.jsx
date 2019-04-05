@@ -11,7 +11,7 @@ const LogOut = props => {
         onClick={logout}
         variant="extendedFab"
         color="primary"
-        style={{ marginTop: "4%" }}
+        style={{backgroundColor:'#738DD9', marginTop: "4%" }}
       >
         {"See you later!"}
       </Button>

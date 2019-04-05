@@ -75,9 +75,9 @@ class NavBar extends Component {
                 />
               </Grid>
               <Grid item md={6}>
-                <Typography className={`${this.props.classes.header}`} style={{WebkitTextStroke:'1px #545495'}}>
+                <Typography className={`${this.props.classes.header}`} style={{WebkitTextStroke:'1px #545495', textShadow: '2px 2px 8px #1B1638'} }>
                   {this.state.bio.name}
-                </Typography><div style={{color:'red', marginLeft:"10%", marginBottom:"2%"}}>{this.state.bio.ontour==='0' ? null : '(On Tour)'}</div>
+                </Typography><div style={{color:'red', marginLeft:"6%", marginBottom:"2%"}}>{this.state.bio.ontour==='0' ? null : '(On Tour)'}</div>
                 <FollowUnfollowButton params={this.props.params} />
               </Grid>
             </Grid>
@@ -97,7 +97,7 @@ class NavBar extends Component {
                     to={`/artist/${this.props.params.band}/${tab[0]}/`}
                     className="NavBar"
                     variant="outlined"
-                    style={{backgroundColor:'white', color:'#545495',  width:'100%' }}
+                    style={{backgroundColor:'white', color:'#545495',  width:'100%',boxShadow: '3px 3px 8px #545495' }}
                   >
                     {tab[1]}
                   </Button>
@@ -113,7 +113,9 @@ class NavBar extends Component {
                     style={{
                       paddingLeft: "5vh",
                       paddingRight: "5vh",
-                      paddingTop: "1vh"
+                      paddingTop: "1vh",
+                      
+
                     }}
                     component={Link}
                     to={`/${tab[0]}`}
