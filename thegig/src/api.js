@@ -124,7 +124,8 @@ export const createUser = (fName, lName, email, password) =>
         lName,
         email,
         followedBands: [],
-        avatar: ""
+        avatar: "",
+        radius: 20
       };
       return database()
         .ref(`/users/${uid}`)
@@ -147,7 +148,43 @@ export const createUser = (fName, lName, email, password) =>
             console.log(error.message);
           }
         });
+    })
+    .catch(err => {
+      alert(err);
     });
+
+export const createUserWithFacebook = (fName, lName, email, userId) => {
+  const newUser = {
+    userId,
+    fName,
+    lName,
+    email,
+    followedBands: [],
+    avatar: "",
+    radius: 20
+  };
+  return database()
+    .ref(`/users/${userId}`)
+    .set(newUser)
+    .then(() =>
+      database()
+        .ref("/users")
+        .orderByKey()
+        .equalTo(userId)
+        .once("value")
+        .then(data => {
+          return data;
+        })
+        .catch(err => alert(err))
+    )
+    .catch(error => {
+      if (error.code === "auth/weak-password") {
+        alert("The password is too weak.");
+      } else {
+        console.log(error.message);
+      }
+    });
+};
 
 export const login = (email, password) =>
   firebase
@@ -166,27 +203,32 @@ export const login = (email, password) =>
           }
         })
         .catch(err => alert(err));
+    })
+    .catch(err => {
+      alert(err);
     });
 
 export const logout = () => {
   firebase
     .auth()
     .signOut()
-    // .then(function() {
-    //   // Sign-out successful.
-    //   {
-    //     console.log("successfully signed out");
-    //   }
-    // })
-    .catch(function(error) {
+    .then(() => {
+      alert("Successfully logged out, hope to see you soon!");
+    })
+    .catch(
+      err => alert(err)
       // An error happened.
-    });
+    );
 };
 
 export const updateUser = (uid, entriesToUpdateObj) =>
   database()
     .ref(`/users/${uid}`)
-    .update(entriesToUpdateObj);
+    .update(entriesToUpdateObj)
+    .then(() => {
+      alert(JSON.stringify(entriesToUpdateObj));
+    })
+    .catch(err => alert(err));
 
 export const changePassword = (currentPassword, newPassword) => {
   reauthenticate(currentPassword)
@@ -220,7 +262,10 @@ export const addBandToFollowedList = (userId, bandName) => {
     .database()
     .ref(`/users/${userId}`)
     .child("/bands")
-    .push(bandName);
+    .push(bandName)
+    .catch(err => {
+      alert(err.message);
+    });
 };
 
 export const removeBandFromFollowedList = (userId, bandName) => {
@@ -228,7 +273,10 @@ export const removeBandFromFollowedList = (userId, bandName) => {
     .database()
     .ref(`/users/${userId}/bands`)
     .orderByValue()
-    .equalTo(bandName);
+    .equalTo(bandName)
+    .catch(err => {
+      alert(err.message);
+    });
 
   query.once("value", function(snapshot) {
     snapshot.ref.update({ [snapshot.node_.children_.root_.key]: null });

@@ -20,7 +20,9 @@ import Album from "./components/bandPage/Album";
 import RedirectButton from "./components/utilities/RedirectButton";
 import SetLocationOnAuth from "./components/authentication/SetLocationOnAuth";
 import Loading from "./components/authentication/Loading";
+import InvalidUrl from "./components/error/InvalidUrl";
 import logo from "./cropped.jpg";
+import { createUserWithFacebook } from "./api";
 
 import "./styles/App.css";
 
@@ -122,7 +124,10 @@ class App extends Component {
     //This next function checks if the user is logged in. It also gets his location if he is.
     //The location is needed because if he doesnt have one, a component to insert location will render.
     firebase.auth().onAuthStateChanged(user => {
+      this.setState({ isLoading: true });
       if (user) {
+        console.log(user);
+        // console.log(user.displayName.split(' ')[0], user.displayName.split(' ')[1], user.email, 'USERSTATS')
         this.setState({ loggedInUserId: user.uid });
 
         firebase
@@ -131,12 +136,25 @@ class App extends Component {
           .once("value")
           .then(
             function(userData) {
-              const location = userData.val().users[this.state.loggedInUserId]
-                .location;
-              this.setState({
-                userLocation: location,
-                isLoading: false,
-              });
+              console.log(userData, 'USERDATAAAAAAAA')
+              if (userData.val().users[user.uid]) {
+                const location = userData.val().users[this.state.loggedInUserId]
+                  .location;
+                this.setState({
+                  userLocation: location,
+                  isLoading: false
+                });
+              } else {
+                createUserWithFacebook(
+                  user.displayName.split(' ')[0],
+                  user.displayName.split(' ')[1],
+                  user.email,
+                  user.uid
+                ).then(something =>{
+                  console.log(something)
+                  this.setState({ loggedInUserId: user.uid, isLoading: false });
+                } );
+              }
             }.bind(this)
           );
       } else {
@@ -174,7 +192,6 @@ class App extends Component {
           {/* And finally, if the user is logged in AND has a location, we render the proper app components */}
           {this.state.loggedInUserId && this.state.userLocation && (
             <div>
-              {console.log(this.state)}
               <div className={classes.root}>
                 {/* This is the main navbar, displayed throughout the app */}
                 {/* This navbar has the logo, the searchbar, the navbar and the settings button */}
@@ -222,8 +239,10 @@ class App extends Component {
               {/* This is gonna be the actual page and the secondary navbar if it does exist */}
               <div id="mainDiv">
                 {/* Blurred background picture */}
+
                 <div className="artist-nav-bar-background" />
                 <div id="secondaryNavBarAndMainComponents">
+                 
                   {/* Secondary navbar */}
                   <div id="bandNavBar">
                     <Route
@@ -246,7 +265,6 @@ class App extends Component {
                   {/* This is the switch that chooses which component is being displayed depending on the url */}
                   <div>
                     <Switch>
-                      {/* <Route exact path="/NotFound" component={NotFound} /> */}
                       <Route
                         exact
                         path="/"
@@ -339,6 +357,8 @@ class App extends Component {
                         path="/artist/:band/song/:songTitle"
                         render={({ match }) => <Deezer params={match.params} />}
                       />
+                      <Route path="/*" component={InvalidUrl} />
+                      <Route path="/error" component={InvalidUrl} />
                     </Switch>
                   </div>
                 </div>

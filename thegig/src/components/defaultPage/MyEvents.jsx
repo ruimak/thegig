@@ -9,9 +9,11 @@ export default class ArtistEvents extends Component {
   state = {
     eventsInfo: null,
     bandsFollowed: [],
-    isLoading: true
+    isLoading: "initial"
   };
   componentDidMount() {
+    this.setState({ isLoading: true });
+
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         firebase
@@ -29,6 +31,7 @@ export default class ArtistEvents extends Component {
 
                 // Having fetched your location and radius from the firebase, we can get the events for that location.
                 return getEventsForLocation(location, radius).then(events => {
+                  console.log(events, 'events')
                   this.setState({
                     eventsInfo: events.data._embedded.events,
                     bandsFollowed: myBands,
@@ -45,7 +48,7 @@ export default class ArtistEvents extends Component {
     });
   }
   render() {
-    return !this.state.isLoading && this.state.bandsFollowed.length === 0 ? (
+    if(this.state.isLoading=== false ){return this.state.bandsFollowed.length === 0 ? (
       <div>
         <h1 className="title">{"My Events"}</h1>
         <div
@@ -123,7 +126,7 @@ export default class ArtistEvents extends Component {
         )}
       </div>
     );
-  }
+  } else return null} 
 }
 
 // if there are no events its bugging out. Should be easy to fix with a condition

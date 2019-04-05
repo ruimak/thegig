@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { getTrack, getSongInfo } from "../../api";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
+
+
 // const { DZ } = window
 
 class SongPlayer extends Component {
@@ -9,6 +11,7 @@ class SongPlayer extends Component {
     //   loggedin: false
     track: null,
     songInfo: null
+   
   };
 
   //In this particular file we will keep the commented sections in, because they are part of a future implementation
@@ -45,12 +48,12 @@ class SongPlayer extends Component {
     // this.getLoginStatus()
     getTrack(this.props.params.band, this.props.params.songTitle).then(res => {
       this.setState({ track: res.data.data[0].preview });
-    });
+    })
     getSongInfo(this.props.params.band, this.props.params.songTitle).then(
       songInfo => {
         this.setState({ songInfo: songInfo });
       }
-    );
+    )
   }
 
   // Again, we need the componentDidUpdate because if we dont, when we go from a songpage to another, the route is the same.
@@ -75,7 +78,8 @@ class SongPlayer extends Component {
 
   render() {
     //   this.getLoginStatus()
-    return this.state.songInfo && this.state.songInfo.data.track ? (
+
+  return this.state.songInfo && this.state.songInfo.data.track ? (
       <div>
         <h1>{this.state.songInfo && this.state.songInfo.data.track.name}</h1>
         <div>

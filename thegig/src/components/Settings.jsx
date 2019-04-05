@@ -3,6 +3,7 @@ import { updateUser, changePassword } from "../api";
 import AutoGetLocation from "./location/AutoGetLocation";
 import SetLocation from "./location/SetLocation";
 import LogOut from "./authentication/LogOut";
+import firebase from "../firebase.js";
 
 export default class Settings extends Component {
   state = {
@@ -73,18 +74,25 @@ export default class Settings extends Component {
           </button>
         </form>
         <br />
-        <h2>{"Radius Updater"}</h2>
+        <h2 style={{ marginBottom: "0px" }}>{"Radius Updater"}</h2>
+        <h3 style={{ marginTop: "0px" }}>(in miles)</h3>
         <form onSubmit={this.handleSubmit}>
           <input
             onChange={this.handleChange}
             type="text"
             name="radius"
             placeholder="Insert new radius..."
-          />{" "}
+          />
           <button
-            onClick={() =>
-              updateUser(this.props.loggedInUser, { radius: this.state.radius })
-            }
+            onClick={() => {
+              if (Number.isInteger(this.state.radius)) {
+                return updateUser(this.props.loggedInUser, {
+                  radius: this.state.radius
+                });
+              } else {
+                return alert("Radius needs to be an integer");
+              }
+            }}
           >
             Change radius
           </button>
@@ -96,6 +104,29 @@ export default class Settings extends Component {
         <h3>{"or"}</h3>
         <AutoGetLocation />
 
+        <br />
+
+        <button
+          onClick={() => {
+            var provider = new firebase.auth.FacebookAuthProvider();
+
+            firebase
+              .auth()
+              .currentUser.linkWithPopup(provider)
+              .then(function(result) {
+                // Accounts successfully linked.
+                var credential = result.credential;
+                var user = result.user;
+                // ...
+              })
+              .catch(function(error) {
+                // Handle Errors here.
+                // ...
+              });
+          }}
+        >
+          {"Sync with Facebook"}
+        </button>
         <br />
         <h3>{"Logout"}</h3>
         <LogOut />
