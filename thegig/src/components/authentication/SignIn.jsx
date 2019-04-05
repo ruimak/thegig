@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { createUser } from "../../api";
+import {regexTester} from './utils'
 
 export default class SignIn extends Component {
   state = {
@@ -16,22 +17,9 @@ export default class SignIn extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    if (!/^[a-zA-Z]+$/.test(this.state.fName)) {
-      return alert("Please insert a valid first name");
-    }
-    if (!/^[a-zA-Z]+$/.test(this.state.lName)) {
-      return alert("Please insert a valid last name");
-    }
-    if (
-      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        this.state.email
-      )
-    ) {
-      return alert("Please insert a valid email address");
-    }
-    if (this.state.password.length < 6) {
-      return alert("Password must have 6 characters or more");
-    }
+    
+    regexTester(this.state.fName, this.state.lName, this.state.email, this.state.password)
+
     return createUser(
       this.state.fName,
       this.state.lName,

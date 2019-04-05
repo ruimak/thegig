@@ -53,11 +53,12 @@ class SongPlayer extends Component {
     );
   }
 
+  // Again, we need the componentDidUpdate because if we dont, when we go from a songpage to another, the route is the same.
+  // Event though the parameters are gonna be different, having the same route means it wont cause a re-render so we need to force one.
   componentDidUpdate(prevProps, prevState) {
     if (this.props.params.songTitle !== prevProps.params.songTitle) {
       getSongInfo(this.props.params.band, this.props.params.songTitle).then(
         songInfo => {
-          console.log(songInfo);
           this.setState({ songInfo: songInfo });
         }
       );
@@ -78,7 +79,7 @@ class SongPlayer extends Component {
       <div>
         <h1>{this.state.songInfo && this.state.songInfo.data.track.name}</h1>
         <div>
-          <img src={this.state.songInfo.data.track.album.image[2]["#text"]} />
+          <img src={this.state.songInfo.data.track.album.image[2]["#text"]} alt={this.state.songInfo.data.track.album.title}/>
 
           <h2>{"Album: " + this.state.songInfo.data.track.album.title}</h2>
         </div>

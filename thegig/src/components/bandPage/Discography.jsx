@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import { getDiscography, getAlbumInfo, getTopArtistSongs } from "../../api";
+import { getDiscography, getTopArtistSongs } from "../../api";
 import {
-  Tabs,
-  Avatar,
-  Typography,
   Grid,
-  CardHeader,
   Card,
   CardContent,
   CardMedia,
@@ -14,11 +10,7 @@ import {
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import { timingSafeEqual } from "crypto";
-import "./Discography.css";
-import { isAbsolute } from "path";
-
-//I CAN ADD A FUNCTION THAT CHANGES SOMETHING IN THE STATE SO THAT IT EITHER RENDERS 5 OR ALL ALBUMS
+import "../../styles/Discography.css";
 
 class Discography extends Component {
   state = {
@@ -54,8 +46,6 @@ class Discography extends Component {
   }
   showMore = this.showMore.bind(this);
   render() {
-    console.log(this.props.params.band.slice(0, 3),'llllllllllllllllllll')
-    console.log(this.state.discography, "jjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
     const bestAlbums =
       this.state.discography !== null
         ? this.state.discography.slice(0, 6)
@@ -66,29 +56,6 @@ class Discography extends Component {
       this.state.topSongs !== null
         ? this.state.topSongs.data.toptracks.track.slice(0, 5)
         : null;
-    //     let arrayToDisplayInCarousel = [];
-    //     let otherNews = [];
-
-    //     arrayToDisplayInCarousel = this.state.bandNews.slice(0, 6);
-    //     otherNews = this.state.bandNews.slice(6, this.state.bandNews.length);
-    //  let leftSideNews = otherNews.filter((element, index)=>{
-    //    if(index===0 || index%2===0)
-    //    return element
-    //  })
-    //  let rightSideNews = otherNews.filter((element, index)=>{
-    //   if(index!==0 && index%2!==0)
-    //   return element
-    // })
-    // let leftAlbums = this.state.discography !== null ? bestAlbums.filter((elem,index) => {
-    // if(index === 0 || index % 2 === 0) {
-    // return elem
-    // }
-    // }) : null
-    // let rightAlbums = this.state.discography !== null ? bestAlbums.filter((elem,index) => {
-    //   if(index !== 0 && index % 2 !== 0) {
-    //   return elem
-    //   }
-    //   }) : null
 
     let leftAlbums =
       this.state.discography !== null ? bestAlbums.slice(0, 2) : null;
@@ -283,111 +250,112 @@ class Discography extends Component {
           direction="column"
           className={this.props.classes.moreAlbumsGrid}
         >
-        <Grid item sm={6}>
-          {this.state.discography !== null && this.state.showmore === true
-            ? restOfAlbums.map((album, i) => {
-                if (i < 5) {
-                  return (
-                    <Card data-cy="Card"
-                      className={`${this.props.classes.moreAlbumcard} ${
-                        this.props.classes.moreAlbumscard
-                      }`}
-                    >
-                      <Link
-                        to={`/artist/${this.props.params.band}/albums/${
-                          album.name
-                        }/`}
-                        className={this.props.classes.moreAlbumslink}
+          <Grid item sm={6}>
+            {this.state.discography !== null && this.state.showmore === true
+              ? restOfAlbums.map((album, i) => {
+                  if (i < 5) {
+                    return (
+                      <Card
+                        className={`${this.props.classes.moreAlbumcard} ${
+                          this.props.classes.moreAlbumscard
+                        }`}
                       >
-                        <CardMedia
-                          className={`${this.props.classes.cardImage} image`}
-                          image={album.image[0]["#text"]}
-                          title="Paella dish"
-                        />
-                      </Link>
-                      <Link
-                        to={`/artist/${this.props.params.band}/albums/${
-                          album.name
-                        }/`}
-                        className={this.props.classes.link}
-                      >
-                        <CardContent 
-                          className={`${this.props.classes.cardCon} ${
-                            this.props.classes.moreAlbumCardCon
-                          }`}
+                        <Link
+                          to={`/artist/${this.props.params.band}/albums/${
+                            album.name
+                          }/`}
+                          className={this.props.classes.moreAlbumslink}
                         >
-                          <h1
-                            className={`${
-                              this.props.classes.moreAlbumscardContent
-                            } content moreAlbumContent`}
-                          >
-                            {album.name}
-                          </h1>
-                          <p 
-                            className={`${this.props.classes.playCountText} ${
-                              this.props.classes.moreAlbumPlayCountText
+                          <CardMedia
+                            className={`${this.props.classes.cardImage} image`}
+                            image={album.image[0]["#text"]}
+                            title="Paella dish"
+                          />
+                        </Link>
+                        <Link
+                          to={`/artist/${this.props.params.band}/albums/${
+                            album.name
+                          }/`}
+                          className={this.props.classes.link}
+                        >
+                          <CardContent
+                            className={`${this.props.classes.cardCon} ${
+                              this.props.classes.moreAlbumCardCon
                             }`}
                           >
-                            Number {i + 7} : {album.playcount} plays
-                          </p>
-                        </CardContent>
-                        <br />
-                      </Link>
-                    </Card>
-                  );
-                } else if (i > 4 && i < 8) {
-                  return (
-                    <Card
-                      className={`${this.props.classes.moreAlbumcard} ${
-                        this.props.classes.moreAlbumscard
-                      }`}
-                    >
-                      <Link
-                        to={`/artist/${this.props.params.band}/albums/${
-                          album.name
-                        }/`}
-                        className={this.props.classes.moreAlbumslink}
+                            <h1
+                              className={`${
+                                this.props.classes.moreAlbumscardContent
+                              } content moreAlbumContent`}
+                            >
+                              {album.name}
+                            </h1>
+                            <p
+                              className={`${this.props.classes.playCountText} ${
+                                this.props.classes.moreAlbumPlayCountText
+                              }`}
+                            >
+                              Number {i + 6} : {album.playcount} plays
+                            </p>
+                          </CardContent>
+                          <br />
+                        </Link>
+                      </Card>
+                    );
+                  } else if (i > 4 && i < 8) {
+                    return (
+                      <Card
+                        className={`${this.props.classes.moreAlbumcard} ${
+                          this.props.classes.moreAlbumscard
+                        }`}
                       >
-                        <CardMedia
-                          className={`${this.props.classes.cardImage} image`}
-                          image={album.image[0]["#text"]}
-                          title="Paella dish"
-                        />
-                      </Link>
-                      <Link
-                        to={`/artist/${this.props.params.band}/albums/${
-                          album.name
-                        }/`}
-                        className={this.props.classes.link}
-                      >
-                        <CardContent
-                          className={`${this.props.classes.cardCon} ${
-                            this.props.classes.moreAlbumCardCon
-                          }`}
+                        <Link
+                          to={`/artist/${this.props.params.band}/albums/${
+                            album.name
+                          }/`}
+                          className={this.props.classes.moreAlbumslink}
                         >
-                          <h1
-                            className={`${
-                              this.props.classes.moreAlbumscardContent
-                            } content moreAlbumContent`}
-                          >
-                            {album.name}
-                          </h1>
-                          <p
-                            className={`${this.props.classes.playCountText} ${
-                              this.props.classes.moreAlbumPlayCountText
+                          <CardMedia
+                            className={`${this.props.classes.cardImage} image`}
+                            image={album.image[0]["#text"]}
+                            title="Paella dish"
+                          />
+                        </Link>
+                        <Link
+                          to={`/artist/${this.props.params.band}/albums/${
+                            album.name
+                          }/`}
+                          className={this.props.classes.link}
+                        >
+                          <CardContent
+                            className={`${this.props.classes.cardCon} ${
+                              this.props.classes.moreAlbumCardCon
                             }`}
                           >
-                            Number {i + 6} : {album.playcount} plays
-                          </p>
-                        </CardContent>
-                        <br />
-                      </Link>
-                    </Card>
-                  );
-                }
-              })
-            : null}
-        </Grid>
+                            <h1
+                              className={`${
+                                this.props.classes.moreAlbumscardContent
+                              } content moreAlbumContent`}
+                            >
+                              {album.name}
+                            </h1>
+                            <p
+                              className={`${this.props.classes.playCountText} ${
+                                this.props.classes.moreAlbumPlayCountText
+                              }`}
+                            >
+                              Number {i + 6} : {album.playcount} plays
+                            </p>
+                          </CardContent>
+                          <br />
+                        </Link>
+                      </Card>
+                    );
+                  }
+                  return null
+                })
+              : null}
+          </Grid>
         </Grid>
       </div>
     );
@@ -405,8 +373,7 @@ const styles = {
     maxWidth: 375,
     maxheight: 375
   },
-  cardHeader: {
-  },
+  cardHeader: {},
   cardImage: {
     height: "5%",
     paddingTop: "56.25%"
@@ -446,15 +413,14 @@ const styles = {
     marginBottom: "15%",
     backgroundColor: "pink",
     height: "5%",
-    width : '15em'
-    
+    width: "15em"
   },
   moreAlbumscard: {
     maxWidth: 150,
     maxheight: 150,
     left: "50%",
     position: "relative",
-    direction: "row",
+    direction: "row"
   },
   moreAlbumPlayCountText: {
     fontSize: "1.4em",
@@ -489,11 +455,11 @@ const styles = {
   },
   moreAlbumsGrid: {
     marginTop: "25%",
-    marginLeft: '5%',
-    
-    marginBottom : '25%'
+    marginLeft: "5%",
+
+    marginBottom: "25%"
   },
-  moreAlbumcard : {
+  moreAlbumcard: {
     backgroundColor: "white",
     position: "relative",
     textAlign: "center",
@@ -501,7 +467,7 @@ const styles = {
     maxWidth: 375,
     maxheight: 375
   },
-  moreAlbumscardContent : {
+  moreAlbumscardContent: {
     position: "absolute",
     bottom: "26%",
     left: "5%"

@@ -18,7 +18,7 @@ export default class ArtistNewContent extends Component {
     return (
       <div>
         <h1>{this.state.article.title}</h1>
-        <img src={this.state.article.urlToImage} height="400" width="700" />
+        <img src={this.state.article.urlToImage} height="400" width="700" alt={this.state.article.title}/>
         <p>{this.state.article.content}</p>
       </div>
     );

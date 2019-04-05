@@ -1,34 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import { getBandInfo, getBandSuggestions, getSongSuggestions } from "../api";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Autosuggest from "react-autosuggest";
 
 // these are for the styles
 
-import PropTypes from "prop-types";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import { fade } from "@material-ui/core/styles/colorManipulator";
-import { withStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
 
-import deburr from "lodash/deburr";
-import match from "autosuggest-highlight/match";
-import parse from "autosuggest-highlight/parse";
+import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
-import Popper from "@material-ui/core/Popper";
+
 
 //THIS IS THE NEW IMPLEMENTATION OF AUTOSUGGEST
 
@@ -54,28 +35,7 @@ function renderInputComponent(inputProps) {
     />
   );
 }
-function renderSuggestion(suggestion, { query, isHighlighted }) {
-  const matches = match(suggestion.name, query);
-  const parts = parse(suggestion.name, matches);
 
-  return (
-    <MenuItem selected={isHighlighted} component="div">
-      <div>
-        {parts.map((part, index) =>
-          part.highlight ? (
-            <span key={String(index)} style={{ fontWeight: 500 }}>
-              {part.text}
-            </span>
-          ) : (
-            <strong key={String(index)} style={{ fontWeight: 300 }}>
-              {part.text}
-            </strong>
-          )
-        )}
-      </div>
-    </MenuItem>
-  );
-}
 
 const styles = theme => ({
   // https://github.com/moroshko/react-autosuggest - at the bottom there are some guidelines to properly style the searchbar
@@ -165,7 +125,7 @@ export default withStyles(styles)(
       state = {
         value: "",
         suggestions: [],
-        popper: ""
+        // popper: ""
       };
 
       handleChange = name => (event, { newValue }) => {
@@ -247,7 +207,7 @@ export default withStyles(styles)(
 
       renderSuggestion(suggestion) {
         return suggestion.artist ? (
-          <div>
+          <div data-cy="searchbar">
             <span>{suggestion.name}</span>
             <span style={{ fontSize: "70%", fontStyle: "italic" }}>{` by ${
               suggestion.artist
@@ -274,11 +234,11 @@ export default withStyles(styles)(
           getSectionSuggestions: this.getSectionSuggestions
         };
 
-        const { value, suggestions } = this.state;
+      
 
         // Autosuggest will pass through all these props to the input.
 
-        console.log(this.state.suggestions, "SUGESTIONS");
+        
         // Finally, render it!
         return (
           <div

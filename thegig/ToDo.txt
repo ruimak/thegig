@@ -23,24 +23,24 @@ need to fix that thing for secondary acts like i did for the artist events
 the reason why myevents is low might be because we're fetching 400 events
 
 ARTICLES - important
-need a link to the article
 bands with no news (eg: capitao fausto) should display a message and not the empty carousel. Also thats gonna need an isLoading
-
-BANDINFO - important
-could use "related artists" titles
+we still have that idiot drake bell, whoever he is, displayed amongst the drake news, need a filter
 
 SETLISTS - really important
 some artists, drake for example, arent displaying setlists
 also need to include encore
 
 DISCOGRAPHY - really important
-name of artist not displaying correctly
-order should be 123 - 456 and not 135-246 on the top rated albums
-songtitle overlapping the number of plays in top rated albums
-when you press "show more albums you should see all of the other albums, not just 10", and they should be organized in a grid, not a column
+show more albums should always render in a grid format
 
 SONGPAGE - not that important
 should add related songs
+
+LOGIN - important
+should style the login/register page
+
+LOGIN- not important
+should create the login with facebook
 
 SETLOCATIONONAUTH - not important
 may be able to delete a couple of things there cause we re not using it to update radius

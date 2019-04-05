@@ -94,6 +94,7 @@ class Billboards extends Component {
     this.handleClick = this.handleClick.bind(this);
     getBillboardCharts("hot-100").then(tracks => {
       let returnedTracks = tracks.data;
+      //There is a duplication in the first two entries of the data that we get pack, hence the .shift()
       returnedTracks.shift();
       this.setState({ charts: returnedTracks });
     });
@@ -102,13 +103,14 @@ class Billboards extends Component {
   handleClick(keyWord) {
     getBillboardCharts(keyWord).then(tracks => {
       let returnedTracks = tracks.data;
+      //There is a duplication in the first two entries of the data that we get pack, hence the .shift()
       returnedTracks.shift();
       this.setState({ charts: returnedTracks });
     });
   }
 
   render() {
-    console.log(this.state, "this is the chsrts ");
+    //Every entry of this next array has both the value that is gonna be displayed on the label as the parameter being passed to fetch that chart.
     const listOfButtons = [
       ["Hot100", "hot-100"],
       ["RnB", "rnb"],
@@ -116,6 +118,8 @@ class Billboards extends Component {
       ["Top Rock", "rock"],
       ["Top Pop", "pop"]
     ];
+
+    //This function is the reusable button for the different charts.
     const chartButton = (name, keyWord) => {
       return (
         <div>
@@ -130,6 +134,8 @@ class Billboards extends Component {
         </div>
       );
     };
+
+    //This next function analizes the data and depending on the case returns a different icon
     const iconChooser = (situation, index) => {
       switch (true) {
         case situation > index + 1:
@@ -150,23 +156,29 @@ class Billboards extends Component {
               arrow_downward
             </Icon>
           );
+        // no default
       }
     };
 
     return (
       <div className={this.props.classes.root}>
+        {/* This is the title */}
         <h1 className="title" style={{ paddingBottom: "10vh" }}>
           {"Top Charts"}
         </h1>
+
+        {/* This is the navbar for the billboards */}
         <Grid container xs={10} justify="center" className="centered-container">
-          {listOfButtons.map((element, index) => {
+          {listOfButtons.map(element => {
             return (
               <Grid item xs={2}>
-                {chartButton(listOfButtons[index][0], listOfButtons[index][1])}
+                {chartButton(element[0], element[1])}
               </Grid>
             );
           })}
         </Grid>
+
+        {/* And this is the charts */}
         {this.state.charts !== null ? (
           <Paper className={this.props.classes.paper}>
             {this.state.charts.map((track, i) => {
@@ -198,6 +210,7 @@ class Billboards extends Component {
                       height={105}
                       className={this.props.classes.picture}
                       src={track.cover}
+                      alt={track.title}
                     />
                   </div>
                 </Paper>
