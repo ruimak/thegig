@@ -1,13 +1,13 @@
 <a href="THIS IS GONNA BE A LINK TO OUR APP"><img src="./src/cropped2.jpg" title="The Gig" alt="The Gig"></a>
 
-#The Gig
-##Your Music Database
+# The Gig
+## Your Music Database
 
 The Gig is a platform that you can use to keep up to date with the music scene.
 With this app you can search for bands/artist news, upcoming tours, bio, discography, setlists, or you can just follow the bands you like and have that information personalized and filtered for you. 
 Also by keeping track of the events that are happening near your location, hopefully you will never miss a great concert again!
 
-##Getting started
+## Getting started
 
 First of all, you need to clone this repo into your local machine, using:
 
@@ -22,14 +22,14 @@ npm install
 npm start
 ```
 
-##Running the tests
+## Running the tests
 
-##Known issues
+## Known issues
 
 Because we havent subscribed to paid features in apis, some requests may take a little longer to arrive. An easy solution would be to subscribe.
 The same goes for the billboards. We have used a free heroku plan to host a backend API, and therefore it takes a while to get those bloody charts back!
 
-##Future features
+## Future features
 
 * **Styling:** Having set a deadline of 3 weeks for our project, we didnt had enough time to style the app as much as we wanted. Definitely would be our first priority.
 * **User Profiles:** Soon we will have user profiles in the app. That means that you will be able to search for and add friends, see the songs that they've heard, share songs on your feed, have a timeline for your friends updates, like and comment and much more.
@@ -37,7 +37,7 @@ The same goes for the billboards. We have used a free heroku plan to host a back
 * **Integrated Content:**Displaying articles and events in the app, instead of redirecting.
 * **Mobile App:**Because we have some experience working with React Native, we would enjoy creating a version of this app for mobile.
 
-##Built with
+## Built with
 * [MaterialUI](https://material-ui.com/) - The design framework used
 * [React](https://reactjs.org/) - Library used to build the app
 
