@@ -1,13 +1,7 @@
-
-TO DO:
-SEARCHBAR - not that important
-searchbar needs 404
-need to add on key down -enter
+STILL NEEDS TO BE DONE------------------------
 
 APP - IMPORTANT
-need to route an error page
 settings still takes props
-
 
 ORGANIZATION - not that important
 maybe use an index to group all the imports in app.js (its getting out of hand)
@@ -15,16 +9,12 @@ maybe use an index to group all the imports in app.js (its getting out of hand)
 LYRICS - not that important
 open in new window, as its shown in here : https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202
 
-SETTINGS - somewhat important
-we could use a message or popup after we update something
-
 MYEVENTS - somewhat important
 need to fix that thing for secondary acts like i did for the artist events
-the reason why myevents is low might be because we're fetching 400 events
 
 ARTICLES - important
 bands with no news (eg: capitao fausto) should display a message and not the empty carousel. Also thats gonna need an isLoading
-we still have that idiot drake bell, whoever he is, displayed amongst the drake news, need a filter
+we still have that idiot drake bell, whoever that is, displayed amongst the drake news, need a filter
 
 SETLISTS - really important
 some artists, drake for example, arent displaying setlists
@@ -35,24 +25,30 @@ show more albums should always render in a grid format
 
 SONGPAGE - not that important
 should add related songs
-
-LOGIN - important
-should style the login/register page
-
-LOGIN- not important
-should create the login with facebook
-
-SETLOCATIONONAUTH - not important
-may be able to delete a couple of things there cause we re not using it to update radius
+some songs crash, try some from billboards or change the name on url
 
 MINOR BUGS and ISSUES
-need fixing on the yellow error messages
-create an error for when the acc already exists
-function that gets the bands on the app - component did mount should be in the api, need to find a way to make it wait for the user id before calling the other func (its passing down an unknown variable)
+need to fix the errors on the browser log
+check if theres an error for when the acc already exists
 the delete function still gives a yellow warning on the browser console
 tabs isnt super accurate
 
 MAJOR BUGS and ISSUES
 bands with / on their name bug the app (eg: AC/DC)
-drake comes up as undefined in the url, hes probably not the only one - REASON: thats because if the searchbar is not completed it will go to the uncompleted url
 
+STYLING
+mediaqueries
+
+SECURITY
+remove all keys from code
+
+
+
+
+POSSIBLY DOESNT NEED TO BE DONE --------------------------------------
+
+
+SEARCHBAR - not that important
+searchbar needs 404
+need to add on key down -enter
+drake comes up as undefined in the url, hes probably not the only one - REASON: thats because if the searchbar is not completed it will go to the uncompleted url
