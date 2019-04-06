@@ -24,6 +24,27 @@ npm start
 
 ## Running the tests
 
+The gig has been tested using Cypress.
+
+The tests written make sure the right endpoints are hit when navagating throughout the app. We also test the right amount of articles,songs,and albums are displayed and error pages are being diplayed when a user types in the wrong url.
+
+To run the tests, type into your terminal:
+
+```
+node_modules/.bin/cypress open
+
+```
+
+Click on  the app_spec.js file. This is where all the tests for the app live.
+
+Make sure you have the app running by typing npm start in the terminal, then you can run the tests in the file.
+
+Put a .only infront of any describe block, this will run tests only for that specific block.
+
+
+
+
+
 ## Known issues
 
 Because we havent subscribed to paid features in apis, some requests may take a little longer to arrive. An easy solution would be to subscribe.
