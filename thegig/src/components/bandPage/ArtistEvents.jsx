@@ -70,7 +70,7 @@ export default class ArtistEvents extends Component {
                   style={{ cursor: "pointer" }}
                 >
                   <br />
-                  <div className="divContent" style={{fontSize:'1.5vw', fontWeight:'bold'}}>{event.name}</div>
+                  <div className="divContent" data-cy="eventArtist" style={{fontSize:'1.5vw', fontWeight:'bold'}}>{event.name}</div>
                   <br />
                   <img 
                     className="divContent"

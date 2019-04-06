@@ -28,7 +28,7 @@ describe('discography tests', () => {
         cy.get('[data-cy="Paper"]').should('have.length', 5)
         
     })
-    it('first item of rest of items renders number 7',() => {
+    it('five songs render when more albums is clicked',() => {
         
         cy.visit('http://localhost:3000/artist/Foals/albums/')
         cy.wait(9000);
@@ -106,7 +106,7 @@ it('clicks on artist name then redirects them to the right url', () => {
     
 
 })
-it('clicks on artist name then redirects them to the right url', () => {
+it('clicks on song name then redirects them to the right url', () => {
     cy.visit('http://localhost:3000/topCharts')
     cy.wait(6000);
     cy.get('[data-cy="chartTrack"]').eq(1).click({ force: true })
@@ -117,14 +117,14 @@ it('clicks on artist name then redirects them to the right url', () => {
 })
 
 describe('bandEvents',() => {
-    it('', ()=> {
-        let url = 'https://concerts1.livenation.com/event/'
-        cy.visit('http://localhost:3000/artist/Foals/events/')
-        cy.wait(6000);
-        cy.get('[data-cy="eventPicture"]').eq(0).click()
-        cy.url().should('include', 'livenation.com/event/')
+    // it('check if the name of the artist on on the events', ()=> {
+    //     let url = 'https://concerts1.livenation.com/event/'
+    //     cy.visit('http://localhost:3000/artist/Foals/events/')
+    //     cy.wait(6000);
+    //     cy.get('[data-cy="eventPicture"]').eq(0).click()
+        
 
-    })
+    // })
     it('', ()=> {
         
         cy.visit('http://localhost:3000/artist/Foals/events/')
@@ -149,7 +149,7 @@ describe('testing searchbar',() => {
 
 
     })
-    it('types out foals in searchbar,cheaks for band suggestions and song suggestions',() => {
+    it('types out foals in searchbar,checks for band suggestions and song suggestions',() => {
         cy.visit('http://localhost:3000/')
            cy.wait(7000);
            cy.get('.searchAndNav').children().eq(0).children().eq(0)
@@ -160,7 +160,7 @@ describe('testing searchbar',() => {
        
        
            })
-           it('types out foals in searchbar,finds by foals,clicks and goes to right url',() => {
+           it('types out foals in searchbar,finds by foals,clicks a song and goes to song url',() => {
             cy.visit('http://localhost:3000/')
                cy.wait(7000);
                cy.get('.searchAndNav').children().eq(0).children().eq(0)
@@ -177,7 +177,7 @@ describe('testing searchbar',() => {
 
 
 
-               describe.only('navbar tests',() => {
+               describe('navbar tests',() => {
           it('test myband link',() => {
             cy.visit('http://localhost:3000/')
             cy.wait(7000);
@@ -208,7 +208,7 @@ describe('testing searchbar',() => {
 
                describe('tests for artist navbar',() => {
                
-                   it('clicks on discography',() => {
+                   it('clicks on News',() => {
                     cy.visit('http://localhost:3000/artist/Foals/news')
                     cy.wait(10000);
                     cy.contains('News').click()
@@ -220,19 +220,19 @@ describe('testing searchbar',() => {
                     cy.contains('Discography').click()
                     cy.url().should('include', '/albums')
                    })
-                   it('clicks on discography',() => {
+                   it('clicks on Band info',() => {
                     cy.visit('http://localhost:3000/artist/Foals/news')
                     cy.wait(10000);
                     cy.contains('Band Info').click()
                     cy.url().should('include', '/info')
                    })
-                   it.only('clicks on events',() => {
+                   it('clicks on events',() => {
                     cy.visit('http://localhost:3000/artist/Foals/news')
                     cy.wait(10000);
                     cy.contains(/^Events/).click()
                     cy.url().should('include', 'http://localhost:3000/artist/Foals/events/')
                    })
-                   it.only('clicks on events',() => {
+                   it('clicks on setlist',() => {
                     cy.visit('http://localhost:3000/artist/Foals/news')
                     cy.wait(10000);
                     cy.contains(/^Setlists/).click()
@@ -244,8 +244,8 @@ describe('testing searchbar',() => {
 
 
 
-               describe.only('error testing', () =>{
-                  it('',() => {
+               describe('error testing', () =>{
+                  it('hits error page by typing in wrong url',() => {
                     cy.visit('http://localhost:3000/band')
                     cy.wait(7000)
                     cy.contains('Whoops')

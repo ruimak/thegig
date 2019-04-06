@@ -256,6 +256,7 @@ class Discography extends Component {
                   if (i < 5) {
                     return (
                       <Card
+                      data-cy="Card"
                         className={`${this.props.classes.moreAlbumcard} ${
                           this.props.classes.moreAlbumscard
                         }`}
