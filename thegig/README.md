@@ -48,4 +48,4 @@ The same goes for the billboards. We have used a free heroku plan to host a back
 
 ## Acknowledgments
 
-* Thanks to Northcoders for giving us excelent tools and especially training us on the art of self-teaching, it will definitely be a really important skill to have in the future.
+* Thanks to Northcoders for giving us excellent tools and especially training us on the art of self-teaching, it will definitely be a really important skill to have in the future.
