@@ -1,4 +1,4 @@
-<a href="THIS IS GONNA BE A LINK TO OUR APP"><img src="./src/cropped2" title="The Gig" alt="The Gig"></a>
+<a href="THIS IS GONNA BE A LINK TO OUR APP"><img src="./src/cropped2.jpg" title="The Gig" alt="The Gig"></a>
 
 #The Gig
 ##Your Music Database
