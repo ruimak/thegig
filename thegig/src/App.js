@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SearchBar from "./components/SearchBar";
 import BandInfo from "./components/bandPage/BandInfo";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch} from "react-router-dom";
 import NavBar from "./components/NavBar";
 import ArtistEvents from "./components/bandPage/ArtistEvents";
 import SetLists from "./components/bandPage/SetLists";
@@ -279,7 +279,7 @@ class App extends Component {
                       />
                       <Route
                         exact
-                        path="/events"
+                        path="/myEvents"
                         render={props => <MyEvents />}
                       />
                       <Route
