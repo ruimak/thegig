@@ -1,6 +1,9 @@
 import axios from "axios";
 import firebase from "firebase";
+
+
 const { database } = firebase;
+
 
 
 // API REQUESTS
@@ -205,12 +208,12 @@ export const login = (email, password) =>
     });
 
 export const logout = () => {
-  firebase
+  return firebase
     .auth()
     .signOut()
-    .then(() => {
-      alert("Successfully logged out, hope to see you soon!");
-    })
+    // .then(() => {
+    //   alert("Successfully logged out, hope to see you soon!");
+    // })
     .catch(
       err => alert(err)
       // An error happened.

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Geohash from "latlon-geohash";
 import { updateUser } from "../../api";
 import firebase from "../../firebase.js";
-import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
 
 const options = {
   enableHighAccuracy: true,
@@ -42,16 +42,16 @@ export default class AutoGetLocation extends Component {
   render() {
     return (
       <div>
-        <Button
+        <Fab
           onClick={() => {
             this.addLocationToUser();
           }}
-          variant="extendedFab"
+          variant="extended"
           color="primary"
           style={{ backgroundColor: "#738DD9", marginTop: "4%" }}
         >
           {"Set my location automatically"}
-        </Button>
+        </Fab>
       </div>
     );
   }

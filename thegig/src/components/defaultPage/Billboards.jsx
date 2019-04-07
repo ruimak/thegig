@@ -128,6 +128,7 @@ class Billboards extends Component {
             name={name}
             onClick={() => this.handleClick(keyWord)}
             variant="outlined"
+            style={{backgroundColor:'white'}}
           >
             {name}
           </Button>
@@ -168,10 +169,10 @@ class Billboards extends Component {
         </h1>
 
         {/* This is the navbar for the billboards */}
-        <Grid container xs={10} justify="center" className="centered-container">
-          {listOfButtons.map(element => {
+        <Grid container xs={12}  item={true} justify="center" className="centered-container">
+          {listOfButtons.map((element, index) => {
             return (
-              <Grid item xs={2}>
+              <Grid item xs={2} key={index}>
                 {chartButton(element[0], element[1])}
               </Grid>
             );
@@ -183,7 +184,7 @@ class Billboards extends Component {
           <Paper className={this.props.classes.paper}>
             {this.state.charts.map((track, i) => {
               return (
-                <Paper data-cy="chartssongs" className={this.props.classes.paperSongs}>
+                <Paper data-cy="chartssongs" className={this.props.classes.paperSongs} key={i}>
                   <div>
                     <p className={this.props.classes.rank}>
                       #{i + 1}

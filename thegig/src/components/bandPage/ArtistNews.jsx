@@ -47,15 +47,15 @@ class ArtistNews extends Component {
       if (index !== 0 && index % 2 !== 0) return element;
       return null;
     });
-    console.log(arrayToDisplayInCarousel);
 
     return (
       <div className={this.props.classes.root}>
         <Carousel width="70%" heightMode="max" className="stand-out-container">
           {this.state.news !== []
-            ? arrayToDisplayInCarousel.map(news => {
+            ? arrayToDisplayInCarousel.map((news, index) => {
                 return (
                   <div
+                    key={index}
                     style={{
                       display: "inline",
                       justifyContent: "center"
@@ -91,9 +91,10 @@ class ArtistNews extends Component {
 
         <Grid container item sm={12} style={{ paddingTop: "5vh" }}>
           <Grid item sm={6}>
-            {leftSideNews.map(news => {
+            {leftSideNews.map((news, index) => {
               return (
                 <div
+                  key={index}
                   className="stand-out-container"
                   onClick={() => {
                     window.open(`${news.url}`, "mywindow").focus();
@@ -139,9 +140,10 @@ class ArtistNews extends Component {
           </Grid>
 
           <Grid item sm={6}>
-            {rightSideNews.map(news => {
+            {rightSideNews.map((news, index) => {
               return (
                 <div
+                  key={index}
                   className="stand-out-container"
                   onClick={() => {
                     window.open(`${news.url}`, "mywindow").focus();

@@ -43,9 +43,11 @@ const styles = theme => ({
     height: 50,
     flexGrow: 1,
     width: theme.spacing.unit * 40
+    // width:'80%'
   },
   input: {
     backgroundColor: "#FFFFFF",
+    // width:'80%'
     width: theme.spacing.unit * 40
   },
   container: {
@@ -129,7 +131,6 @@ export default withStyles(styles)(
       };
 
       handleChange = name => (event, { newValue }) => {
-        console.log(newValue,'this is newvalue')
         this.setState({
           [name]: newValue
         });
@@ -159,7 +160,6 @@ export default withStyles(styles)(
       ) => {
         if (!suggestionValue) {
           getBandInfo(suggestion).then(bandInfo => {
-            console.log(bandInfo.data.artist.name, "NAME OF THE ARTIST");
             this.setState({ value: "" });
             this.props.history.push(
               `/artist/${bandInfo.data.artist.name}/news`

@@ -40,13 +40,11 @@ it("renders correctly", () => {
   
 
 it("renders correctly", () => {
-    console.log('helllooooo')
     const wrapper = shallow(
         <Billboards/>
     )
     
     // const text = wrapper.find('Paper').to.have.lengthOf(0)
     // // expect(wrapper.find('arrowDown').text()).toEqual('Disabled')
-    console.log(wrapper,'nhkjhiugogiugiufuf')
     // expect(text).
 })

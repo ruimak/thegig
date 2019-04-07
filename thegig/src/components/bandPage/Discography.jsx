@@ -75,12 +75,15 @@ class Discography extends Component {
         {this.state.topSongs !== null
           ? fiveTopsongs.map((song, i) => {
               return (
-                <div className={this.props.classes.paperSongs}>
+                <div key={i} className={this.props.classes.paperSongs}>
                   <Link
                     className={this.props.classes.titleLink}
                     to={`/artist/${this.props.params.band}/song/${song.name}`}
                   >
-                    <Paper data-cy="Paper" style={{maxWidth:'100%'}} className={this.props.classes.paperSong}>
+                    <Paper
+                      data-cy="Paper"
+                      className={this.props.classes.paperSong}
+                    >
                       {i + 1} : <b>{song.name}</b> Playcount: {song.playcount}
                     </Paper>
                   </Link>
@@ -97,19 +100,19 @@ class Discography extends Component {
           albums
         </h1>
         <Grid
+          item={true}
           container
           lg={12}
-          spacing={0}
           direction="row"
           className={this.props.classes.mainGrid}
           justify="center"
           alignItems="center"
         >
-          <Grid className={this.props.classes.leftGrid} item lg={4} spacing={0}>
+          <Grid className={this.props.classes.leftGrid} item lg={4}>
             {this.state.discography !== null
               ? leftAlbums.map((album, i) => {
                   return (
-                    <Card className={this.props.classes.card}>
+                    <Card key={i} className={this.props.classes.card}>
                       <Link
                         to={`/artist/${this.props.params.band}/albums/${
                           album.name
@@ -117,7 +120,10 @@ class Discography extends Component {
                       >
                         <CardMedia
                           className={`${this.props.classes.cardImage} image`}
-                          image={album.image[0]["#text"]}
+                          image={
+                            album.image[0]["#text"] ||
+                            "https://www.nationalpetregister.org/assets/img/no-photo.jpg"
+                          }
                           title="Paella dish"
                         />
                       </Link>
@@ -147,11 +153,11 @@ class Discography extends Component {
               : "no events to show yet"}
           </Grid>
 
-          <Grid item lg={4} spacing={0}>
+          <Grid item lg={4}>
             {this.state.discography !== null
               ? centerAlbums.map((album, i) => {
                   return (
-                    <Card className={this.props.classes.card}>
+                    <Card key={i} className={this.props.classes.card}>
                       <Link
                         to={`/artist/${this.props.params.band}/albums/${
                           album.name
@@ -159,7 +165,10 @@ class Discography extends Component {
                       >
                         <CardMedia
                           className={`${this.props.classes.cardImage} image`}
-                          image={album.image[0]["#text"]}
+                          image={
+                            album.image[0]["#text"] ||
+                            "https://www.nationalpetregister.org/assets/img/no-photo.jpg"
+                          }
                           title="Paella dish"
                         />
                       </Link>
@@ -188,16 +197,11 @@ class Discography extends Component {
                 })
               : "no events to show yet"}
           </Grid>
-          <Grid
-            className={this.props.classes.rightGrid}
-            item
-            lg={4}
-            spacing={0}
-          >
+          <Grid className={this.props.classes.rightGrid} item lg={4}>
             {this.state.discography !== null
               ? rightAlbums.map((album, i) => {
                   return (
-                    <Card className={this.props.classes.card}>
+                    <Card key={i} className={this.props.classes.card}>
                       <Link
                         to={`/artist/${this.props.params.band}/albums/${
                           album.name
@@ -205,7 +209,10 @@ class Discography extends Component {
                       >
                         <CardMedia
                           className={`${this.props.classes.cardImage} image`}
-                          image={album.image[0]["#text"]}
+                          image={
+                            album.image[0]["#text"] ||
+                            "https://www.nationalpetregister.org/assets/img/no-photo.jpg"
+                          }
                           title="Paella dish"
                         />
                       </Link>
@@ -239,16 +246,15 @@ class Discography extends Component {
           className={`${this.props.classes.button} button`}
          
           // variant="extended"
-          color="pink"
+          color="primary"
           onClick={this.showMore}
         >
           {this.state.buttonText}
         </Button>
         <Grid
-        style={{maxWidth:'100%'}}
+          item={true}
           container
           sm={12}
-          spacing={0}
           direction="column"
           className={this.props.classes.moreAlbumsGrid}
         >
@@ -258,7 +264,8 @@ class Discography extends Component {
                   if (i < 5) {
                     return (
                       <Card
-                      data-cy="Card"
+                        key={i}
+                        data-cy="Card"
                         className={`${this.props.classes.moreAlbumcard} ${
                           this.props.classes.moreAlbumscard
                         }`}
@@ -271,7 +278,10 @@ class Discography extends Component {
                         >
                           <CardMedia
                             className={`${this.props.classes.cardImage} image`}
-                            image={album.image[0]["#text"]}
+                            image={
+                              album.image[0]["#text"] ||
+                              "https://www.nationalpetregister.org/assets/img/no-photo.jpg"
+                            }
                             title="Paella dish"
                           />
                         </Link>
@@ -320,7 +330,10 @@ class Discography extends Component {
                         >
                           <CardMedia
                             className={`${this.props.classes.cardImage} image`}
-                            image={album.image[0]["#text"]}
+                            image={
+                              album.image[0]["#text"] ||
+                              "https://www.nationalpetregister.org/assets/img/no-photo.jpg"
+                            }
                             title="Paella dish"
                           />
                         </Link>
@@ -355,7 +368,7 @@ class Discography extends Component {
                       </Card>
                     );
                   }
-                  return null
+                  return null;
                 })
               : null}
           </Grid>
@@ -384,7 +397,8 @@ const styles = {
   cardContent: {
     position: "absolute",
     bottom: "20%",
-    left: "5%"
+    left: "5%",
+    color: "#BBCFE7"
   },
   header: {
     fontFamily: "'Lilita One', 'cursive'"
@@ -414,8 +428,8 @@ const styles = {
     position: "absolute",
     marginLeft: "40%",
     marginBottom: "15%",
-    backgroundColor: "pink",
-    height: "5%",
+    backgroundColor: "#BBCFE7",
+    height: "5vw",
     width: "15em"
   },
   moreAlbumscard: {
@@ -475,8 +489,8 @@ const styles = {
     bottom: "26%",
     left: "5%"
   },
-  moreAlbumslink : {
-    height : 100
+  moreAlbumslink: {
+    height: 100
   }
 };
 

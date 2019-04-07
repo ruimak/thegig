@@ -12,13 +12,12 @@ const RelatedArtists = props => {
       <div
         direction="column"
         justify="center"
-        alignItems="center"
         className={props.classes.relatedArtists}
       >
         {props.artists &&
-          props.artists.map(artist => {
+          props.artists.map((artist,index) => {
             return (
-              <div className={props.classes.individualArtist}>
+              <div key={index} className={props.classes.individualArtist}>
                 <Avatar
                   className={props.classes.avatar}
                   href={`/artist/${artist.name}/news`}

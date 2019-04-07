@@ -26,12 +26,13 @@ class BandInfo extends Component {
             <div className="title">{"Biography"}</div>
             <br />
             <Grid
+              item={true}
               container
-              md={15}
+              md={12}
               className="stand-out-container"
               style={{ paddingTop: "2vh", paddingLeft: "3vh" }}
             >
-              <Grid item sm={9}>
+              <Grid item sm={9} style={{ maxWidth: "100%" }}>
                 <Typography inline={true} className={this.props.classes.text}>
                   {this.state.bio.bio.content}
                 </Typography>
@@ -49,8 +50,7 @@ class BandInfo extends Component {
 }
 
 const styles = {
-  container: {
-  },
+  container: {},
   avatar: {
     height: 150,
     width: 150

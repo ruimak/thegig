@@ -8,7 +8,6 @@ export default class ArtistEvents extends Component {
   state = {
     eventsInfo: [],
     isLoading: true
-
   };
   componentDidMount() {
     // This function updates the events for the artist in the state.
@@ -43,7 +42,7 @@ export default class ArtistEvents extends Component {
             isLoading: false
           });
       }
-    })
+    });
   }
   render() {
     if (this.state.eventsInfo.length === 0) {
@@ -60,9 +59,11 @@ export default class ArtistEvents extends Component {
         !this.state.isLoading && (
           <div className="mainDiv">
             <div className="title">{"Events"}</div>
-            {this.state.eventsInfo.map(event => {
+            {this.state.eventsInfo.map((event, index) => {
               return (
-                <div data-cy="eventPicture"
+                <div 
+                key={index}
+                data-cy="eventPicture"
                   className="individualEventDiv stand-out-container"
                   onClick={() => {
                     window.open(`${event.url}`, "mywindow").focus();
