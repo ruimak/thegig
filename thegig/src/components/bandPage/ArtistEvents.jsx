@@ -61,8 +61,9 @@ export default class ArtistEvents extends Component {
             <div className="title">{"Events"}</div>
             {this.state.eventsInfo.map((event, index) => {
               return (
-                <div
-                  key={index}
+                <div 
+                key={index}
+                data-cy="eventPicture"
                   className="individualEventDiv stand-out-container"
                   onClick={() => {
                     window.open(`${event.url}`, "mywindow").focus();
@@ -70,14 +71,9 @@ export default class ArtistEvents extends Component {
                   style={{ cursor: "pointer" }}
                 >
                   <br />
-                  <div
-                    className="divContent"
-                    style={{ fontSize: "1.5vw", fontWeight: "bold" }}
-                  >
-                    {event.name}
-                  </div>
+                  <div className="divContent" data-cy="eventArtist" style={{fontSize:'1.5vw', fontWeight:'bold'}}>{event.name}</div>
                   <br />
-                  <img
+                  <img 
                     className="divContent"
                     src={event.images[0].url}
                     height="150vh"

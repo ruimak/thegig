@@ -80,7 +80,10 @@ class Discography extends Component {
                     className={this.props.classes.titleLink}
                     to={`/artist/${this.props.params.band}/song/${song.name}`}
                   >
-                    <Paper className={this.props.classes.paperSong}>
+                    <Paper
+                      data-cy="Paper"
+                      className={this.props.classes.paperSong}
+                    >
                       {i + 1} : <b>{song.name}</b> Playcount: {song.playcount}
                     </Paper>
                   </Link>
@@ -116,8 +119,11 @@ class Discography extends Component {
                         }/`}
                       >
                         <CardMedia
-                          className={`${this.props.classes.cardImage} image` }
-                          image={album.image[0]["#text"] || 'https://www.nationalpetregister.org/assets/img/no-photo.jpg'}
+                          className={`${this.props.classes.cardImage} image`}
+                          image={
+                            album.image[0]["#text"] ||
+                            "https://www.nationalpetregister.org/assets/img/no-photo.jpg"
+                          }
                           title="Paella dish"
                         />
                       </Link>
@@ -158,8 +164,11 @@ class Discography extends Component {
                         }/`}
                       >
                         <CardMedia
-                          className={`${this.props.classes.cardImage} image`  }
-                          image={album.image[0]["#text"]|| 'https://www.nationalpetregister.org/assets/img/no-photo.jpg'}
+                          className={`${this.props.classes.cardImage} image`}
+                          image={
+                            album.image[0]["#text"] ||
+                            "https://www.nationalpetregister.org/assets/img/no-photo.jpg"
+                          }
                           title="Paella dish"
                         />
                       </Link>
@@ -199,8 +208,11 @@ class Discography extends Component {
                         }/`}
                       >
                         <CardMedia
-                          className={`${this.props.classes.cardImage} image` }
-                          image={album.image[0]["#text"] || 'https://www.nationalpetregister.org/assets/img/no-photo.jpg'}
+                          className={`${this.props.classes.cardImage} image`}
+                          image={
+                            album.image[0]["#text"] ||
+                            "https://www.nationalpetregister.org/assets/img/no-photo.jpg"
+                          }
                           title="Paella dish"
                         />
                       </Link>
@@ -252,6 +264,7 @@ class Discography extends Component {
                     return (
                       <Card
                         key={i}
+                        data-cy="Card"
                         className={`${this.props.classes.moreAlbumcard} ${
                           this.props.classes.moreAlbumscard
                         }`}
@@ -263,8 +276,11 @@ class Discography extends Component {
                           className={this.props.classes.moreAlbumslink}
                         >
                           <CardMedia
-                            className={`${this.props.classes.cardImage} image` }
-                            image={album.image[0]["#text"]|| 'https://www.nationalpetregister.org/assets/img/no-photo.jpg'}
+                            className={`${this.props.classes.cardImage} image`}
+                            image={
+                              album.image[0]["#text"] ||
+                              "https://www.nationalpetregister.org/assets/img/no-photo.jpg"
+                            }
                             title="Paella dish"
                           />
                         </Link>
@@ -312,8 +328,11 @@ class Discography extends Component {
                           className={this.props.classes.moreAlbumslink}
                         >
                           <CardMedia
-                            className={`${this.props.classes.cardImage} image` }
-                            image={album.image[0]["#text"] || 'https://www.nationalpetregister.org/assets/img/no-photo.jpg'}
+                            className={`${this.props.classes.cardImage} image`}
+                            image={
+                              album.image[0]["#text"] ||
+                              "https://www.nationalpetregister.org/assets/img/no-photo.jpg"
+                            }
                             title="Paella dish"
                           />
                         </Link>
@@ -378,7 +397,7 @@ const styles = {
     position: "absolute",
     bottom: "20%",
     left: "5%",
-    color:'#BBCFE7'
+    color: "#BBCFE7"
   },
   header: {
     fontFamily: "'Lilita One', 'cursive'"
@@ -468,6 +487,9 @@ const styles = {
     position: "absolute",
     bottom: "26%",
     left: "5%"
+  },
+  moreAlbumslink: {
+    height: 100
   }
 };
 

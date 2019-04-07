@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SearchBar from "./components/SearchBar";
 import BandInfo from "./components/bandPage/BandInfo";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import ArtistEvents from "./components/bandPage/ArtistEvents";
 import SetLists from "./components/bandPage/SetLists";
@@ -203,8 +203,8 @@ class App extends Component {
                     }}
                   />
                   {/* SearchBar and Navbar */}
-                  <div className="searchAndNav">
-                    <SearchBar className="mainSearchBar" />
+                  <div  className="searchAndNav">
+                    <SearchBar className="mainSearchBar" data-cy="searchbar" />
                     <Route
                       path="/*"
                       render={({ match }) => (
@@ -267,7 +267,7 @@ class App extends Component {
                       />
                       <Route
                         exact
-                        path="/Settings"
+                        path="/settings"
                         render={props => (
                           <Settings loggedInUser={this.state.loggedInUserId} />
                         )}
@@ -279,7 +279,7 @@ class App extends Component {
                       />
                       <Route
                         exact
-                        path="/myEvents"
+                        path="/events"
                         render={props => <MyEvents />}
                       />
                       <Route

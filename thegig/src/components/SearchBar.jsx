@@ -207,7 +207,7 @@ export default withStyles(styles)(
 
       renderSuggestion(suggestion) {
         return suggestion.artist ? (
-          <div>
+          <div data-cy="searchbar">
             <span>{suggestion.name}</span>
             <span style={{ fontSize: "70%", fontStyle: "italic" }}>{` by ${
               suggestion.artist

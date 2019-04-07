@@ -123,7 +123,7 @@ class Billboards extends Component {
     const chartButton = (name, keyWord) => {
       return (
         <div>
-          <Button
+          <Button data-cy="chartsbutton"
             className={this.props.classes.buttonText}
             name={name}
             onClick={() => this.handleClick(keyWord)}
@@ -184,7 +184,7 @@ class Billboards extends Component {
           <Paper className={this.props.classes.paper}>
             {this.state.charts.map((track, i) => {
               return (
-                <Paper className={this.props.classes.paperSongs} key={i}>
+                <Paper data-cy="chartssongs" className={this.props.classes.paperSongs} key={i}>
                   <div>
                     <p className={this.props.classes.rank}>
                       #{i + 1}
@@ -196,14 +196,14 @@ class Billboards extends Component {
                       to={`/artist/${track.artist}/song/${track.title}`}
                     >
                       <div className={this.props.classes.title}>
-                        <b>{track.title}</b>
+                        <b data-cy="chartTrack">{track.title}</b>
                       </div>
                     </Link>
                     <Link
                       className={this.props.classes.link}
                       to={`/artist/${track.artist}/news`}
                     >
-                      <h1 className={this.props.classes.artist}>
+                      <h1 data-cy="chartArtist" className={this.props.classes.artist}>
                         {track.artist}
                       </h1>
                     </Link>

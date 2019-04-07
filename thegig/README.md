@@ -23,6 +23,22 @@ npm start
 
 ## Running the tests
 
+The gig has been tested using Cypress.
+
+The tests written make sure the right endpoints are hit while navigating through the app. We also test if the right amount of articles, songs, and albums are displayed and if error pages are being diplayed when a user types in the wrong url.
+
+To run the tests, type into your terminal:
+
+```
+node_modules/.bin/cypress open
+
+```
+
+Click on  the app_spec.js file. This is where all the tests for the app live.
+Make sure you have the app running by typing npm start in the terminal, then you can run the tests in the file.
+Put a .only infront of any describe block, this will run tests only for that specific block.
+The functionality was manualy tested as well.
+
 ## Known issues
 
 Because we havent subscribed to paid features in apis, some requests may take a little longer to arrive. An easy solution would be to subscribe.
@@ -35,6 +51,7 @@ The same goes for the billboards. We have used a free heroku plan to host a back
 * **Integrated music player:** We want to be able to implement a Deezer music player in our app, using Redux. That way you will be able to play songs while browsing the list, create playlists or even add songs to your own Deezer playlist.
 * **Integrated Content:** Displaying articles and events in the app, instead of redirecting.
 * **Mobile App:** Because we have some experience working with React Native, we would enjoy creating a version of this app for mobile.
+* **Re-building Database:** Ideally we would love to create our own database instead of fetching it from external APIs.
 
 ## Built with
 * [MaterialUI](https://material-ui.com/) - The design framework used
@@ -47,4 +64,4 @@ The same goes for the billboards. We have used a free heroku plan to host a back
 
 ## Acknowledgments
 
-Thanks to Northcoders for giving us excelent tools and especially training us on the art of self-teaching, it definitely helped us a lot while building this app and will also be a really important skill to have in the future.
+* Thanks to Northcoders for giving us excellent tools and especially training us on the art of self-teaching, it will definitely be a really important skill to have in the future.
