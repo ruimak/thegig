@@ -31,7 +31,6 @@ export default class ArtistEvents extends Component {
 
                 // Having fetched your location and radius from the firebase, we can get the events for that location.
                 return getEventsForLocation(location, radius).then(events => {
-                  console.log(events, 'events')
                   this.setState({
                     eventsInfo: events.data._embedded.events,
                     bandsFollowed: myBands,
@@ -64,7 +63,7 @@ export default class ArtistEvents extends Component {
         <h1 className="title">{"My Events"}</h1>
 
         {this.state.eventsInfo !== null ? (
-          this.state.eventsInfo.map(event => {
+          this.state.eventsInfo.map((event,index) => {
             if (
               event._embedded.attractions &&
               this.state.bandsFollowed.includes(
@@ -74,6 +73,7 @@ export default class ArtistEvents extends Component {
               return (
                 <div
                   className="individualEventDiv stand-out-container"
+                  key={index}
                   onClick={() => {
                     window.open(`${event.url}`, "mywindow").focus();
                   }}

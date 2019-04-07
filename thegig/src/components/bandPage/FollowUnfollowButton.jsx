@@ -4,7 +4,7 @@ import {
   removeBandFromFollowedList
 } from "../../api.js";
 import firebase from "../../firebase.js";
-import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
 
 export default class SignIn extends Component {
   state = {
@@ -52,7 +52,7 @@ export default class SignIn extends Component {
   render() {
     if (!this.state.bandsFollowed.includes(this.props.params.band)) {
       return (
-        <Button
+        <Fab
           onClick={() => {
             this.addOrRemoveBand(
               "follow",
@@ -60,16 +60,16 @@ export default class SignIn extends Component {
               this.props.params.band
             );
           }}
-          variant="extendedFab"
+          variant="extended"
           color="primary"
           style={{backgroundColor:'#738DD9',boxShadow: '3px 3px 8px #545495'}}
         >
           {"Follow"}
-        </Button>
+        </Fab>
       );
     } else {
       return (
-        <Button
+        <Fab
           onClick={() => {
             this.addOrRemoveBand(
               "unfollow",
@@ -77,13 +77,13 @@ export default class SignIn extends Component {
               this.props.params.band
             );
           }}
-          variant="extendedFab"
+          variant="extended"
           color="primary"
           style={{backgroundColor:'#738DD9',boxShadow: '3px 3px 8px #545495'}}
 
         >
           {"Unfollow"}
-        </Button>
+        </Fab>
       );
     }
   }

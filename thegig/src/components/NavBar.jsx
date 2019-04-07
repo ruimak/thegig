@@ -66,7 +66,7 @@ class NavBar extends Component {
           <div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
-            <Grid container md={10} >
+            <Grid container md={10}  item={true} >
               <Grid className={this.props.classes.titleAndAvatar} item md={4} >
                 <Avatar
                 justify='center'

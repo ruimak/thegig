@@ -126,8 +126,6 @@ class App extends Component {
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ isLoading: true });
       if (user) {
-        console.log(user);
-        // console.log(user.displayName.split(' ')[0], user.displayName.split(' ')[1], user.email, 'USERSTATS')
         this.setState({ loggedInUserId: user.uid });
 
         firebase
@@ -136,7 +134,6 @@ class App extends Component {
           .once("value")
           .then(
             function(userData) {
-              console.log(userData, 'USERDATAAAAAAAA')
               if (userData.val().users[user.uid]) {
                 const location = userData.val().users[this.state.loggedInUserId]
                   .location;
@@ -150,8 +147,7 @@ class App extends Component {
                   user.displayName.split(' ')[1],
                   user.email,
                   user.uid
-                ).then(something =>{
-                  console.log(something)
+                ).then(()=>{
                   this.setState({ loggedInUserId: user.uid, isLoading: false });
                 } );
               }
@@ -184,7 +180,6 @@ class App extends Component {
           {/* In the case the user IS logged in but doesnt have a location yet, this next component is rendered */}
           {this.state.loggedInUserId && !isLoading && !this.state.userLocation && (
             <div id="mainDiv">
-              {console.log(this.state)}
               <SetLocationOnAuth updateLocationInApp={this.getLocationUpdate} />
             </div>
           )}

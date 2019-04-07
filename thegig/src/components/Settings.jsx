@@ -4,7 +4,7 @@ import AutoGetLocation from "./location/AutoGetLocation";
 import SetLocation from "./location/SetLocation";
 import LogOut from "./authentication/LogOut";
 import firebase from "../firebase.js";
-import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
 import "../styles/App.css";
 
 export default class Settings extends Component {
@@ -53,20 +53,20 @@ export default class Settings extends Component {
               placeholder="new password"
               style={{marginLeft:'1%'}}
             /><br/>
-            <Button
+            <Fab
               onClick={() =>
                 changePassword(
                   this.state.currentPassword,
                   this.state.newPassword
                 )
               }
-              variant="extendedFab"
+              variant="extended"
               color="primary"
               style={{backgroundColor:'#738DD9', marginTop: "4%" }}
             
             >
               Reset password
-            </Button>
+            </Fab>
           </form>
         </div>
         <div
@@ -82,18 +82,18 @@ export default class Settings extends Component {
               placeholder="Insert new avatar..."
             />
             <br />
-            <Button
+            <Fab
               onClick={() =>
                 updateUser(this.props.loggedInUser, {
                   avatar: this.state.newAvatar
                 })
               }
-              variant="extendedFab"
+              variant="extended"
               color="primary"
               style={{backgroundColor:'#738DD9', marginTop: "4%" }}
             >
               Change Avatar
-            </Button>
+            </Fab>
           </form>
         </div>
 
@@ -111,7 +111,7 @@ export default class Settings extends Component {
               placeholder="Insert new radius..."
             />
             <br />
-            <Button
+            <Fab
               onClick={() => {
                 if (Number.isInteger(Number(this.state.radius))) {
                   return updateUser(this.props.loggedInUser, {
@@ -121,12 +121,12 @@ export default class Settings extends Component {
                   return alert("Radius needs to be an integer");
                 }
               }}
-              variant="extendedFab"
+              variant="extended"
               color="primary"
               style={{backgroundColor:'#738DD9', marginTop: "4%" }}
             >
               Change Radius
-            </Button>
+            </Fab>
           </form>
         </div>
 
@@ -145,7 +145,7 @@ export default class Settings extends Component {
           style={{ width: "55%", paddingBottom: "2%" }}
         >
           <h2>{"Facebook"}</h2>
-          <Button
+          <Fab
             onClick={() => {
               var provider = new firebase.auth.FacebookAuthProvider();
 
@@ -160,12 +160,12 @@ export default class Settings extends Component {
                 // })
                 .catch(err => alert(err));
             }}
-            variant="extendedFab"
+            variant="extended"
             color="primary"
             style={{backgroundColor:'#738DD9', marginTop: "4%" }}
           >
             {"Sync with Facebook"}
-          </Button>
+          </Fab>
         </div>
         <div
           className="stand-out-container"

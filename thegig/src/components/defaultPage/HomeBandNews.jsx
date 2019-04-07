@@ -34,20 +34,21 @@ class HomeBandNews extends Component {
     otherNews = this.state.bandNews.slice(6, this.state.bandNews.length);
     let leftSideNews = otherNews.filter((element, index) => {
       if (index === 0 || index % 2 === 0) return element;
-      return null
+      return null;
     });
     let rightSideNews = otherNews.filter((element, index) => {
       if (index !== 0 && index % 2 !== 0) return element;
-      return null
+      return null;
     });
 
     return (
       <div className={this.props.classes.root}>
         {/* This is the Carousel */}
         <Carousel width="70%" heightMode="max" className="stand-out-container">
-          {arrayToDisplayInCarousel.map(news => {
+          {arrayToDisplayInCarousel.map((news, index) => {
             return (
               <div
+                key={index}
                 style={{
                   display: "inline",
                   justifyContent: "center"
@@ -82,9 +83,10 @@ class HomeBandNews extends Component {
         <Grid container item sm={12} style={{ paddingTop: "5vh" }}>
           <Grid item sm={6}>
             {/* These are the news for the left side of the grid */}
-            {leftSideNews.map(news => {
+            {leftSideNews.map((news, index) => {
               return (
                 <div
+                  key={index}
                   className="stand-out-container"
                   onClick={() => {
                     window.open(`${news.url}`, "mywindow").focus();
@@ -131,9 +133,10 @@ class HomeBandNews extends Component {
 
           <Grid item sm={6}>
             {/* These are the news for the right side of the grid */}
-            {rightSideNews.map(news => {
+            {rightSideNews.map((news, index) => {
               return (
                 <div
+                  key={index}
                   className="stand-out-container"
                   onClick={() => {
                     window.open(`${news.url}`, "mywindow").focus();

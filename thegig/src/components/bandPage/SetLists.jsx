@@ -73,6 +73,7 @@ class SetLists extends Component {
 
             return setlist.sets.set.length === 0 ? null : (
               <Paper
+                key={i}
                 className={`${this.props.classes.links} links`}
                 onClick={e => this.handleClick(e, setlist.sets.set)}
                 id={setlist.venue.name}
@@ -97,7 +98,7 @@ class SetLists extends Component {
           ? this.set
           : this.songs.map((song, i) => {
               return (
-                <Paper className={`${this.props.classes.links} `}>
+                <Paper key={i} className={`${this.props.classes.links} `}>
                   <Link
                     className="links"
                     to={`/artist/${this.props.params.band}/song/${song.name}`}
@@ -115,7 +116,7 @@ class SetLists extends Component {
           : this.encore !== undefined
           ? this.encore.map((song, i) => {
               return (
-                <div>
+                <div key={i}>
                   <h1>Encore</h1>
                   <Paper className={`${this.props.classes.links} `}>
                     <Link

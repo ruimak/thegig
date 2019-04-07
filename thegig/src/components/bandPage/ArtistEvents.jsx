@@ -8,7 +8,6 @@ export default class ArtistEvents extends Component {
   state = {
     eventsInfo: [],
     isLoading: true
-
   };
   componentDidMount() {
     // This function updates the events for the artist in the state.
@@ -43,7 +42,7 @@ export default class ArtistEvents extends Component {
             isLoading: false
           });
       }
-    })
+    });
   }
   render() {
     if (this.state.eventsInfo.length === 0) {
@@ -60,9 +59,10 @@ export default class ArtistEvents extends Component {
         !this.state.isLoading && (
           <div className="mainDiv">
             <div className="title">{"Events"}</div>
-            {this.state.eventsInfo.map(event => {
+            {this.state.eventsInfo.map((event, index) => {
               return (
                 <div
+                  key={index}
                   className="individualEventDiv stand-out-container"
                   onClick={() => {
                     window.open(`${event.url}`, "mywindow").focus();
@@ -70,7 +70,12 @@ export default class ArtistEvents extends Component {
                   style={{ cursor: "pointer" }}
                 >
                   <br />
-                  <div className="divContent" style={{fontSize:'1.5vw', fontWeight:'bold'}}>{event.name}</div>
+                  <div
+                    className="divContent"
+                    style={{ fontSize: "1.5vw", fontWeight: "bold" }}
+                  >
+                    {event.name}
+                  </div>
                   <br />
                   <img
                     className="divContent"

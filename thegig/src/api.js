@@ -1,11 +1,14 @@
 import axios from "axios";
 import firebase from "firebase";
+
+
 const { database } = firebase;
 const lastFmAPIkey = "d63d16f26b892d97b89a72c35c36967a";
 const ticketMasterAPIkey = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
 const setListAPIkey = "01779b2b-84a5-48ad-b7fb-f9d1eed51cdc";
 const mtvNewsAPIkey = "d356f459298440eab7ae6a18762d0d61";
 const musixmatchAPIkey = "6eeab426384ac332ae0f5ff63ced9b95";
+
 
 // API REQUESTS
 
@@ -209,12 +212,12 @@ export const login = (email, password) =>
     });
 
 export const logout = () => {
-  firebase
+  return firebase
     .auth()
     .signOut()
-    .then(() => {
-      alert("Successfully logged out, hope to see you soon!");
-    })
+    // .then(() => {
+    //   alert("Successfully logged out, hope to see you soon!");
+    // })
     .catch(
       err => alert(err)
       // An error happened.
