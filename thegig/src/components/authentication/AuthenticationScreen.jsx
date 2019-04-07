@@ -6,15 +6,11 @@ import "../../styles/App.css";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "../../firebase.js";
 
-//This is the Logout component, a simple button that you can press and immediately log out.
+
 const uiConfig = {
   signInFlow: "popup",
   signInOptions: [firebase.auth.FacebookAuthProvider.PROVIDER_ID],
-  // callBacks: {
-  //   signInSuccessWithAuthResult: (data) => {
-  //     createUserWithFacebook("bart", "simpson", "bart@simpson.com").then(something=>console.log(data,something));
-  //   }
-  // }
+  
 };
 
 const AuthenticationScreen = props => {
