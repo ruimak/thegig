@@ -1,11 +1,7 @@
 import axios from "axios";
 import firebase from "firebase";
 const { database } = firebase;
-const lastFmAPIkey = "d63d16f26b892d97b89a72c35c36967a";
-const ticketMasterAPIkey = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
-const setListAPIkey = "01779b2b-84a5-48ad-b7fb-f9d1eed51cdc";
-const mtvNewsAPIkey = "d356f459298440eab7ae6a18762d0d61";
-const musixmatchAPIkey = "6eeab426384ac332ae0f5ff63ced9b95";
+
 
 // API REQUESTS
 
@@ -17,44 +13,44 @@ export const getTrack = (artist, track) => {
 
 export const getBandSuggestions = bandName => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${bandName}&api_key=${process.env.lastFmAPIkey}&format=json`
   );
 };
 
 export const getSongSuggestions = song => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${song}&api_key=${lastFmAPIkey}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${song}&api_key=${process.env.lastFmAPIkey}&format=json`
   );
 };
 
 export const getBandInfo = bandName => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandName}&api_key=${process.env.lastFmAPIkey}&format=json`
   );
 };
 
 export const getSongInfo = (bandName, songTitle) => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${lastFmAPIkey}&artist=${bandName}&track=${songTitle}&autocorrect[1]&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${process.env.lastFmAPIkey}&artist=${bandName}&track=${songTitle}&autocorrect[1]&format=json`
   );
 };
 
 //If you change the size parameter you will get more-less events, making it more accurate/faster
 export const getEventsForLocation = (location, radius) => {
   return axios.get(
-    `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&radius=${radius}&geoPoint=${location}&size=80&apikey=${ticketMasterAPIkey}`
+    `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&radius=${radius}&geoPoint=${location}&size=80&apikey=${process.env.ticketMasterAPIkey}`
   );
 };
 
 export const getDiscography = bandName => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${bandName}&api_key=${process.env.lastFmAPIkey}&format=json`
   );
 };
 
 export const getAlbumInfo = (bandName, albumName) => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${lastFmAPIkey}&artist=${bandName}&album=${albumName}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${process.env.lastFmAPIkey}&artist=${bandName}&album=${albumName}&format=json`
   );
 };
 
@@ -66,37 +62,37 @@ export const artistSuggestFromGenre = ids => {
 
 export const getTopArtistSongs = bandName => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandName}&api_key=${lastFmAPIkey}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandName}&api_key=${process.env.lastFmAPIkey}&format=json`
   );
 };
 
 export const getArtistEvent = name => {
   return axios.get(
-    `https://app.ticketmaster.com/discovery/v2/events?apikey=${ticketMasterAPIkey}&keyword=${name}`
+    `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.ticketMasterAPIkey}&keyword=${name}`
   );
 };
 
 export const getSetLists = mbid => {
   return axios.get(
     `https://cors-anywhere.herokuapp.com/https://api.setlist.fm/rest/1.0/artist/${mbid}/setlists`,
-    { headers: { "x-api-key": setListAPIkey } }
+    { headers: { "x-api-key": process.env.setListAPIkey } }
   );
 };
 
 export const getArtistNews = name => {
   return axios.get(
-    `https://newsapi.org/v2/everything?q=${name} AND music&language=en&apiKey=${mtvNewsAPIkey}`
+    `https://newsapi.org/v2/everything?q=${name} AND music&language=en&apiKey=${process.env.mtvNewsAPIkey}`
   );
 };
 export const getFollowedBandNews = name => {
   return axios.get(
-    `https://newsapi.org/v2/everything?q=${name} AND music&language=en&apiKey=${mtvNewsAPIkey}`
+    `https://newsapi.org/v2/everything?q=${name} AND music&language=en&apiKey=${process.env.mtvNewsAPIkey}`
   );
 };
 
 export const getAllBandNews = () => {
   return axios.get(
-    `https://newsapi.org/v2/everything?q=music&sources=mtv-news,mtv-news-uk&language=en&apiKey=${mtvNewsAPIkey}`
+    `https://newsapi.org/v2/everything?q=music&sources=mtv-news,mtv-news-uk&language=en&apiKey=${process.env.mtvNewsAPIkey}`
   );
 };
 
@@ -106,7 +102,7 @@ export const getBillboardCharts = typeOfChart => {
 
 export const getLyrics = (artist, songTitle) => {
   return axios.get(
-    `https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?format=jsonp&callback=callback&q_track=${songTitle}&q_artist=${artist}&apikey=${musixmatchAPIkey}`
+    `https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?format=jsonp&callback=callback&q_track=${songTitle}&q_artist=${artist}&apikey=${process.env.musixmatchAPIkey}`
   );
 };
 

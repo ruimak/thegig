@@ -8,6 +8,7 @@ import Fab from "@material-ui/core/Fab";
 import "../../styles/defaultPage.css";
 import '../../styles/App.css'
 import {bandRemover} from './utils'
+import './MyBands.css'
 
 const styles = theme => ({
   position: {
@@ -92,7 +93,7 @@ export default withStyles(styles)(
                 >
                   <DeleteIcon
                   data-cy="MybandRemove"
-                    className={classes.deleteIcon}
+                    className={`${classes.deleteIcon} icon`}
                     onClick={() => {
                       this.unfollowBand(band);
                     }}

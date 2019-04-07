@@ -80,7 +80,7 @@ class Discography extends Component {
                     className={this.props.classes.titleLink}
                     to={`/artist/${this.props.params.band}/song/${song.name}`}
                   >
-                    <Paper data-cy="Paper" className={this.props.classes.paperSong}>
+                    <Paper data-cy="Paper" style={{maxWidth:'100%'}} className={this.props.classes.paperSong}>
                       {i + 1} : <b>{song.name}</b> Playcount: {song.playcount}
                     </Paper>
                   </Link>
@@ -237,6 +237,7 @@ class Discography extends Component {
         </Grid>
         <Button
           className={`${this.props.classes.button} button`}
+         
           // variant="extended"
           color="pink"
           onClick={this.showMore}
@@ -244,6 +245,7 @@ class Discography extends Component {
           {this.state.buttonText}
         </Button>
         <Grid
+        style={{maxWidth:'100%'}}
           container
           sm={12}
           spacing={0}
