@@ -16,44 +16,44 @@ export const getTrack = (artist, track) => {
 
 export const getBandSuggestions = bandName => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${bandName}&api_key=${process.env.lastFmAPIkey}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${bandName}&api_key=${process.env.REACT_APP_lastFmAPIkey}&format=json`
   );
 };
 
 export const getSongSuggestions = song => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${song}&api_key=${process.env.lastFmAPIkey}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=track.search&track=${song}&api_key=${process.env.REACT_APP_lastFmAPIkey}&format=json`
   );
 };
 
 export const getBandInfo = bandName => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandName}&api_key=${process.env.lastFmAPIkey}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${bandName}&api_key=${process.env.REACT_APP_lastFmAPIkey}&format=json`
   );
 };
 
 export const getSongInfo = (bandName, songTitle) => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${process.env.lastFmAPIkey}&artist=${bandName}&track=${songTitle}&autocorrect[1]&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${process.env.REACT_APP_lastFmAPIkey}&artist=${bandName}&track=${songTitle}&autocorrect[1]&format=json`
   );
 };
 
 //If you change the size parameter you will get more-less events, making it more accurate/faster
 export const getEventsForLocation = (location, radius) => {
   return axios.get(
-    `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&radius=${radius}&geoPoint=${location}&size=80&apikey=${process.env.ticketMasterAPIkey}`
+    `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&radius=${radius}&geoPoint=${location}&size=80&apikey=${process.env.REACT_APP_ticketMasterAPIkey}`
   );
 };
 
 export const getDiscography = bandName => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${bandName}&api_key=${process.env.lastFmAPIkey}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${bandName}&api_key=${process.env.REACT_APP_lastFmAPIkey}&format=json`
   );
 };
 
 export const getAlbumInfo = (bandName, albumName) => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${process.env.lastFmAPIkey}&artist=${bandName}&album=${albumName}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${process.env.REACT_APP_lastFmAPIkey}&artist=${bandName}&album=${albumName}&format=json`
   );
 };
 
@@ -65,13 +65,13 @@ export const artistSuggestFromGenre = ids => {
 
 export const getTopArtistSongs = bandName => {
   return axios.get(
-    `http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandName}&api_key=${process.env.lastFmAPIkey}&format=json`
+    `http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${bandName}&api_key=${process.env.REACT_APP_lastFmAPIkey}&format=json`
   );
 };
 
 export const getArtistEvent = name => {
   return axios.get(
-    `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.ticketMasterAPIkey}&keyword=${name}`
+    `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.REACT_APP_ticketMasterAPIkey}&keyword=${name}`
   );
 };
 
@@ -84,18 +84,18 @@ export const getSetLists = mbid => {
 
 export const getArtistNews = name => {
   return axios.get(
-    `https://newsapi.org/v2/everything?q=${name} AND music&language=en&apiKey=${process.env.mtvNewsAPIkey}`
+    `https://newsapi.org/v2/everything?q=${name} AND music&language=en&apiKey=${process.env.REACT_APP_mtvNewsAPIkey}`
   );
 };
 export const getFollowedBandNews = name => {
   return axios.get(
-    `https://newsapi.org/v2/everything?q=${name} AND music&language=en&apiKey=${process.env.mtvNewsAPIkey}`
+    `https://newsapi.org/v2/everything?q=${name} AND music&language=en&apiKey=${process.env.REACT_APP_mtvNewsAPIkey}`
   );
 };
 
 export const getAllBandNews = () => {
   return axios.get(
-    `https://newsapi.org/v2/everything?q=music&sources=mtv-news,mtv-news-uk&language=en&apiKey=${process.env.mtvNewsAPIkey}`
+    `https://newsapi.org/v2/everything?q=music&sources=mtv-news,mtv-news-uk&language=en&apiKey=${process.env.REACT_APP_mtvNewsAPIkey}`
   );
 };
 
