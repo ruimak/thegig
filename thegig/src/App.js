@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SearchBar from "./components/SearchBar";
 import BandInfo from "./components/bandPage/BandInfo";
-import { Route, Switch} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import ArtistEvents from "./components/bandPage/ArtistEvents";
 import SetLists from "./components/bandPage/SetLists";

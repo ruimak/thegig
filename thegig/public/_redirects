@@ -1,0 +1,16 @@
+/* /index.html 200
+/home /
+/settings /settings
+/mybands /myBands
+/myevents /myEvents
+/topcharts /topCharts
+/artist/:band/info /artist/:band/info
+/artist/:band/news /artist/:band/news
+/artist/:band/news/:newsTitle /artist/:band/news/:newsTitle
+/artist/:band/albums /artist/:band/albums
+/artist/:band/albums/:albumName /artist/:band/albums/:albumName
+/artist/:band/events /artist/:band/events
+/artist/:band/setlists /artist/:band/setlists
+/artist/:band/song/:songTitle/lyrics /artist/:band/song/:songTitle/lyrics
+/artist/:band/song/:songTitle /artist/:band/song/:songTitle
+/error /error
