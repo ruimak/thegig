@@ -1,4 +1,4 @@
-<a href="THIS IS GONNA BE A LINK TO OUR APP"><img src="./src/cropped2.jpg" title="The Gig" alt="The Gig"></a>
+<a href="https://thegig.netlify.com"><img src="./src/cropped2.jpg" title="The Gig" alt="The Gig"></a>
 
 # The Gig
 
@@ -43,6 +43,7 @@ The functionality was manualy tested as well.
 
 Because we havent subscribed to paid features in apis, some requests may take a little longer to arrive. An easy solution would be to subscribe.
 The same goes for the billboards. We have used a free heroku plan to host a backend API, and therefore it takes a while to get those bloody charts back!
+We also know that some musics and bands that have special characters dont display correctly, the logic needed to fix that shouldnt be hard and we plan to fix that in no time.
 
 ## Future features
 
@@ -52,6 +53,7 @@ The same goes for the billboards. We have used a free heroku plan to host a back
 * **Integrated Content:** Displaying articles and events in the app, instead of redirecting.
 * **Mobile App:** Because we have some experience working with React Native, we would enjoy creating a version of this app for mobile.
 * **Re-building Database:** Ideally we would love to create our own database instead of fetching it from external APIs.
+* **First time popup carousel:** We plan to soon add a carousel that pops up the first time you use the app and suggests bands for you to add, also explaining how to use the app.
 
 ## Built with
 * [MaterialUI](https://material-ui.com/) - The design framework used
