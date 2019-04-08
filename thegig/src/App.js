@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import SearchBar from "./components/SearchBar";
 import BandInfo from "./components/bandPage/BandInfo";
-<<<<<<< HEAD
 import { Route, Switch } from "react-router-dom";
-=======
-import { Route, Switch} from "react-router-dom";
->>>>>>> 27f4a41ee022860364738b86288e945a55c69174
 import NavBar from "./components/NavBar";
 import ArtistEvents from "./components/bandPage/ArtistEvents";
 import SetLists from "./components/bandPage/SetLists";
