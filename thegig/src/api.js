@@ -105,7 +105,7 @@ export const getBillboardCharts = typeOfChart => {
 
 export const getLyrics = (artist, songTitle) => {
   return axios.get(
-    `https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?format=jsonp&callback=callback&q_track=${songTitle}&q_artist=${artist}&apikey=${process.env.musixmatchAPIkey}`
+    `https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?format=jsonp&callback=callback&q_track=${songTitle}&q_artist=${artist}&apikey=${process.env.REACT_APP_musixmatchAPIkey}`
   );
 };
 
