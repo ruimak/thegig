@@ -78,7 +78,7 @@ export const getArtistEvent = name => {
 export const getSetLists = mbid => {
   return axios.get(
     `https://cors-anywhere.herokuapp.com/https://api.setlist.fm/rest/1.0/artist/${mbid}/setlists`,
-    { headers: { "x-api-key": REACT_APP_process.env.setListAPIkey } }
+    { headers: { "x-api-key": process.env.REACT_APP_setListAPIkey } }
   );
 };
 
