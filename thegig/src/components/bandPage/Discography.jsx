@@ -244,6 +244,7 @@ class Discography extends Component {
         </Grid>
         <Button
           className={`${this.props.classes.button} button`}
+         
           // variant="extended"
           color="primary"
           onClick={this.showMore}
